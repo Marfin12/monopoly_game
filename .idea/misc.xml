@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2518508911132813" />
+        <entry key="app/src/main/res/layout/asset_item.xml" value="0.578857496918225" />
+        <entry key="app/src/main/res/layout/bottom_city.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/card_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/left_city.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/money_item.xml" value="0.6440677966101694" />
+        <entry key="app/src/main/res/layout/my_asset_card.xml" value="0.3682170542635659" />
+        <entry key="app/src/main/res/layout/my_card.xml" value="0.18885869565217392" />
+        <entry key="app/src/main/res/layout/properties.xml" value="0.34894398530762166" />
+        <entry key="app/src/main/res/layout/properties1.xml" value="0.3276539859608707" />
+        <entry key="app/src/main/res/layout/properties2.xml" value="0.3606526431874333" />
+        <entry key="app/src/main/res/layout/properties3.xml" value="0.19572649572649573" />
+        <entry key="app/src/main/res/layout/right_city.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/top_city.xml" value="0.1171875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
