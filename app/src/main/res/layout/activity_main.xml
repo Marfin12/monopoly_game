@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_main_scene"
     tools:context=".MainActivity">
 
     <ImageView
+        android:id="@+id/iv_bg_street"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_marginStart="142dp"
@@ -16,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/iv_right_side"
         android:layout_width="286dp"
         android:layout_height="335dp"
         android:layout_marginTop="34dp"
@@ -26,6 +30,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/iv_loading_right_side"
+        android:layout_width="36dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="34dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/right_sector"
+        android:text="Hello World!"
+        app:tint="@color/black"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_left_side"
         android:layout_width="286dp"
         android:layout_height="336dp"
         android:layout_marginStart="134dp"
@@ -38,10 +56,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/iv_loading_left_side"
+        android:layout_width="56dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="30dp"
+        android:rotation="-180"
+        android:scaleType="fitXY"
+        android:src="@drawable/right_sector"
+        android:text="Hello World!"
+        app:tint="@color/black"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_bottom_side"
         android:layout_width="512dp"
-        android:layout_height="145dp"
+        android:layout_height="142dp"
         android:layout_marginStart="143dp"
-        android:layout_marginBottom="1dp"
         android:scaleType="fitXY"
         android:src="@drawable/bottom_sector"
         android:text="Hello World!"
@@ -49,7 +82,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motion_bottom_side"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/activity_main_scene"
+        >
+
     <ImageView
+        android:id="@+id/iv_loading_bottom_side"
+        android:layout_width="76dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="196dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bottom_sector"
+        android:text="Hello World!"
+        app:tint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    <ImageView
+        android:id="@+id/iv_top_side"
         android:layout_width="654dp"
         android:layout_height="186dp"
         android:layout_marginStart="124dp"
@@ -61,7 +117,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/iv_loading_top_side"
+        android:layout_width="104dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="127dp"
+        android:rotation="-180"
+        android:scaleType="fitXY"
+        android:src="@drawable/bottom_sector"
+        android:text="Hello World!"
+        app:tint="@color/black"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    the finish one-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/iv_loading_top_side"-->
+    <!--        android:layout_width="646dp"-->
+    <!--        android:layout_height="185dp"-->
+    <!--        android:layout_marginStart="119dp"-->
+    <!--        android:rotation="-180"-->
+    <!--        android:scaleType="fitXY"-->
+    <!--        android:src="@drawable/bottom_sector"-->
+    <!--        android:text="Hello World!"-->
+    <!--        android:tint="@color/black"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
     <include
+        android:id="@+id/include"
         layout="@layout/top_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,6 +156,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
+        android:id="@+id/include2"
         layout="@layout/right_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,6 +165,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
+        android:id="@+id/include3"
         layout="@layout/left_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -87,6 +174,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
+        android:id="@+id/include4"
         layout="@layout/bottom_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,15 +184,48 @@
 
 
     <include
-        layout="@layout/my_card"
         android:id="@+id/player_card_list"
+        layout="@layout/my_card"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_marginStart="-16dp"
+        app:layout_constraintStart_toEndOf="@id/main_properties"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
     <include
         android:id="@+id/main_properties"
+        layout="@layout/properties"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/paying_properties"
+        layout="@layout/properties1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/profile_properties"
+        layout="@layout/properties2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/money_properties"
         layout="@layout/properties3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

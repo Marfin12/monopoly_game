@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
@@ -56,17 +56,6 @@
             tools:itemCount="3"
             />
 
-        <ImageView
-            android:id="@+id/holder_bg_button"
-            android:layout_width="70dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="308dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/white_button_bg"
-            app:layout_constraintEnd_toEndOf="@id/profile_iv"
-            app:layout_constraintStart_toStartOf="@id/profile_iv"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
@@ -80,31 +69,18 @@
             app:layout_constraintStart_toStartOf="@id/holder_name_bg"
             app:layout_constraintTop_toTopOf="@id/holder_name_bg" />
 
-        <TextView
-            android:id="@+id/textView7"
+        <com.example.experiments2.GameButton
+            android:id="@+id/game_btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="Back"
-            android:textColor="@color/black"
-            app:fontFamily="@font/libre_baskerville"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/holder_bg_button"
-            app:layout_constraintBottom_toBottomOf="@id/holder_bg_button"
+            android:layout_marginBottom="78dp"
+            android:layout_marginStart="12dp"
+            app:text="Back"
+            app:symbol="↩"
+            app:layout_constraintStart_toStartOf="@id/profile_iv"
+            app:layout_constraintEnd_toEndOf="@id/profile_iv"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:text="↩"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/black"
-            app:fontFamily="@font/libre_baskerville"
-            app:layout_constraintEnd_toStartOf="@id/textView7"
-            app:layout_constraintTop_toTopOf="@id/textView7"
-            app:layout_constraintBottom_toBottomOf="@id/textView7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

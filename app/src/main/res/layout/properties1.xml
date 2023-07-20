@@ -64,28 +64,6 @@
             app:layout_constraintStart_toStartOf="@id/profile_iv"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/holder_bg_button"
-            android:layout_width="70dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="308dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/white_button_bg"
-            app:layout_constraintEnd_toEndOf="@id/profile_iv"
-            app:layout_constraintStart_toStartOf="@id/profile_iv"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/holder_bg_button2"
-            android:layout_width="70dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="278dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/white_button_bg"
-            app:layout_constraintEnd_toEndOf="@id/profile_iv"
-            app:layout_constraintStart_toStartOf="@id/profile_iv"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
@@ -99,31 +77,28 @@
             app:layout_constraintStart_toStartOf="@id/holder_name_bg"
             app:layout_constraintTop_toTopOf="@id/holder_name_bg" />
 
-        <TextView
-            android:id="@+id/textView8"
+        <com.example.experiments2.GameButton
+            android:id="@+id/game_btn_pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="I'll Pay"
-            android:textColor="@color/black"
-            android:gravity="center"
-            app:fontFamily="@font/libre_baskerville"
-            app:layout_constraintBottom_toBottomOf="@id/holder_bg_button2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/holder_bg_button2" />
+            android:layout_marginTop="24dp"
+            app:text="I'll Pay"
+            app:layout_constraintStart_toStartOf="@id/profile_iv"
+            app:layout_constraintEnd_toEndOf="@id/profile_iv"
+            app:layout_constraintTop_toBottomOf="@id/holder_card"
+            />
 
-        <TextView
-            android:id="@+id/textView7"
+        <com.example.experiments2.GameButton
+            android:id="@+id/game_btn_say_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="Say No"
-            android:gravity="center"
-            android:textColor="@color/black"
-            app:fontFamily="@font/libre_baskerville"
-            app:layout_constraintBottom_toBottomOf="@id/holder_bg_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/holder_bg_button" />
+            android:layout_marginTop="8dp"
+            app:text="Say No"
+            app:layout_constraintStart_toStartOf="@id/game_btn_pay"
+            app:layout_constraintEnd_toEndOf="@id/game_btn_pay"
+            app:layout_constraintTop_toBottomOf="@id/game_btn_pay"
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

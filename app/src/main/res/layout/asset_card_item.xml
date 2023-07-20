@@ -1,15 +1,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root_asset_card"
+    android:id="@+id/layout_asset_card"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    >
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_money_card"
         android:layout_width="80dp"
         android:layout_height="140dp"
-        android:paddingBottom="12dp"
         android:src="@drawable/bg_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,11 +19,11 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:text="ASSET A"
         android:textColor="@color/black"
         android:textSize="9sp"
-        app:fontFamily="@font/LeagueSpartan"
+        app:fontFamily="@font/league_spartan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@id/textView6" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list_card"
+        android:id="@+id/rv_list_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -46,7 +47,7 @@
         android:clipToPadding="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_building_card"
-        tools:listitem="@layout/asset_item"
+        tools:listitem="@layout/asset_price_item"
         tools:itemCount="4"
         />
 

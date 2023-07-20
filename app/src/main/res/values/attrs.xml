@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="GameButton">
+        <attr name="text" format="string" />
+        <attr name="symbol" format="string" />
+        <attr name="symbol_top" format="integer" />
+        <attr name="symbol_start" format="integer" />
+        <attr name="symbol_end" format="integer" />
+        <attr name="symbol_bottom" format="integer" />
+    </declare-styleable>
+</resources>

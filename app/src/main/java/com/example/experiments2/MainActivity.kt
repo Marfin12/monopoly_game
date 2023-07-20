@@ -1,29 +1,37 @@
 package com.example.experiments2
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.hardware.display.DisplayManager
 import android.os.Bundle
 import android.view.Display
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.experiments2.card.CardAdapter
+import com.example.experiments2.card.CardData
+import com.example.experiments2.card.CardEnum
 import com.example.experiments2.databinding.ActivityMainBinding
 import com.example.experiments2.money.MoneyAdapter
 import com.example.experiments2.money.MoneyData
+import kotlin.random.Random
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var isShowRv = false
 
-    val moneyAdapter = MoneyAdapter(
+    private val moneyAdapter = MoneyAdapter(
         mutableListOf(
             MoneyData(1),
             MoneyData(2),
             MoneyData(5)
         )
     )
+
+    private val playerCardAdapter = CardAdapter(Util.getDummyPlayerCard(7), this@MainActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,15 +59,83 @@ class MainActivity : AppCompatActivity() {
         println(height)
         println(width)
 
+        initComponent()
         initAdapterMoney()
+        initAdapterCard()
+
+//        binding.motionBottomSide.transitionToState(R.id.end)
+//        binding.motionBottomSide.transitionToState(R.id.start)
     }
 
+    private fun initComponent() {
+        binding.mainProperties.holderInfo.setOnClickListener {
+            showProfileProperties()
+        }
+        binding.profileProperties.holderMoneyInfo.setOnClickListener {
+            showMoneyProperties()
+        }
+        binding.profileProperties.gameBtnBack.setOnClickListener {
+            showMainProperties()
+        }
+        binding.moneyProperties.gameBtnBack.setOnClickListener {
+            showProfileProperties()
+        }
+        binding.mainProperties.holderCard.setOnClickListener {
+            if (isShowRv) hidePlayerCard() else showPlayerCard()
+        }
+        binding.playerCardList.root.setOnClickListener {
+            hidePlayerCard()
+        }
+    }
+
+
     private fun initAdapterMoney() {
-        binding.mainProperties.rvMoneyList.adapter = moneyAdapter
-        binding.mainProperties.rvMoneyList.layoutManager = LinearLayoutManager(this)
+        binding.moneyProperties.rvMoneyList.adapter = moneyAdapter
+        binding.moneyProperties.rvMoneyList.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initAdapterCard() {
+        binding.playerCardList.rvListCard.adapter = playerCardAdapter
+        binding.playerCardList.rvListCard.layoutManager = LinearLayoutManager(
+            this, LinearLayoutManager.HORIZONTAL, false
+        )
+    }
 
+    private fun showMainProperties() {
+        binding.mainProperties.root.visibility = View.VISIBLE
+        binding.payingProperties.root.visibility = View.GONE
+        binding.moneyProperties.root.visibility = View.GONE
+        binding.profileProperties.root.visibility = View.GONE
+    }
+
+    private fun showPayingProperties() {
+        binding.mainProperties.root.visibility = View.GONE
+        binding.payingProperties.root.visibility = View.VISIBLE
+        binding.moneyProperties.root.visibility = View.GONE
+        binding.profileProperties.root.visibility = View.GONE
+    }
+
+    private fun showMoneyProperties() {
+        binding.mainProperties.root.visibility = View.GONE
+        binding.payingProperties.root.visibility = View.GONE
+        binding.moneyProperties.root.visibility = View.VISIBLE
+        binding.profileProperties.root.visibility = View.GONE
+    }
+
+    private fun showProfileProperties() {
+        binding.mainProperties.root.visibility = View.GONE
+        binding.payingProperties.root.visibility = View.GONE
+        binding.moneyProperties.root.visibility = View.GONE
+        binding.profileProperties.root.visibility = View.VISIBLE
+    }
+
+    private fun showPlayerCard() {
+        binding.playerCardList.root.visibility = View.VISIBLE
+        isShowRv = true
+    }
+
+    private fun hidePlayerCard() {
+        binding.playerCardList.root.visibility = View.GONE
+        isShowRv = false
     }
 }
