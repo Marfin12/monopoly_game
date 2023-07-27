@@ -3,18 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../../layout/custom_preview.xml" value="0.5182413073553556" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="../../../../layout/custom_preview.xml" value="0.4650833129882813" />
+        <entry key="app/src/main/res/drawable/gray_rounded_bg.xml" value="0.109" />
+        <entry key="app/src/main/res/drawable/navy_rounded_bg_32_rad.xml" value="0.151" />
+        <entry key="app/src/main/res/drawable/white_rounded_bg.xml" value="0.108" />
+        <entry key="app/src/main/res/font/poppins_light.xml" value="0.21561181434599155" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1581569115815691" />
         <entry key="app/src/main/res/layout/asset_card_item.xml" value="0.47752808988764045" />
         <entry key="app/src/main/res/layout/asset_item.xml" value="0.578857496918225" />
         <entry key="app/src/main/res/layout/bottom_city.xml" value="0.1" />
         <entry key="app/src/main/res/layout/button_white_normal.xml" value="0.726530612244898" />
         <entry key="app/src/main/res/layout/card_item.xml" value="0.5789473684210527" />
         <entry key="app/src/main/res/layout/left_city.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/message_normal.xml" value="0.2761550903320311" />
         <entry key="app/src/main/res/layout/money_item.xml" value="0.6440677966101694" />
         <entry key="app/src/main/res/layout/my_asset_card.xml" value="0.3682170542635659" />
         <entry key="app/src/main/res/layout/my_card.xml" value="0.18885869565217392" />
-        <entry key="app/src/main/res/layout/properties.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/properties.xml" value="0.311083984375" />
         <entry key="app/src/main/res/layout/properties1.xml" value="0.3276539859608707" />
         <entry key="app/src/main/res/layout/properties2.xml" value="0.2618483412322275" />
         <entry key="app/src/main/res/layout/properties3.xml" value="0.5177142857142857" />

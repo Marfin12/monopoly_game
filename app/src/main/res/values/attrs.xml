@@ -8,4 +8,11 @@
         <attr name="symbol_end" format="integer" />
         <attr name="symbol_bottom" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="GameMessage">
+        <attr name="title" format="string" />
+        <attr name="message" format="string" />
+        <attr name="positive_button" format="string" />
+        <attr name="negative_button" format="string"/>
+    </declare-styleable>
 </resources>

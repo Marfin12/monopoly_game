@@ -3,14 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <ImageView
         android:id="@+id/holder_bg_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
-        android:src="@drawable/white_button_bg"
+        android:src="@drawable/white_rounded_bg_8_rad"
         app:layout_constraintStart_toStartOf="@id/tv_normal_text"
         app:layout_constraintTop_toTopOf="@id/tv_normal_text"
         app:layout_constraintEnd_toEndOf="@id/tv_normal_text"
@@ -57,6 +58,7 @@
         android:paddingEnd="15dp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:visibility="gone"
         app:fontFamily="@font/libre_baskerville"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

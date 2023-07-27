@@ -6,16 +6,14 @@ import android.hardware.display.DisplayManager
 import android.os.Bundle
 import android.view.Display
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionScene
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.experiments2.card.CardAdapter
-import com.example.experiments2.card.CardData
-import com.example.experiments2.card.CardEnum
 import com.example.experiments2.databinding.ActivityMainBinding
 import com.example.experiments2.money.MoneyAdapter
 import com.example.experiments2.money.MoneyData
-import kotlin.random.Random
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +29,11 @@ class MainActivity : AppCompatActivity() {
         )
     )
 
-    private val playerCardAdapter = CardAdapter(Util.getDummyPlayerCard(7), this@MainActivity)
+    private val playerCardAdapter = CardAdapter(Util.getDummyPlayerCard(6), this@MainActivity)
+
+    private var playerLoadingTurn = 0
+    private val listImageView = mutableListOf<ImageView>()
+    private var objAnim: ObjectAnimator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         val displayManager = getSystemService(DISPLAY_SERVICE) as DisplayManager
         val defaultDisplay = displayManager.getDisplay(Display.DEFAULT_DISPLAY)
         val defaultDisplayContext: Context = createDisplayContext(defaultDisplay)
-        val displayMetrics =  defaultDisplayContext.resources.displayMetrics
+        val displayMetrics = defaultDisplayContext.resources.displayMetrics
         val height = displayMetrics.heightPixels
         val width = displayMetrics.widthPixels
 
@@ -59,12 +61,24 @@ class MainActivity : AppCompatActivity() {
         println(height)
         println(width)
 
+        initAnim()
         initComponent()
         initAdapterMoney()
         initAdapterCard()
+    }
 
-//        binding.motionBottomSide.transitionToState(R.id.end)
-//        binding.motionBottomSide.transitionToState(R.id.start)
+    private fun initAnim() {
+        listImageView.add(binding.ivLoadingBottomSide)
+        listImageView.add(binding.ivLoadingRightSide)
+        listImageView.add(binding.ivLoadingTopSide)
+        listImageView.add(binding.ivLoadingLeftSide)
+
+        binding.ivLoadingBottomSide.visibility = View.GONE
+        binding.ivLoadingRightSide.visibility = View.GONE
+        binding.ivLoadingTopSide.visibility = View.GONE
+        binding.ivLoadingLeftSide.visibility = View.GONE
+
+        setTrianglePlayerExpiry()
     }
 
     private fun initComponent() {
@@ -86,8 +100,10 @@ class MainActivity : AppCompatActivity() {
         binding.playerCardList.root.setOnClickListener {
             hidePlayerCard()
         }
+        binding.mainProperties.gameBtnSkip.setOnClickListener {
+            if (playerLoadingTurn == 0) finishPlayerTurn(listImageView[playerLoadingTurn])
+        }
     }
-
 
     private fun initAdapterMoney() {
         binding.moneyProperties.rvMoneyList.adapter = moneyAdapter
@@ -137,5 +153,75 @@ class MainActivity : AppCompatActivity() {
     private fun hidePlayerCard() {
         binding.playerCardList.root.visibility = View.GONE
         isShowRv = false
+    }
+
+    private fun setTrianglePlayerExpiry() {
+        val ivLoading = listImageView[playerLoadingTurn]
+
+        ivLoading.visibility = View.VISIBLE
+        binding.motionSide.transitionToState(R.id.start)
+        objAnim = ObjectAnimator.ofFloat(ivLoading, View.ALPHA, 0F, 1F).apply {
+            duration = 500
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }
+        objAnim?.start()
+        binding.motionSide.transitionToState(R.id.end, 15000)
+
+        binding.motionSide.setTransitionListener(object : MotionLayout.TransitionListener {
+            override fun onTransitionStarted(
+                motionLayout: MotionLayout?,
+                startId: Int,
+                endId: Int
+            ) {
+            }
+
+            override fun onTransitionChange(
+                motionLayout: MotionLayout?,
+                startId: Int,
+                endId: Int,
+                progress: Float
+            ) {
+            }
+
+            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                if (currentId == R.id.end) {
+                    ivLoading.visibility = View.GONE
+
+                    objAnim?.cancel()
+                    nextLoadingPlayerExpiry()
+                    setTrianglePlayerExpiry()
+
+                    if (ivLoading == binding.ivLoadingBottomSide) binding.gameMessage.show(
+                        "Expiry Message",
+                        "Expired!!",
+                        "Ok, I understand"
+                    )
+                }
+            }
+
+            override fun onTransitionTrigger(
+                motionLayout: MotionLayout?,
+                triggerId: Int,
+                positive: Boolean,
+                progress: Float
+            ) {
+            }
+        })
+    }
+
+    private fun nextLoadingPlayerExpiry() {
+        if (playerLoadingTurn < 3) playerLoadingTurn++
+        else playerLoadingTurn = 0
+
+        binding.motionSide.progress = 0.0F
+    }
+
+    private fun finishPlayerTurn(ivLoading: ImageView) {
+        ivLoading.visibility = View.GONE
+
+        objAnim?.cancel()
+        nextLoadingPlayerExpiry()
+        setTrianglePlayerExpiry()
     }
 }

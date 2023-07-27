@@ -89,7 +89,8 @@
             app:layout_constraintTop_toTopOf="@id/holder_name_bg" />
 
 
-        <com.example.experiments2.GameButton
+        <com.example.experiments2.component.GameNormalButton
+            android:id="@+id/game_btn_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
