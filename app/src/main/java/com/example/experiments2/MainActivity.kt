@@ -3,12 +3,12 @@ package com.example.experiments2
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.hardware.display.DisplayManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Display
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.experiments2.card.CardAdapter
 import com.example.experiments2.databinding.ActivityMainBinding
@@ -16,10 +16,9 @@ import com.example.experiments2.money.MoneyAdapter
 import com.example.experiments2.money.MoneyData
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
 
     private lateinit var binding: ActivityMainBinding
-    private var isShowRv = false
 
     private val moneyAdapter = MoneyAdapter(
         mutableListOf(
@@ -31,14 +30,27 @@ class MainActivity : AppCompatActivity() {
 
     private val playerCardAdapter = CardAdapter(Util.getDummyPlayerCard(6), this@MainActivity)
 
-    private var playerLoadingTurn = 0
-    private val listImageView = mutableListOf<ImageView>()
-    private var objAnim: ObjectAnimator? = null
+    override var scenarioBinding: ActivityMainBinding
+        get() = binding
+        set(value) {}
+    override var playerLoadingTurn = 0
+    override val listImageView = mutableListOf<ImageView>()
+    override var loadingAnim: ObjectAnimator? = null
+    override var pendingLoading: ImageView? = null
+    override var isCardClicked = false
+
+    override var visibilityBinding: ActivityMainBinding
+        get() = binding
+        set(value) {}
+    override var isShowRv = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        scenarioBinding = binding
+        visibilityBinding = binding
 
         supportActionBar?.hide()
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
@@ -115,113 +127,8 @@ class MainActivity : AppCompatActivity() {
         binding.playerCardList.rvListCard.layoutManager = LinearLayoutManager(
             this, LinearLayoutManager.HORIZONTAL, false
         )
-    }
-
-    private fun showMainProperties() {
-        binding.mainProperties.root.visibility = View.VISIBLE
-        binding.payingProperties.root.visibility = View.GONE
-        binding.moneyProperties.root.visibility = View.GONE
-        binding.profileProperties.root.visibility = View.GONE
-    }
-
-    private fun showPayingProperties() {
-        binding.mainProperties.root.visibility = View.GONE
-        binding.payingProperties.root.visibility = View.VISIBLE
-        binding.moneyProperties.root.visibility = View.GONE
-        binding.profileProperties.root.visibility = View.GONE
-    }
-
-    private fun showMoneyProperties() {
-        binding.mainProperties.root.visibility = View.GONE
-        binding.payingProperties.root.visibility = View.GONE
-        binding.moneyProperties.root.visibility = View.VISIBLE
-        binding.profileProperties.root.visibility = View.GONE
-    }
-
-    private fun showProfileProperties() {
-        binding.mainProperties.root.visibility = View.GONE
-        binding.payingProperties.root.visibility = View.GONE
-        binding.moneyProperties.root.visibility = View.GONE
-        binding.profileProperties.root.visibility = View.VISIBLE
-    }
-
-    private fun showPlayerCard() {
-        binding.playerCardList.root.visibility = View.VISIBLE
-        isShowRv = true
-    }
-
-    private fun hidePlayerCard() {
-        binding.playerCardList.root.visibility = View.GONE
-        isShowRv = false
-    }
-
-    private fun setTrianglePlayerExpiry() {
-        val ivLoading = listImageView[playerLoadingTurn]
-
-        ivLoading.visibility = View.VISIBLE
-        binding.motionSide.transitionToState(R.id.start)
-        objAnim = ObjectAnimator.ofFloat(ivLoading, View.ALPHA, 0F, 1F).apply {
-            duration = 500
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
+        playerCardAdapter.onAssetItemClick = { cardData, obj ->
+            onCardItemClick(cardData, obj, this@MainActivity)
         }
-        objAnim?.start()
-        binding.motionSide.transitionToState(R.id.end, 15000)
-
-        binding.motionSide.setTransitionListener(object : MotionLayout.TransitionListener {
-            override fun onTransitionStarted(
-                motionLayout: MotionLayout?,
-                startId: Int,
-                endId: Int
-            ) {
-            }
-
-            override fun onTransitionChange(
-                motionLayout: MotionLayout?,
-                startId: Int,
-                endId: Int,
-                progress: Float
-            ) {
-            }
-
-            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
-                if (currentId == R.id.end) {
-                    ivLoading.visibility = View.GONE
-
-                    objAnim?.cancel()
-                    nextLoadingPlayerExpiry()
-                    setTrianglePlayerExpiry()
-
-                    if (ivLoading == binding.ivLoadingBottomSide) binding.gameMessage.show(
-                        "Expiry Message",
-                        "Expired!!",
-                        "Ok, I understand"
-                    )
-                }
-            }
-
-            override fun onTransitionTrigger(
-                motionLayout: MotionLayout?,
-                triggerId: Int,
-                positive: Boolean,
-                progress: Float
-            ) {
-            }
-        })
-    }
-
-    private fun nextLoadingPlayerExpiry() {
-        if (playerLoadingTurn < 3) playerLoadingTurn++
-        else playerLoadingTurn = 0
-
-        binding.motionSide.progress = 0.0F
-    }
-
-    private fun finishPlayerTurn(ivLoading: ImageView) {
-        ivLoading.visibility = View.GONE
-
-        objAnim?.cancel()
-        nextLoadingPlayerExpiry()
-        setTrianglePlayerExpiry()
     }
 }

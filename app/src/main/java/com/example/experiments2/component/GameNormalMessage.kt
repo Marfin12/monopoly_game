@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.experiments2.R
 
+
 class GameNormalMessage @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 

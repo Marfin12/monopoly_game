@@ -7,6 +7,7 @@
     >
 
     <ImageView
+        android:id="@+id/building_A"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:src="@drawable/red_b"
@@ -27,11 +28,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/building_C"
         android:layout_width="84dp"
         android:layout_height="84dp"
-        android:src="@drawable/white_b"
+        android:src="@drawable/blue_b"
         android:layout_marginStart="392dp"
         android:text="Hello World!"
+        android:visibility="invisible"
         android:layout_marginTop="221dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -11,9 +11,10 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1581569115815691" />
         <entry key="app/src/main/res/layout/asset_card_item.xml" value="0.47752808988764045" />
         <entry key="app/src/main/res/layout/asset_item.xml" value="0.578857496918225" />
+        <entry key="app/src/main/res/layout/asset_price_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/bottom_city.xml" value="0.1" />
         <entry key="app/src/main/res/layout/button_white_normal.xml" value="0.726530612244898" />
-        <entry key="app/src/main/res/layout/card_item.xml" value="0.5789473684210527" />
+        <entry key="app/src/main/res/layout/card_item.xml" value="0.283763277693475" />
         <entry key="app/src/main/res/layout/left_city.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/message_normal.xml" value="0.2761550903320311" />
         <entry key="app/src/main/res/layout/money_item.xml" value="0.6440677966101694" />
