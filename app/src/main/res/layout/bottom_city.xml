@@ -7,49 +7,51 @@
     >
 
     <ImageView
-        android:id="@+id/building_A"
+        android:id="@+id/building_bottom_A"
         android:layout_width="84dp"
         android:layout_height="84dp"
-        android:src="@drawable/red_b"
-        android:layout_marginStart="312dp"
+        android:src="@drawable/blue_b"
+        android:layout_marginStart="308dp"
         android:text="Hello World!"
-        android:layout_marginTop="165dp"
+        android:layout_marginTop="175dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/building_bottom_B"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:src="@drawable/green_b"
-        android:layout_marginStart="222dp"
+        android:layout_marginStart="226dp"
         android:text="Hello World!"
         android:layout_marginTop="221dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/building_C"
+        android:id="@+id/building_bottom_C"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:src="@drawable/blue_b"
         android:layout_marginStart="392dp"
         android:text="Hello World!"
-        android:visibility="invisible"
         android:layout_marginTop="221dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/building_bottom_D"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:src="@drawable/white_b"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="138dp"
         android:text="Hello World!"
         android:layout_marginTop="270dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/building_bottom_E"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:src="@drawable/green_b"
@@ -60,10 +62,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/building_bottom_F"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:src="@drawable/white_b"
-        android:layout_marginStart="472dp"
+        android:layout_marginStart="478dp"
         android:text="Hello World!"
         android:layout_marginTop="270dp"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,24 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
     <ImageView
+        android:id="@+id/building_right_A"
         android:layout_width="84dp"
         android:layout_height="84dp"
-        android:src="@drawable/yellow_b"
-        android:layout_marginStart="544dp"
+        android:src="@drawable/blue_b"
+        android:layout_marginStart="382dp"
         android:text="Hello World!"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="136dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/building_right_B"
         android:layout_width="84dp"
         android:layout_height="84dp"
-        android:src="@drawable/red_b"
+        android:src="@drawable/white_b"
+        android:layout_marginStart="461dp"
+        android:text="Hello World!"
+        android:layout_marginTop="182dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/building_right_C"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:src="@drawable/green_b"
+        android:layout_marginStart="461dp"
+        android:text="Hello World!"
+        android:layout_marginTop="94dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/building_right_D"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:src="@drawable/white_b"
+        android:layout_marginStart="550dp"
+        android:text="Hello World!"
+        android:layout_marginTop="234dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/building_right_E"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:src="@drawable/green_b"
         android:layout_marginStart="544dp"
         android:text="Hello World!"
         android:layout_marginTop="134dp"
@@ -26,42 +62,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/building_right_F"
         android:layout_width="84dp"
         android:layout_height="84dp"
-        android:src="@drawable/yellow_b"
-        android:layout_marginStart="461dp"
-        android:text="Hello World!"
-        android:layout_marginTop="77dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:src="@drawable/blue_b"
-        android:layout_marginStart="372dp"
-        android:text="Hello World!"
-        android:layout_marginTop="136dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:src="@drawable/yellow_b"
-        android:layout_marginStart="457dp"
-        android:text="Hello World!"
-        android:layout_marginTop="181dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:src="@drawable/yellow_b"
+        android:src="@drawable/green_b"
         android:layout_marginStart="544dp"
         android:text="Hello World!"
-        android:layout_marginTop="231dp"
+        android:layout_marginTop="46dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -6,16 +6,51 @@
     >
 
     <ImageView
+        android:id="@+id/building_left_A"
         android:layout_width="84dp"
         android:layout_height="84dp"
-        android:src="@drawable/yellow_b"
-        android:layout_marginStart="60dp"
+        android:src="@drawable/blue_b"
+        android:layout_marginStart="234dp"
         android:text="Hello World!"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="136dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/building_left_B"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:src="@drawable/blue_b"
+        android:layout_marginStart="151dp"
+        android:text="Hello World!"
+        android:layout_marginTop="88dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/building_left_C"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:src="@drawable/green_b"
+        android:layout_marginStart="148dp"
+        android:text="Hello World!"
+        android:layout_marginTop="185dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/building_left_D"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:src="@drawable/white_b"
+        android:layout_marginStart="70dp"
+        android:text="Hello World!"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/building_left_E"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:src="@drawable/white_b"
@@ -26,42 +61,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:src="@drawable/red_b"
-        android:layout_marginStart="70dp"
-        android:text="Hello World!"
-        android:layout_marginTop="225dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:src="@drawable/blue_b"
-        android:layout_marginStart="151dp"
-        android:text="Hello World!"
-        android:layout_marginTop="89dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:src="@drawable/blue_b"
-        android:layout_marginStart="231dp"
-        android:text="Hello World!"
-        android:layout_marginTop="136dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
+        android:id="@+id/building_left_F"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:src="@drawable/green_b"
-        android:layout_marginStart="148dp"
+        android:layout_marginStart="70dp"
         android:text="Hello World!"
-        android:layout_marginTop="185dp"
+        android:layout_marginTop="228dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

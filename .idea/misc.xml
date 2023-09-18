@@ -8,7 +8,7 @@
         <entry key="app/src/main/res/drawable/navy_rounded_bg_32_rad.xml" value="0.151" />
         <entry key="app/src/main/res/drawable/white_rounded_bg.xml" value="0.108" />
         <entry key="app/src/main/res/font/poppins_light.xml" value="0.21561181434599155" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1581569115815691" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.27681968077707714" />
         <entry key="app/src/main/res/layout/asset_card_item.xml" value="0.47752808988764045" />
         <entry key="app/src/main/res/layout/asset_item.xml" value="0.578857496918225" />
         <entry key="app/src/main/res/layout/asset_price_item.xml" value="0.1" />
@@ -23,9 +23,9 @@
         <entry key="app/src/main/res/layout/properties.xml" value="0.311083984375" />
         <entry key="app/src/main/res/layout/properties1.xml" value="0.3276539859608707" />
         <entry key="app/src/main/res/layout/properties2.xml" value="0.2618483412322275" />
-        <entry key="app/src/main/res/layout/properties3.xml" value="0.5177142857142857" />
+        <entry key="app/src/main/res/layout/properties3.xml" value="0.15441783649876134" />
         <entry key="app/src/main/res/layout/right_city.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/top_city.xml" value="0.1171875" />
+        <entry key="app/src/main/res/layout/top_city.xml" value="0.11419753086419752" />
       </map>
     </option>
   </component>

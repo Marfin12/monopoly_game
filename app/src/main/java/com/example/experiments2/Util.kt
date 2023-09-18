@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.Keep
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
@@ -79,7 +80,6 @@ object Util {
         val cardEnumData = selectedCardEnum.slice(1 until selectedCardEnum.size)
 
         for (i in 0..totalCard) {
-
             val price = when (cardEnumData[i]) {
                 CardEnum.MONEY_1 -> 1
                 CardEnum.MONEY_2 -> 2
@@ -111,17 +111,33 @@ object Util {
         context: Context
     ) {
         val priceRecyclerView = rootAsset.findViewById<RecyclerView>(R.id.rv_list_price)
+        val assetImageView = rootAsset.findViewById<ImageView>(R.id.iv_building_card)
 
         cardImageView.visibility = View.GONE
         rootMoney.visibility = View.GONE
         rootAsset.visibility = View.VISIBLE
 
         val priceAdapter = when (item.cardEnum) {
-            CardEnum.ASSET_A -> PriceAdapter(item.assetPriceList!!, R.drawable.blue_b_card)
-            CardEnum.ASSET_B -> PriceAdapter(item.assetPriceList!!, R.drawable.white_b_card)
-            CardEnum.ASSET_C -> PriceAdapter(item.assetPriceList!!, R.drawable.green_b_card)
-            CardEnum.ASSET_D -> PriceAdapter(item.assetPriceList!!, R.drawable.red_b_card)
-            CardEnum.ASSET_E -> PriceAdapter(item.assetPriceList!!, R.drawable.yellow_b_card)
+            CardEnum.ASSET_A -> {
+                assetImageView.setImageResource(R.drawable.blue_b)
+                PriceAdapter(item.assetPriceList!!, R.drawable.blue_b_card)
+            }
+            CardEnum.ASSET_B -> {
+                assetImageView.setImageResource(R.drawable.white_b)
+                PriceAdapter(item.assetPriceList!!, R.drawable.white_b_card)
+            }
+            CardEnum.ASSET_C -> {
+                assetImageView.setImageResource(R.drawable.green_b)
+                PriceAdapter(item.assetPriceList!!, R.drawable.green_b_card)
+            }
+            CardEnum.ASSET_D -> {
+                assetImageView.setImageResource(R.drawable.red_b)
+                PriceAdapter(item.assetPriceList!!, R.drawable.red_b_card)
+            }
+            CardEnum.ASSET_E -> {
+                assetImageView.setImageResource(R.drawable.yellow_b)
+                PriceAdapter(item.assetPriceList!!, R.drawable.yellow_b_card)
+            }
             else -> PriceAdapter(mutableListOf(), R.drawable.error)
         }
 
@@ -183,6 +199,68 @@ object Util {
                 }
             }
         }
+    }
+
+    fun ImageView.setBuildingResource(image: Int) {
+        val yellowB = ContextCompat.getDrawable(context, R.drawable.yellow_b)?.constantState
+        val redB = ContextCompat.getDrawable(context, R.drawable.red_b)?.constantState
+
+        if (drawable != null) {
+            if (drawable.constantState == yellowB && image != R.drawable.yellow_b) {
+                mapYellowBuilding(this, true)
+            } else if (drawable.constantState == redB && image != R.drawable.red_b) {
+                mapRedBuilding(this, true)
+            }
+
+            if (drawable.constantState != yellowB && image == R.drawable.yellow_b) {
+                mapYellowBuilding(this, false)
+            } else if (drawable.constantState != redB && image == R.drawable.red_b) {
+                mapRedBuilding(this, false)
+            }
+        }
+
+        this.setImageResource(image)
+    }
+
+    fun View.locationX(): Float = arrayLocationObj(this)[0].toFloat()
+    fun View.locationY(): Float = arrayLocationObj(this)[1].toFloat()
+
+    private fun mapYellowBuilding(img: ImageView, isRevert: Boolean) {
+        val rvValue = if (isRevert) -1 else 1
+        println(img.id)
+        println(rvValue)
+        when(img.id) {
+            R.id.building_top_D -> {
+                img.x += (6F * rvValue)
+                img.y -= (14F * rvValue)
+            }
+            R.id.building_top_E -> img.y -= (14F * rvValue)
+            R.id.building_top_F -> {
+                img.x -= (6F * rvValue)
+                img.y -= (14F * rvValue)
+            }
+            else -> img.y -= (12F * rvValue)
+        }
+    }
+
+    private fun mapRedBuilding(img: ImageView, isRevert: Boolean) {
+        val rvValue = if (isRevert) -1 else 1
+        val parentView = img.parent as? View
+
+        when(parentView?.id) {
+            R.id.inc_top_city, R.id.inc_right_city -> img.x -= 12F * rvValue
+            R.id.inc_bottom_city, R.id.inc_left_city -> {
+                img.x += 15F * rvValue
+                img.y -= 14F * rvValue
+            }
+        }
+    }
+
+    private fun arrayLocationObj(obj: View): IntArray {
+        val originalPos = IntArray(2)
+        obj.getLocationInWindow(originalPos)
+
+        return originalPos
     }
 
     private fun getPriceListByEnum(cardEnum: CardEnum): MutableList<Int>? {

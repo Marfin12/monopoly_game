@@ -1,4 +1,4 @@
-package com.example.experiments2
+package com.example.experiments2.main
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -8,11 +8,16 @@ import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.animation.doOnEnd
+import com.example.experiments2.R
 import com.example.experiments2.Util.generateAssetCardType
 import com.example.experiments2.Util.generateNonAssetCardType
+import com.example.experiments2.Util.locationX
+import com.example.experiments2.Util.locationY
 import com.example.experiments2.Util.playGif
+import com.example.experiments2.Util.setBuildingResource
 import com.example.experiments2.card.CardData
 import com.example.experiments2.databinding.ActivityMainBinding
+
 
 interface MainScenario {
     var scenarioBinding: ActivityMainBinding
@@ -44,16 +49,14 @@ interface MainScenario {
                 motionLayout: MotionLayout?,
                 startId: Int,
                 endId: Int
-            ) {
-            }
+            ) {}
 
             override fun onTransitionChange(
                 motionLayout: MotionLayout?,
                 startId: Int,
                 endId: Int,
                 progress: Float
-            ) {
-            }
+            ) {}
 
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
                 if (currentId == R.id.end && !isCardClicked) nextPlayer(ivLoading)
@@ -65,8 +68,7 @@ interface MainScenario {
                 triggerId: Int,
                 positive: Boolean,
                 progress: Float
-            ) {
-            }
+            ) {}
         })
     }
 
@@ -92,15 +94,15 @@ interface MainScenario {
         nextLoadingPlayerExpiry()
         setTrianglePlayerExpiry()
 
-        if (ivLoading == scenarioBinding.ivLoadingBottomSide)
-            scenarioBinding.gameMessage.show(
-                "Expiry Message",
-                "Expired!!",
-                "Ok, I understand"
-            )
+//        if (ivLoading == scenarioBinding.ivLoadingBottomSide)
+//            scenarioBinding.gameMessage.show(
+//                "Expiry Message",
+//                "Expired!!",
+//                "Ok, I understand"
+//            )
     }
 
-    fun onCardItemClick(cardData: CardData, obj: ImageView, context: Context) {
+    fun onCardItemClick(cardData: CardData, imageView: ImageView, context: Context) {
         isCardClicked = true
         scenarioBinding.animatedCard.root.visibility = View.VISIBLE
         scenarioBinding.animatedCard.rootAssetCard.ivBuildingCard.visibility = View.VISIBLE
@@ -109,14 +111,33 @@ interface MainScenario {
         playGif(context, R.raw.sparkle, scenarioBinding.animatedCard.ivCardEffect, 1)
         MediaPlayer.create(context, R.raw.whoosh).start()
 
-        val originalPos = IntArray(2)
-        obj.getLocationInWindow(originalPos)
-
-        scenarioBinding.animatedCard.root.x = originalPos[0].toFloat()
-        scenarioBinding.animatedCard.root.y = originalPos[1].toFloat()
+        scenarioBinding.animatedCard.root.x = imageView.locationX()
+        scenarioBinding.animatedCard.root.y = imageView.locationY()
 
         drawCardDropped(cardData, context)
-        animAssetCardDropped(context)
+        animAssetCardDropped(context, scenarioBinding.incBottomCity.buildingBottomC)
+    }
+
+    fun onEnemyChooseCard(cardData: CardData, context: Context) {
+        val testLocation = scenarioBinding.incRightCity.buildingRightE
+
+        testLocation.post {
+//        isCardClicked = true
+            scenarioBinding.animatedCard.root.visibility = View.VISIBLE
+            scenarioBinding.animatedCard.rootAssetCard.ivBuildingCard.visibility = View.VISIBLE
+//        scenarioBinding.playerCardList.root.visibility = View.GONE
+
+            playGif(context, R.raw.sparkle, scenarioBinding.animatedCard.ivCardEffect, 1)
+            MediaPlayer.create(context, R.raw.whoosh).start()
+//
+            println("locationX: " + testLocation.locationX())
+            println("locationY: " + testLocation.locationY())
+            scenarioBinding.animatedCard.root.x = testLocation.locationX()
+            scenarioBinding.animatedCard.root.y = testLocation.locationY()
+
+            drawCardDropped(cardData, context)
+            animAssetCardDropped(context, scenarioBinding.incRightCity.buildingRightA)
+        }
     }
 
     fun drawCardDropped(cardData: CardData, context: Context) {
@@ -138,11 +159,11 @@ interface MainScenario {
         }
     }
 
-    fun animAssetCardDropped(context: Context) {
+    fun animAssetCardDropped(context: Context, buildingPlace: ImageView) {
         val cardStartX = scenarioBinding.animatedCard.root.x
         val cardStartY = scenarioBinding.animatedCard.root.y
-        val cardDroppingAssetX = scenarioBinding.include4.buildingC.x + 195
-        val cardDroppingAssetY = scenarioBinding.include4.buildingC.y - 54
+        val cardDroppingAssetX = buildingPlace.x + 195
+        val cardDroppingAssetY = buildingPlace.y - 54
 
         val bounceUpMoveScene = AnimatorSet().apply {
             play(
@@ -222,7 +243,7 @@ interface MainScenario {
 
         animatorSet.start()
         animatorSet.doOnEnd {
-            scenarioBinding.include4.buildingC.visibility = View.VISIBLE
+//            buildingPlace.setBuildingResource(R.drawable.blue_b)
 
             ObjectAnimator.ofFloat(
                 scenarioBinding.animatedCard.rootCard,
@@ -232,13 +253,14 @@ interface MainScenario {
             ).apply { duration = 800 }.start()
 
             playGif(context, R.raw.building_effect, scenarioBinding.animatedCard.ivCardEffect, 1)
-            playGif(context, R.raw.testonly, scenarioBinding.include4.buildingC, 1) {
+            playGif(context, R.raw.testonly, buildingPlace, 1, onAnimationEnd = {
                 isCardClicked = false
 
                 if (pendingLoading != null) nextPlayer(pendingLoading!!)
 
                 pendingLoading = null
             }
+            )
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.experiments2
+package com.example.experiments2.main
 
 import android.view.View
 import com.example.experiments2.databinding.ActivityMainBinding
@@ -33,6 +33,13 @@ interface MainVisibility {
         visibilityBinding.payingProperties.root.visibility = View.GONE
         visibilityBinding.moneyProperties.root.visibility = View.GONE
         visibilityBinding.profileProperties.root.visibility = View.VISIBLE
+    }
+
+    fun hideAllLoadingSide() {
+        visibilityBinding.ivLoadingBottomSide.visibility = View.GONE
+        visibilityBinding.ivLoadingRightSide.visibility = View.GONE
+        visibilityBinding.ivLoadingTopSide.visibility = View.GONE
+        visibilityBinding.ivLoadingLeftSide.visibility = View.GONE
     }
 
     fun showPlayerCard() {

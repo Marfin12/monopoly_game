@@ -1,16 +1,21 @@
-package com.example.experiments2
+package com.example.experiments2.main
 
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.hardware.display.DisplayManager
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Display
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.experiments2.R
+import com.example.experiments2.Util
+import com.example.experiments2.Util.setBuildingResource
 import com.example.experiments2.card.CardAdapter
+import com.example.experiments2.card.CardData
+import com.example.experiments2.card.CardEnum
+import com.example.experiments2.card.PriceAdapter
 import com.example.experiments2.databinding.ActivityMainBinding
 import com.example.experiments2.money.MoneyAdapter
 import com.example.experiments2.money.MoneyData
@@ -32,7 +37,7 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
 
     override var scenarioBinding: ActivityMainBinding
         get() = binding
-        set(value) {}
+        set(_) {}
     override var playerLoadingTurn = 0
     override val listImageView = mutableListOf<ImageView>()
     override var loadingAnim: ObjectAnimator? = null
@@ -41,7 +46,7 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
 
     override var visibilityBinding: ActivityMainBinding
         get() = binding
-        set(value) {}
+        set(_) {}
     override var isShowRv = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,11 +90,7 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
         listImageView.add(binding.ivLoadingTopSide)
         listImageView.add(binding.ivLoadingLeftSide)
 
-        binding.ivLoadingBottomSide.visibility = View.GONE
-        binding.ivLoadingRightSide.visibility = View.GONE
-        binding.ivLoadingTopSide.visibility = View.GONE
-        binding.ivLoadingLeftSide.visibility = View.GONE
-
+        hideAllLoadingSide()
         setTrianglePlayerExpiry()
     }
 
@@ -115,6 +116,48 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
         binding.mainProperties.gameBtnSkip.setOnClickListener {
             if (playerLoadingTurn == 0) finishPlayerTurn(listImageView[playerLoadingTurn])
         }
+        binding.incBottomCity.root.setOnClickListener {
+            onEnemyChooseCard(Util.getDummyPlayerCard(1)[0], this@MainActivity)
+        }
+
+//        var testBuilding = R.drawable.red_b
+//
+//        binding.incLeftCity.buildingLeftA.setBuildingResource(testBuilding)
+//        binding.incLeftCity.buildingLeftB.setBuildingResource(testBuilding)
+//        binding.incLeftCity.buildingLeftC.setBuildingResource(testBuilding)
+//        binding.incLeftCity.buildingLeftD.setBuildingResource(testBuilding)
+//        binding.incLeftCity.buildingLeftE.setBuildingResource(testBuilding)
+//        binding.incLeftCity.buildingLeftF.setBuildingResource(testBuilding)
+//
+//        binding.incBottomCity.buildingBottomA.setBuildingResource(testBuilding)
+//        binding.incBottomCity.buildingBottomB.setBuildingResource(testBuilding)
+//        binding.incBottomCity.buildingBottomC.setBuildingResource(testBuilding)
+//        binding.incBottomCity.buildingBottomD.setBuildingResource(testBuilding)
+//        binding.incBottomCity.buildingBottomE.setBuildingResource(testBuilding)
+//        binding.incBottomCity.buildingBottomF.setBuildingResource(testBuilding)
+//
+//        testBuilding = R.drawable.white_b
+//
+//        binding.incBottomCity.buildingBottomA.setBuildingResource(testBuilding)
+//        binding.incBottomCity.buildingBottomB.setBuildingResource(testBuilding)
+//        binding.incBottomCity.buildingBottomC.setBuildingResource(testBuilding)
+//        binding.incBottomCity.buildingBottomD.setBuildingResource(testBuilding)
+//        binding.incBottomCity.buildingBottomE.setBuildingResource(testBuilding)
+//        binding.incBottomCity.buildingBottomF.setBuildingResource(testBuilding)
+//
+//        binding.incRightCity.buildingRightA.setBuildingResource(testBuilding)
+//        binding.incRightCity.buildingRightB.setBuildingResource(testBuilding)
+//        binding.incRightCity.buildingRightC.setBuildingResource(testBuilding)
+//        binding.incRightCity.buildingRightD.setBuildingResource(testBuilding)
+//        binding.incRightCity.buildingRightE.setBuildingResource(testBuilding)
+//        binding.incRightCity.buildingRightF.setBuildingResource(testBuilding)
+//
+//        binding.incTopCity.buildingTopA.setBuildingResource(testBuilding)
+//        binding.incTopCity.buildingTopB.setBuildingResource(testBuilding)
+//        binding.incTopCity.buildingTopC.setBuildingResource(testBuilding)
+//        binding.incTopCity.buildingTopD.setBuildingResource(testBuilding)
+//        binding.incTopCity.buildingTopE.setBuildingResource(testBuilding)
+//        binding.incTopCity.buildingTopF.setBuildingResource(testBuilding)
     }
 
     private fun initAdapterMoney() {
