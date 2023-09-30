@@ -11,10 +11,9 @@ import androidx.core.animation.doOnEnd
 import com.example.experiments2.R
 import com.example.experiments2.Util.generateAssetCardType
 import com.example.experiments2.Util.generateNonAssetCardType
-import com.example.experiments2.Util.locationX
-import com.example.experiments2.Util.locationY
+import com.example.experiments2.Util.itemAdapterX
+import com.example.experiments2.Util.itemAdapterY
 import com.example.experiments2.Util.playGif
-import com.example.experiments2.Util.setBuildingResource
 import com.example.experiments2.card.CardData
 import com.example.experiments2.databinding.ActivityMainBinding
 
@@ -102,7 +101,7 @@ interface MainScenario {
 //            )
     }
 
-    fun onCardItemClick(cardData: CardData, imageView: ImageView, context: Context) {
+    fun onCardItemClick(cardData: CardData, itemAsset: ImageView, context: Context) {
         isCardClicked = true
         scenarioBinding.animatedCard.root.visibility = View.VISIBLE
         scenarioBinding.animatedCard.rootAssetCard.ivBuildingCard.visibility = View.VISIBLE
@@ -111,8 +110,8 @@ interface MainScenario {
         playGif(context, R.raw.sparkle, scenarioBinding.animatedCard.ivCardEffect, 1)
         MediaPlayer.create(context, R.raw.whoosh).start()
 
-        scenarioBinding.animatedCard.root.x = imageView.locationX()
-        scenarioBinding.animatedCard.root.y = imageView.locationY()
+        scenarioBinding.animatedCard.root.x = itemAsset.itemAdapterX()
+        scenarioBinding.animatedCard.root.y = itemAsset.itemAdapterY()
 
         drawCardDropped(cardData, context)
         animAssetCardDropped(context, scenarioBinding.incBottomCity.buildingBottomC)
@@ -129,11 +128,8 @@ interface MainScenario {
 
             playGif(context, R.raw.sparkle, scenarioBinding.animatedCard.ivCardEffect, 1)
             MediaPlayer.create(context, R.raw.whoosh).start()
-//
-            println("locationX: " + testLocation.locationX())
-            println("locationY: " + testLocation.locationY())
-            scenarioBinding.animatedCard.root.x = testLocation.locationX()
-            scenarioBinding.animatedCard.root.y = testLocation.locationY()
+            scenarioBinding.animatedCard.root.x = testLocation.itemAdapterX()
+            scenarioBinding.animatedCard.root.y = testLocation.itemAdapterY()
 
             drawCardDropped(cardData, context)
             animAssetCardDropped(context, scenarioBinding.incRightCity.buildingRightA)

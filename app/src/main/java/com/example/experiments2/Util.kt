@@ -222,8 +222,8 @@ object Util {
         this.setImageResource(image)
     }
 
-    fun View.locationX(): Float = arrayLocationObj(this)[0].toFloat()
-    fun View.locationY(): Float = arrayLocationObj(this)[1].toFloat()
+    fun View.itemAdapterX(): Float = arrayLocationObj(this)[0].toFloat()
+    fun View.itemAdapterY(): Float = arrayLocationObj(this)[1].toFloat()
 
     private fun mapYellowBuilding(img: ImageView, isRevert: Boolean) {
         val rvValue = if (isRevert) -1 else 1

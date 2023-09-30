@@ -95,25 +95,25 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
     }
 
     private fun initComponent() {
-        binding.mainProperties.holderInfo.setOnClickListener {
+        binding.mainProperties.ivHolderInfo.setOnClickListener {
             showProfileProperties()
         }
-        binding.profileProperties.holderMoneyInfo.setOnClickListener {
+        binding.profileProperties.ivHolderMoneyInfo.setOnClickListener {
             showMoneyProperties()
         }
-        binding.profileProperties.gameBtnBack.setOnClickListener {
+        binding.profileProperties.btnGameBack.setOnClickListener {
             showMainProperties()
         }
-        binding.moneyProperties.gameBtnBack.setOnClickListener {
+        binding.moneyProperties.btnGameBack.setOnClickListener {
             showProfileProperties()
         }
-        binding.mainProperties.holderCard.setOnClickListener {
+        binding.mainProperties.ivHolderCard.setOnClickListener {
             if (isShowRv) hidePlayerCard() else showPlayerCard()
         }
         binding.playerCardList.root.setOnClickListener {
             hidePlayerCard()
         }
-        binding.mainProperties.gameBtnSkip.setOnClickListener {
+        binding.mainProperties.btnGameSkip.setOnClickListener {
             if (playerLoadingTurn == 0) finishPlayerTurn(listImageView[playerLoadingTurn])
         }
         binding.incBottomCity.root.setOnClickListener {
@@ -170,8 +170,8 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
         binding.playerCardList.rvListCard.layoutManager = LinearLayoutManager(
             this, LinearLayoutManager.HORIZONTAL, false
         )
-        playerCardAdapter.onAssetItemClick = { cardData, obj ->
-            onCardItemClick(cardData, obj, this@MainActivity)
+        playerCardAdapter.onAssetItemClick = { cardData, itemAsset ->
+            onCardItemClick(cardData, itemAsset, this@MainActivity)
         }
     }
 }
