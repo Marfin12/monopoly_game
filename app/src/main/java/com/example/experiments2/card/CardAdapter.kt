@@ -9,8 +9,8 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.experiments2.R
-import com.example.experiments2.Util.generateAssetCardType
-import com.example.experiments2.Util.generateNonAssetCardType
+import com.example.experiments2.util.CardUtil.generateAssetCardType
+import com.example.experiments2.util.CardUtil.generateNonAssetCardType
 
 
 @SuppressLint("NotifyDataSetChanged")

@@ -9,13 +9,13 @@ import android.widget.ImageView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.animation.doOnEnd
 import com.example.experiments2.R
-import com.example.experiments2.Util.generateAssetCardType
-import com.example.experiments2.Util.generateNonAssetCardType
-import com.example.experiments2.Util.itemAdapterX
-import com.example.experiments2.Util.itemAdapterY
-import com.example.experiments2.Util.playGif
 import com.example.experiments2.card.CardData
 import com.example.experiments2.databinding.ActivityMainBinding
+import com.example.experiments2.util.CardUtil.generateAssetCardType
+import com.example.experiments2.util.CardUtil.generateNonAssetCardType
+import com.example.experiments2.util.Util.itemAdapterX
+import com.example.experiments2.util.Util.itemAdapterY
+import com.example.experiments2.util.Util.playGif
 
 
 interface MainScenario {
@@ -32,7 +32,7 @@ interface MainScenario {
         val ivLoading = listImageView[playerLoadingTurn]
 
         ivLoading.visibility = View.VISIBLE
-        scenarioBinding.motionSide.transitionToState(R.id.start)
+        scenarioBinding.gameBackground.root.transitionToState(R.id.start)
         loadingAnim = ObjectAnimator.ofFloat(ivLoading, View.ALPHA, 0F, 1F).apply {
             duration = 500
             repeatCount = ObjectAnimator.INFINITE
@@ -40,10 +40,10 @@ interface MainScenario {
         }
         loadingAnim?.start()
 
-        scenarioBinding.motionSide.transitionToState(R.id.end, 15000)
-        scenarioBinding.motionSide.cancelPendingInputEvents()
+        scenarioBinding.gameBackground.root.transitionToState(R.id.end, 15000)
+        scenarioBinding.gameBackground.root.cancelPendingInputEvents()
 
-        scenarioBinding.motionSide.setTransitionListener(object : MotionLayout.TransitionListener {
+        scenarioBinding.gameBackground.root.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(
                 motionLayout: MotionLayout?,
                 startId: Int,
@@ -75,7 +75,7 @@ interface MainScenario {
         if (playerLoadingTurn < 3) playerLoadingTurn++
         else playerLoadingTurn = 0
 
-        scenarioBinding.motionSide.progress = 0.0F
+        scenarioBinding.gameBackground.root.progress = 0.0F
     }
 
     fun finishPlayerTurn(ivLoading: ImageView) {
@@ -93,46 +93,46 @@ interface MainScenario {
         nextLoadingPlayerExpiry()
         setTrianglePlayerExpiry()
 
-//        if (ivLoading == scenarioBinding.ivLoadingBottomSide)
-//            scenarioBinding.gameMessage.show(
-//                "Expiry Message",
-//                "Expired!!",
-//                "Ok, I understand"
-//            )
+        if (ivLoading == scenarioBinding.gameBackground.ivLoadingBottomSide)
+            scenarioBinding.gameOverlay.gameMessage.show(
+                "Expiry Message",
+                "Expired!!",
+                "Ok, I understand"
+            )
     }
 
     fun onCardItemClick(cardData: CardData, itemAsset: ImageView, context: Context) {
         isCardClicked = true
-        scenarioBinding.animatedCard.root.visibility = View.VISIBLE
-        scenarioBinding.animatedCard.rootAssetCard.ivBuildingCard.visibility = View.VISIBLE
-        scenarioBinding.playerCardList.root.visibility = View.GONE
+        scenarioBinding.gameContent.animatedCard.root.visibility = View.VISIBLE
+        scenarioBinding.gameContent.animatedCard.rootAssetCard.ivBuildingCard.visibility = View.VISIBLE
+        scenarioBinding.gameOverlay.playerCardList.root.visibility = View.GONE
 
-        playGif(context, R.raw.sparkle, scenarioBinding.animatedCard.ivCardEffect, 1)
+        playGif(context, R.raw.sparkle, scenarioBinding.gameContent.animatedCard.ivCardEffect, 1)
         MediaPlayer.create(context, R.raw.whoosh).start()
 
-        scenarioBinding.animatedCard.root.x = itemAsset.itemAdapterX()
-        scenarioBinding.animatedCard.root.y = itemAsset.itemAdapterY()
+        scenarioBinding.gameContent.animatedCard.root.x = itemAsset.itemAdapterX()
+        scenarioBinding.gameContent.animatedCard.root.y = itemAsset.itemAdapterY()
 
         drawCardDropped(cardData, context)
-        animAssetCardDropped(context, scenarioBinding.incBottomCity.buildingBottomC)
+        animAssetCardDropped(context, scenarioBinding.gameContent.rightCity.buildingRightD)
     }
 
     fun onEnemyChooseCard(cardData: CardData, context: Context) {
-        val testLocation = scenarioBinding.incRightCity.buildingRightE
+        val testLocation = scenarioBinding.gameContent.rightCity.buildingRightE
 
         testLocation.post {
 //        isCardClicked = true
-            scenarioBinding.animatedCard.root.visibility = View.VISIBLE
-            scenarioBinding.animatedCard.rootAssetCard.ivBuildingCard.visibility = View.VISIBLE
+            scenarioBinding.gameContent.animatedCard.root.visibility = View.VISIBLE
+            scenarioBinding.gameContent.animatedCard.rootAssetCard.ivBuildingCard.visibility = View.VISIBLE
 //        scenarioBinding.playerCardList.root.visibility = View.GONE
 
-            playGif(context, R.raw.sparkle, scenarioBinding.animatedCard.ivCardEffect, 1)
+            playGif(context, R.raw.sparkle, scenarioBinding.gameContent.animatedCard.ivCardEffect, 1)
             MediaPlayer.create(context, R.raw.whoosh).start()
-            scenarioBinding.animatedCard.root.x = testLocation.itemAdapterX()
-            scenarioBinding.animatedCard.root.y = testLocation.itemAdapterY()
+            scenarioBinding.gameContent.animatedCard.root.x = testLocation.itemAdapterX()
+            scenarioBinding.gameContent.animatedCard.root.y = testLocation.itemAdapterY()
 
             drawCardDropped(cardData, context)
-            animAssetCardDropped(context, scenarioBinding.incRightCity.buildingRightA)
+            animAssetCardDropped(context, scenarioBinding.gameContent.rightCity.buildingRightA)
         }
     }
 
@@ -140,44 +140,44 @@ interface MainScenario {
         if (cardData.assetPriceList != null) {
             generateAssetCardType(
                 cardData,
-                scenarioBinding.animatedCard.ivCard,
-                scenarioBinding.animatedCard.rootAssetCard.root,
-                scenarioBinding.animatedCard.rootMoneyCard.root,
+                scenarioBinding.gameContent.animatedCard.ivCard,
+                scenarioBinding.gameContent.animatedCard.rootAssetCard.root,
+                scenarioBinding.gameContent.animatedCard.rootMoneyCard.root,
                 context
             )
         } else {
             generateNonAssetCardType(
                 cardData,
-                scenarioBinding.animatedCard.ivCard,
-                scenarioBinding.animatedCard.rootAssetCard.root,
-                scenarioBinding.animatedCard.rootMoneyCard.root
+                scenarioBinding.gameContent.animatedCard.ivCard,
+                scenarioBinding.gameContent.animatedCard.rootAssetCard.root,
+                scenarioBinding.gameContent.animatedCard.rootMoneyCard.root
             )
         }
     }
 
     fun animAssetCardDropped(context: Context, buildingPlace: ImageView) {
-        val cardStartX = scenarioBinding.animatedCard.root.x
-        val cardStartY = scenarioBinding.animatedCard.root.y
-        val cardDroppingAssetX = buildingPlace.x + 195
-        val cardDroppingAssetY = buildingPlace.y - 54
+        val cardStartX = scenarioBinding.gameContent.animatedCard.root.x
+        val cardStartY = scenarioBinding.gameContent.animatedCard.root.y
+        val cardDroppingAssetX = buildingPlace.x
+        val cardDroppingAssetY = buildingPlace.y
 
         val bounceUpMoveScene = AnimatorSet().apply {
             play(
                 ObjectAnimator.ofFloat(
-                    scenarioBinding.animatedCard.root, View.X, cardStartX, cardStartX - 200
+                    scenarioBinding.gameContent.animatedCard.root, View.X, cardStartX, cardStartX - 200
                 ).apply { duration = 1000 }
             )
         }
         val droppingAssetMoveScene = AnimatorSet().apply {
             playTogether(
                 ObjectAnimator.ofFloat(
-                    scenarioBinding.animatedCard.root,
+                    scenarioBinding.gameContent.animatedCard.root,
                     View.X,
                     cardStartX - 200,
                     cardDroppingAssetX
                 ).apply { duration = 500 },
                 ObjectAnimator.ofFloat(
-                    scenarioBinding.animatedCard.root, View.Y, cardStartY, cardDroppingAssetY
+                    scenarioBinding.gameContent.animatedCard.root, View.Y, cardStartY, cardDroppingAssetY
                 ).apply { duration = 500 },
             )
         }
@@ -185,7 +185,7 @@ interface MainScenario {
         val bounceUpScaleScene = AnimatorSet().apply {
             playTogether(
                 ObjectAnimator.ofFloat(
-                    scenarioBinding.animatedCard.root,
+                    scenarioBinding.gameContent.animatedCard.root,
                     View.SCALE_X,
                     1F,
                     1.5F
@@ -194,7 +194,7 @@ interface MainScenario {
                         duration = 750
                     },
                 ObjectAnimator.ofFloat(
-                    scenarioBinding.animatedCard.root,
+                    scenarioBinding.gameContent.animatedCard.root,
                     View.SCALE_Y,
                     1F,
                     1.5F
@@ -207,7 +207,7 @@ interface MainScenario {
         val droppingAssetScaleScene = AnimatorSet().apply {
             playTogether(
                 ObjectAnimator.ofFloat(
-                    scenarioBinding.animatedCard.root,
+                    scenarioBinding.gameContent.animatedCard.root,
                     View.SCALE_X,
                     1.5F,
                     0.5F
@@ -216,7 +216,7 @@ interface MainScenario {
                         duration = 500
                     },
                 ObjectAnimator.ofFloat(
-                    scenarioBinding.animatedCard.root,
+                    scenarioBinding.gameContent.animatedCard.root,
                     View.SCALE_Y,
                     1.5F,
                     0.5F
@@ -242,13 +242,13 @@ interface MainScenario {
 //            buildingPlace.setBuildingResource(R.drawable.blue_b)
 
             ObjectAnimator.ofFloat(
-                scenarioBinding.animatedCard.rootCard,
+                scenarioBinding.gameContent.animatedCard.rootCard,
                 View.ALPHA,
                 1F,
                 0F
             ).apply { duration = 800 }.start()
 
-            playGif(context, R.raw.building_effect, scenarioBinding.animatedCard.ivCardEffect, 1)
+            playGif(context, R.raw.building_effect, scenarioBinding.gameContent.animatedCard.ivCardEffect, 1)
             playGif(context, R.raw.testonly, buildingPlace, 1, onAnimationEnd = {
                 isCardClicked = false
 

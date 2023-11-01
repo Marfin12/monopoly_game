@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.experiments2.R
@@ -14,7 +15,7 @@ import com.example.experiments2.R
  */
 @SuppressLint("NotifyDataSetChanged")
 open class MoneyAdapter(
-    private var dataset: MutableList<MoneyData>
+    private var dataset: MutableList<MoneyData>,
 ): RecyclerView.Adapter<MoneyAdapter.PlayerViewHolder>() {
 
     var onItemClick: ((MoneyData) -> Unit)? = null
@@ -29,13 +30,17 @@ open class MoneyAdapter(
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         val item = dataset[position]
 
-        holder.cardImage.setImageResource(setMoneyImageByValue(item.money))
-        holder.cardImage.setOnClickListener { onItemClick?.invoke(item) }
-        if (position >= dataset.size - 1) holder.rootMoney.setPadding(0, 0, 0, 600)
+        holder.cardIconImage.setImageResource(setMoneyImageByValue(item.money))
+        holder.cardIconImage.setOnClickListener { onItemClick?.invoke(item) }
+
+        setToMatchParent(holder.rootMoney)
+        setToMatchParent(holder.cardImage)
+        setToMatchParent(holder.cardIconImage)
     }
 
     inner class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val cardImage: ImageView = itemView.findViewById(R.id.iv_money_value)
+        val cardImage: ImageView = itemView.findViewById(R.id.iv_money_card)
+        val cardIconImage: ImageView = itemView.findViewById(R.id.iv_money_value)
         val rootMoney: ConstraintLayout = itemView.findViewById(R.id.root_money)
     }
 
@@ -50,5 +55,12 @@ open class MoneyAdapter(
             5 -> R.drawable.money_5k
             else -> R.drawable.error
         }
+    }
+
+    private fun setToMatchParent(holder: View) {
+        val layoutParams = holder.layoutParams
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+
+        holder.layoutParams = layoutParams
     }
 }
