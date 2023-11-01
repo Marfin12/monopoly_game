@@ -9,16 +9,11 @@ import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.experiments2.R
-import com.example.experiments2.Util
-import com.example.experiments2.Util.setBuildingResource
 import com.example.experiments2.card.CardAdapter
-import com.example.experiments2.card.CardData
-import com.example.experiments2.card.CardEnum
-import com.example.experiments2.card.PriceAdapter
 import com.example.experiments2.databinding.ActivityMainBinding
 import com.example.experiments2.money.MoneyAdapter
 import com.example.experiments2.money.MoneyData
+import com.example.experiments2.util.CardUtil
 
 
 class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
@@ -33,7 +28,7 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
         )
     )
 
-    private val playerCardAdapter = CardAdapter(Util.getDummyPlayerCard(6), this@MainActivity)
+    private val playerCardAdapter = CardAdapter(CardUtil.getDummyPlayerCard(6), this@MainActivity)
 
     override var scenarioBinding: ActivityMainBinding
         get() = binding
@@ -58,7 +53,6 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
         visibilityBinding = binding
 
         supportActionBar?.hide()
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
 
         val displayManager = getSystemService(DISPLAY_SERVICE) as DisplayManager
         val defaultDisplay = displayManager.getDisplay(Display.DEFAULT_DISPLAY)
@@ -82,96 +76,75 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
         initComponent()
         initAdapterMoney()
         initAdapterCard()
+
+//        scenarioBinding.gameContent.bottomCity.buildingBottomA.setBuildingResource(
+//            R.drawable.yellow_b
+//        )
     }
 
     private fun initAnim() {
-        listImageView.add(binding.ivLoadingBottomSide)
-        listImageView.add(binding.ivLoadingRightSide)
-        listImageView.add(binding.ivLoadingTopSide)
-        listImageView.add(binding.ivLoadingLeftSide)
+        listImageView.add(binding.gameBackground.ivLoadingBottomSide)
+        listImageView.add(binding.gameBackground.ivLoadingRightSide)
+        listImageView.add(binding.gameBackground.ivLoadingTopSide)
+        listImageView.add(binding.gameBackground.ivLoadingLeftSide)
 
         hideAllLoadingSide()
         setTrianglePlayerExpiry()
     }
 
     private fun initComponent() {
-        binding.mainProperties.holderInfo.setOnClickListener {
-            showProfileProperties()
+        with(binding.gameOverlay) {
+            mainProperties.ivHolderInfo.setOnClickListener {
+                showProfileProperties()
+            }
+            profileProperties.btnGameBack.setOnClickListener {
+                showMainProperties()
+            }
+            profileProperties.ivHolderMoneyInfo.setOnClickListener {
+                showMoneyProperties()
+            }
+            moneyProperties.btnGameBack.setOnClickListener {
+                showProfileProperties()
+            }
+            mainProperties.ivHolderCard.setOnClickListener {
+                if (isShowRv) hidePlayerCard() else showPlayerCard()
+            }
+            playerCardList.root.setOnClickListener {
+                hidePlayerCard()
+            }
+            mainProperties.btnGameSkip.setOnClickListener {
+                if (playerLoadingTurn == 0) finishPlayerTurn(listImageView[playerLoadingTurn])
+            }
+            binding.gameContent.bottomCity.root.setOnClickListener {
+                onEnemyChooseCard(CardUtil.getDummyPlayerCard(1)[0], this@MainActivity)
+            }
         }
-        binding.profileProperties.holderMoneyInfo.setOnClickListener {
-            showMoneyProperties()
-        }
-        binding.profileProperties.gameBtnBack.setOnClickListener {
-            showMainProperties()
-        }
-        binding.moneyProperties.gameBtnBack.setOnClickListener {
-            showProfileProperties()
-        }
-        binding.mainProperties.holderCard.setOnClickListener {
-            if (isShowRv) hidePlayerCard() else showPlayerCard()
-        }
-        binding.playerCardList.root.setOnClickListener {
-            hidePlayerCard()
-        }
-        binding.mainProperties.gameBtnSkip.setOnClickListener {
-            if (playerLoadingTurn == 0) finishPlayerTurn(listImageView[playerLoadingTurn])
-        }
-        binding.incBottomCity.root.setOnClickListener {
-            onEnemyChooseCard(Util.getDummyPlayerCard(1)[0], this@MainActivity)
-        }
-
-//        var testBuilding = R.drawable.red_b
-//
-//        binding.incLeftCity.buildingLeftA.setBuildingResource(testBuilding)
-//        binding.incLeftCity.buildingLeftB.setBuildingResource(testBuilding)
-//        binding.incLeftCity.buildingLeftC.setBuildingResource(testBuilding)
-//        binding.incLeftCity.buildingLeftD.setBuildingResource(testBuilding)
-//        binding.incLeftCity.buildingLeftE.setBuildingResource(testBuilding)
-//        binding.incLeftCity.buildingLeftF.setBuildingResource(testBuilding)
-//
-//        binding.incBottomCity.buildingBottomA.setBuildingResource(testBuilding)
-//        binding.incBottomCity.buildingBottomB.setBuildingResource(testBuilding)
-//        binding.incBottomCity.buildingBottomC.setBuildingResource(testBuilding)
-//        binding.incBottomCity.buildingBottomD.setBuildingResource(testBuilding)
-//        binding.incBottomCity.buildingBottomE.setBuildingResource(testBuilding)
-//        binding.incBottomCity.buildingBottomF.setBuildingResource(testBuilding)
-//
-//        testBuilding = R.drawable.white_b
-//
-//        binding.incBottomCity.buildingBottomA.setBuildingResource(testBuilding)
-//        binding.incBottomCity.buildingBottomB.setBuildingResource(testBuilding)
-//        binding.incBottomCity.buildingBottomC.setBuildingResource(testBuilding)
-//        binding.incBottomCity.buildingBottomD.setBuildingResource(testBuilding)
-//        binding.incBottomCity.buildingBottomE.setBuildingResource(testBuilding)
-//        binding.incBottomCity.buildingBottomF.setBuildingResource(testBuilding)
-//
-//        binding.incRightCity.buildingRightA.setBuildingResource(testBuilding)
-//        binding.incRightCity.buildingRightB.setBuildingResource(testBuilding)
-//        binding.incRightCity.buildingRightC.setBuildingResource(testBuilding)
-//        binding.incRightCity.buildingRightD.setBuildingResource(testBuilding)
-//        binding.incRightCity.buildingRightE.setBuildingResource(testBuilding)
-//        binding.incRightCity.buildingRightF.setBuildingResource(testBuilding)
-//
-//        binding.incTopCity.buildingTopA.setBuildingResource(testBuilding)
-//        binding.incTopCity.buildingTopB.setBuildingResource(testBuilding)
-//        binding.incTopCity.buildingTopC.setBuildingResource(testBuilding)
-//        binding.incTopCity.buildingTopD.setBuildingResource(testBuilding)
-//        binding.incTopCity.buildingTopE.setBuildingResource(testBuilding)
-//        binding.incTopCity.buildingTopF.setBuildingResource(testBuilding)
     }
 
     private fun initAdapterMoney() {
-        binding.moneyProperties.rvMoneyList.adapter = moneyAdapter
-        binding.moneyProperties.rvMoneyList.layoutManager = LinearLayoutManager(this)
+        binding.gameOverlay.moneyProperties.rvMoneyList.adapter = moneyAdapter
+        binding.gameOverlay.moneyProperties.rvMoneyList.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initAdapterCard() {
-        binding.playerCardList.rvListCard.adapter = playerCardAdapter
-        binding.playerCardList.rvListCard.layoutManager = LinearLayoutManager(
+        binding.gameOverlay.playerCardList.rvListCard.adapter = playerCardAdapter
+        binding.gameOverlay.playerCardList.rvListCard.layoutManager = LinearLayoutManager(
             this, LinearLayoutManager.HORIZONTAL, false
         )
-        playerCardAdapter.onAssetItemClick = { cardData, obj ->
-            onCardItemClick(cardData, obj, this@MainActivity)
+        playerCardAdapter.onAssetItemClick = { cardData, itemAsset ->
+            onCardItemClick(cardData, itemAsset, this@MainActivity)
+        }
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
     }
 }

@@ -1,9 +1,6 @@
-package com.example.experiments2
+package com.example.experiments2.util
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.provider.Settings
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.Keep
@@ -11,69 +8,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.vectordrawable.graphics.drawable.Animatable2Compat
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
-import com.bumptech.glide.load.resource.gif.GifDrawable
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
+import com.example.experiments2.R
 import com.example.experiments2.card.CardData
 import com.example.experiments2.card.CardEnum
 import com.example.experiments2.card.PriceAdapter
 
 
 @Keep
-object Util {
-    @SuppressLint("HardwareIds")
-    fun getAndroidId(context: Context): String {
-        return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-    }
-
-    fun playGif(
-        context: Context,
-        gifResource: Int,
-        targetView: ImageView,
-        totalLoop: Int = 0,
-        onAnimationEnd: (() -> Unit)? = null
-    ) {
-        Glide.with(context)
-            .asGif()
-            .transition(withCrossFade())
-            .load(gifResource)
-            .listener(object : RequestListener<GifDrawable> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-
-                override fun onResourceReady(
-                    resource: GifDrawable?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    if (totalLoop > 0) resource?.setLoopCount(totalLoop)
-                    resource?.registerAnimationCallback(object :
-                        Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationEnd(drawable: Drawable) {
-                            onAnimationEnd?.invoke()
-
-                            super.onAnimationEnd(drawable)
-                        }
-                    })
-                    return false
-                }
-            })
-            .into(targetView)
-    }
-
+object CardUtil {
     fun getDummyPlayerCard(totalCard: Int): MutableList<CardData> {
         val cardDataList = mutableListOf<CardData>()
         val selectedCardEnum = CardEnum.values().toList()
@@ -199,68 +141,6 @@ object Util {
                 }
             }
         }
-    }
-
-    fun ImageView.setBuildingResource(image: Int) {
-        val yellowB = ContextCompat.getDrawable(context, R.drawable.yellow_b)?.constantState
-        val redB = ContextCompat.getDrawable(context, R.drawable.red_b)?.constantState
-
-        if (drawable != null) {
-            if (drawable.constantState == yellowB && image != R.drawable.yellow_b) {
-                mapYellowBuilding(this, true)
-            } else if (drawable.constantState == redB && image != R.drawable.red_b) {
-                mapRedBuilding(this, true)
-            }
-
-            if (drawable.constantState != yellowB && image == R.drawable.yellow_b) {
-                mapYellowBuilding(this, false)
-            } else if (drawable.constantState != redB && image == R.drawable.red_b) {
-                mapRedBuilding(this, false)
-            }
-        }
-
-        this.setImageResource(image)
-    }
-
-    fun View.locationX(): Float = arrayLocationObj(this)[0].toFloat()
-    fun View.locationY(): Float = arrayLocationObj(this)[1].toFloat()
-
-    private fun mapYellowBuilding(img: ImageView, isRevert: Boolean) {
-        val rvValue = if (isRevert) -1 else 1
-        println(img.id)
-        println(rvValue)
-        when(img.id) {
-            R.id.building_top_D -> {
-                img.x += (6F * rvValue)
-                img.y -= (14F * rvValue)
-            }
-            R.id.building_top_E -> img.y -= (14F * rvValue)
-            R.id.building_top_F -> {
-                img.x -= (6F * rvValue)
-                img.y -= (14F * rvValue)
-            }
-            else -> img.y -= (12F * rvValue)
-        }
-    }
-
-    private fun mapRedBuilding(img: ImageView, isRevert: Boolean) {
-        val rvValue = if (isRevert) -1 else 1
-        val parentView = img.parent as? View
-
-        when(parentView?.id) {
-            R.id.inc_top_city, R.id.inc_right_city -> img.x -= 12F * rvValue
-            R.id.inc_bottom_city, R.id.inc_left_city -> {
-                img.x += 15F * rvValue
-                img.y -= 14F * rvValue
-            }
-        }
-    }
-
-    private fun arrayLocationObj(obj: View): IntArray {
-        val originalPos = IntArray(2)
-        obj.getLocationInWindow(originalPos)
-
-        return originalPos
     }
 
     private fun getPriceListByEnum(cardEnum: CardEnum): MutableList<Int>? {

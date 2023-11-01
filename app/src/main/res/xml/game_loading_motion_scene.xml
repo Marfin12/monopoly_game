@@ -14,26 +14,12 @@
     <ConstraintSet android:id="@+id/start">
         <Constraint
             android:id="@+id/iv_loading_bottom_side"
-            android:layout_width="76dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="196dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:visibilityMode="ignore"
-            >
-            <CustomAttribute
-                motion:attributeName="ColorFilter"
-                motion:customColorValue="#30FF00" />
-        </Constraint>
-        <Constraint
-            android:id="@+id/iv_loading_right_side"
-            android:layout_width="36dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="34dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/right_sector"
-            motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintTop_toTopOf="@id/guideline_top_iv_bottom_loading"
+            motion:layout_constraintStart_toStartOf="@id/guideline_game_start"
+            motion:layout_constraintEnd_toEndOf="@id/guideline_end_iv_bottom_loading"
             motion:visibilityMode="ignore"
             >
             <CustomAttribute
@@ -42,14 +28,30 @@
         </Constraint>
         <Constraint
             android:id="@+id/iv_loading_left_side"
-            android:layout_width="56dp"
-            android:layout_height="74dp"
-            android:layout_marginStart="134dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:rotation="-180"
             android:src="@drawable/right_sector"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="@id/guideline_game_start"
+            motion:layout_constraintEnd_toEndOf="@id/guideline_end_iv_left_loading"
+            motion:layout_constraintTop_toTopOf="@id/guideline_top_iv_left_loading"
+            motion:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_left_loading"
+            motion:visibilityMode="ignore"
+            >
+            <CustomAttribute
+                motion:attributeName="ColorFilter"
+                motion:customColorValue="#30FF00" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/iv_loading_right_side"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/right_sector"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="@id/guideline_top_iv_left_loading"
+            motion:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_left_loading"
+            motion:layout_constraintStart_toStartOf="@id/guideline_start_iv_bottom_loading"
             motion:visibilityMode="ignore"
             >
             <CustomAttribute
@@ -58,14 +60,15 @@
         </Constraint>
         <Constraint
             android:id="@+id/iv_loading_top_side"
-            android:layout_width="104dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="127dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:rotation="-180"
             android:scaleType="fitXY"
             android:src="@drawable/bottom_sector"
-            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintStart_toStartOf="@id/guideline_game_start"
             motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintEnd_toEndOf="@id/guideline_end_iv_bottom_loading"
+            motion:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_bottom_loading"
             motion:visibilityMode="ignore"
             >
             <CustomAttribute
@@ -77,26 +80,12 @@
     <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@+id/iv_loading_bottom_side"
-            android:layout_width="512dp"
-            android:layout_height="142dp"
-            android:layout_marginStart="196dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:visibilityMode="ignore"
-            >
-            <CustomAttribute
-                motion:attributeName="ColorFilter"
-                motion:customColorValue="#FF0000" />
-        </Constraint>
-        <Constraint
-            android:id="@+id/iv_loading_right_side"
-            android:layout_width="286dp"
-            android:layout_height="335dp"
-            android:layout_marginTop="34dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/right_sector"
-            motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintEnd_toEndOf="@id/guideline_end_iv_bottom_side"
+            motion:layout_constraintTop_toTopOf="@id/guideline_top_iv_bottom_side"
+            motion:layout_constraintStart_toStartOf="@id/guideline_start_iv_bottom_side"
             motion:visibilityMode="ignore"
             >
             <CustomAttribute
@@ -105,15 +94,30 @@
         </Constraint>
         <Constraint
             android:id="@+id/iv_loading_left_side"
-            android:layout_width="286dp"
-            android:layout_height="336dp"
-            android:layout_marginStart="134dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:rotation="-180"
             android:src="@drawable/right_sector"
             android:visibility="visible"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="@id/guideline_game_start"
+            motion:layout_constraintEnd_toEndOf="@id/guideline_end_iv_left_side"
+            motion:layout_constraintTop_toTopOf="@id/guideline_top_iv_left_side"
+            motion:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_left_side"
+            motion:visibilityMode="ignore"
+            >
+            <CustomAttribute
+                motion:attributeName="ColorFilter"
+                motion:customColorValue="#FF0000" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/iv_loading_right_side"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/right_sector"
+            motion:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_right_side"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="@id/guideline_top_iv_right_side"
+            motion:layout_constraintStart_toStartOf="@id/guideline_start_iv_right_side"
             motion:visibilityMode="ignore"
             >
             <CustomAttribute
@@ -122,13 +126,14 @@
         </Constraint>
         <Constraint
             android:id="@+id/iv_loading_top_side"
-            android:layout_width="654dp"
-            android:layout_height="186dp"
-            android:layout_marginStart="116dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:rotation="-180"
             android:scaleType="fitXY"
             android:src="@drawable/bottom_sector"
-            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_top_side"
+            motion:layout_constraintEnd_toEndOf="@id/guideline_end_iv_top_side"
+            motion:layout_constraintStart_toStartOf="@id/guideline_start_iv_top_side"
             motion:layout_constraintTop_toTopOf="parent"
             motion:visibilityMode="ignore"
             >
