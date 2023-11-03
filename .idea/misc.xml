@@ -11,7 +11,8 @@
         <entry key="app/src/main/res/drawable/white_rounded_bg.xml" value="0.108" />
         <entry key="app/src/main/res/font/poppins_light.xml" value="0.21561181434599155" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2515527950310559" />
-        <entry key="app/src/main/res/layout/activity_start.xml" value="0.2385750099464699" />
+        <entry key="app/src/main/res/layout/activity_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_start.xml" value="0.2341774269386574" />
         <entry key="app/src/main/res/layout/asset_card_item.xml" value="0.47752808988764045" />
         <entry key="app/src/main/res/layout/asset_item.xml" value="0.578857496918225" />
         <entry key="app/src/main/res/layout/asset_price_item.xml" value="0.7950027465820313" />
@@ -30,6 +31,8 @@
         <entry key="app/src/main/res/layout/component_game_message.xml" value="0.19927536231884058" />
         <entry key="app/src/main/res/layout/component_multi_guideline.xml" value="0.31953560158058447" />
         <entry key="app/src/main/res/layout/deleted_main.xml" value="0.24506405300564232" />
+        <entry key="app/src/main/res/layout/fragment_create_game.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_join_game.xml" value="0.1" />
         <entry key="app/src/main/res/layout/game_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/game_content.xml" value="0.1" />
         <entry key="app/src/main/res/layout/game_loading_motion.xml" value="0.1" />

@@ -1,21 +1,11 @@
-package com.example.experiments2.start
+package com.example.experiments2.pages.start
 
-import android.animation.ObjectAnimator
-import android.content.Context
-import android.hardware.display.DisplayManager
 import android.os.Bundle
-import android.view.Display
 import android.view.View
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.experiments2.card.CardAdapter
-import com.example.experiments2.databinding.ActivityMainBinding
 import com.example.experiments2.databinding.ActivityStartBinding
-import com.example.experiments2.money.MoneyAdapter
-import com.example.experiments2.money.MoneyData
-import com.example.experiments2.util.CardUtil
+import com.example.experiments2.pages.menu.MenuActivity
 
 
 class StartActivity : AppCompatActivity() {
@@ -29,6 +19,8 @@ class StartActivity : AppCompatActivity() {
         supportActionBar?.hide()
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnStart.setOnClickListener { MenuActivity.launch(this@StartActivity) }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

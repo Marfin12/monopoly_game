@@ -1,4 +1,4 @@
-package com.example.experiments2.main
+package com.example.experiments2.pages.main
 
 import android.animation.ObjectAnimator
 import android.content.Context
