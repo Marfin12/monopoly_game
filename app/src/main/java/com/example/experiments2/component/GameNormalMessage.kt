@@ -19,7 +19,7 @@ class GameNormalMessage @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     private fun init(attrs: AttributeSet?) {
-        View.inflate(context, R.layout.message_normal, this)
+        View.inflate(context, R.layout.component_game_message, this)
 
         val ta = context.obtainStyledAttributes(attrs, R.styleable.GameMessage)
         try {

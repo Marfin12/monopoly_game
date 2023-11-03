@@ -20,7 +20,7 @@ open class PriceAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PriceViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.asset_price_item, parent, false)
+            .inflate(R.layout.item_asset_prices, parent, false)
 
         return PriceViewHolder(adapterLayout)
     }

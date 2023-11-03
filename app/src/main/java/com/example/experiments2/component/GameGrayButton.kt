@@ -16,7 +16,7 @@ class GameGrayButton @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     private fun init(attrs: AttributeSet?) {
-        View.inflate(context, R.layout.button_white_normal, this)
+        View.inflate(context, R.layout.component_game_button, this)
         findViewById<ImageView>(R.id.holder_bg_button).setImageResource(R.drawable.gray_rounded_bg_8_rad)
 
         val txtButton = findViewById<TextView>(R.id.tv_normal_text)

@@ -108,7 +108,7 @@
             app:layout_constraintEnd_toEndOf="@id/iv_holder_name_bg"
             app:layout_constraintTop_toBottomOf="@id/iv_holder_name_bg"
             app:layout_constraintBottom_toTopOf="@id/btn_game_back"
-            tools:listitem="@layout/money_item"
+            tools:listitem="@layout/item_money"
             tools:itemCount="3"
             />
 

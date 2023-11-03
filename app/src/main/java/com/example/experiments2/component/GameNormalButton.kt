@@ -15,7 +15,7 @@ class GameNormalButton @JvmOverloads constructor(context: Context, attrs: Attrib
     }
 
     private fun init(attrs: AttributeSet?) {
-        View.inflate(context, R.layout.button_white_normal, this)
+        View.inflate(context, R.layout.component_game_button, this)
 
         val ta = context.obtainStyledAttributes(attrs, R.styleable.GameButton)
         try {
