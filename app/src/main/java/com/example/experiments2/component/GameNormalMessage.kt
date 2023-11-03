@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.experiments2.R
+import com.example.experiments2.component.button.GameGrayButton
+import com.example.experiments2.component.button.GameNormalButton
 
 
 class GameNormalMessage @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :

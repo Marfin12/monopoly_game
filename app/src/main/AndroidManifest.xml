@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         tools:targetApi="31">
         <activity
-            android:name=".main.MainActivity"
+            android:name=".start.StartActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Starting"
             android:screenOrientation="landscape"
@@ -24,6 +24,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".main.MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Experiments2"
+            android:screenOrientation="landscape"
+            >
         </activity>
         <meta-data
             android:name="preloaded_fonts"

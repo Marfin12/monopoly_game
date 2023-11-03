@@ -180,7 +180,7 @@
             app:layout_constraintGuide_percent="0.799" />
 
 
-        <com.example.experiments2.component.GameNormalButton
+        <com.example.experiments2.component.button.GameNormalButton
             android:id="@+id/btn_game_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

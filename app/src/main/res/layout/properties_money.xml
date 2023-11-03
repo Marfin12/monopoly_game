@@ -112,7 +112,7 @@
             tools:itemCount="3"
             />
 
-        <com.example.experiments2.component.GameNormalButton
+        <com.example.experiments2.component.button.GameNormalButton
             android:id="@+id/btn_game_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

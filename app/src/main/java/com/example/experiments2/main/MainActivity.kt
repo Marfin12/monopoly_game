@@ -8,7 +8,6 @@ import android.view.Display
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.experiments2.card.CardAdapter
 import com.example.experiments2.databinding.ActivityMainBinding
@@ -46,7 +45,6 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
     override var isShowRv = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

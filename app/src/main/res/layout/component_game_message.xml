@@ -71,14 +71,14 @@
         app:layout_constraintStart_toStartOf="@id/holder_bg_message"
         >
 
-        <com.example.experiments2.component.GameNormalButton
+        <com.example.experiments2.component.button.GameNormalButton
             android:id="@+id/positive_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:text="Yes, I do"
             />
 
-        <com.example.experiments2.component.GameGrayButton
+        <com.example.experiments2.component.button.GameGrayButton
             android:id="@+id/negative_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
