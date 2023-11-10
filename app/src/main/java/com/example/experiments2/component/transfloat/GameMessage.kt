@@ -1,25 +1,22 @@
-package com.example.experiments2.component
+package com.example.experiments2.component.transfloat
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.experiments2.R
+import com.example.experiments2.component.button.GameGrayButton
+import com.example.experiments2.component.button.GameNormalButton
 
 
-class GameNormalMessage @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    ConstraintLayout(context, attrs, defStyleAttr) {
+class GameMessage @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    GameTransfloat(context, attrs, defStyleAttr) {
 
     var onPositiveButtonClick: (() -> Unit)? = null
     var onNegativeButtonClick: (() -> Unit)? = null
 
-    init {
-        init(attrs)
-    }
-
-    private fun init(attrs: AttributeSet?) {
-        View.inflate(context, R.layout.message_normal, this)
+    override fun init(attrs: AttributeSet?, layoutId: Int?) {
+        super.init(attrs, R.layout.component_transfloat_message)
 
         val ta = context.obtainStyledAttributes(attrs, R.styleable.GameMessage)
         try {
@@ -34,12 +31,16 @@ class GameNormalMessage @JvmOverloads constructor(context: Context, attrs: Attri
         }
     }
 
+    override fun onTransparentDismiss(isClickable: Boolean) {
+        super.onTransparentDismiss(false)
+    }
+
     fun show(title: String, message: String, positiveButton: String? = null, negativeButton: String? = null) {
         this.visibility = View.VISIBLE
         generateMessage(title, message, positiveButton, negativeButton)
     }
 
-    fun dismiss() {
+    private fun dismiss() {
         this.visibility = View.GONE
     }
 

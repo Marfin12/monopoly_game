@@ -4,14 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.4650833129882813" />
+        <entry key="app/src/main/res/drawable/bg_radient.xml" value="0.1435" />
         <entry key="app/src/main/res/drawable/gray_rounded_bg.xml" value="0.109" />
+        <entry key="app/src/main/res/drawable/ic_settings.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/navy_rounded_bg_32_rad.xml" value="0.151" />
+        <entry key="app/src/main/res/drawable/splash_background.xml" value="0.1435" />
         <entry key="app/src/main/res/drawable/white_rounded_bg.xml" value="0.108" />
         <entry key="app/src/main/res/font/poppins_light.xml" value="0.21561181434599155" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2515527950310559" />
+        <entry key="app/src/main/res/layout/activity_menu.xml" value="0.21452894438138478" />
+        <entry key="app/src/main/res/layout/activity_start.xml" value="0.2341774269386574" />
         <entry key="app/src/main/res/layout/asset_card_item.xml" value="0.47752808988764045" />
         <entry key="app/src/main/res/layout/asset_item.xml" value="0.578857496918225" />
-        <entry key="app/src/main/res/layout/asset_price_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/asset_price_item.xml" value="0.7950027465820313" />
         <entry key="app/src/main/res/layout/bottom_city.xml" value="0.4476440429687501" />
         <entry key="app/src/main/res/layout/button_white_normal.xml" value="0.726530612244898" />
         <entry key="app/src/main/res/layout/card_item.xml" value="0.283763277693475" />
@@ -20,17 +25,31 @@
         <entry key="app/src/main/res/layout/city_right.xml" value="0.23151917388473736" />
         <entry key="app/src/main/res/layout/city_top.xml" value="0.1300925925925926" />
         <entry key="app/src/main/res/layout/component_button.xml" value="0.12824074074074074" />
-        <entry key="app/src/main/res/layout/component_game_button.xml" value="0.19927536231884058" />
+        <entry key="app/src/main/res/layout/component_game_button.xml" value="0.9382203696430594" />
         <entry key="app/src/main/res/layout/component_game_guideline.xml" value="0.19927536231884058" />
         <entry key="app/src/main/res/layout/component_game_item.xml" value="0.1300925925925926" />
         <entry key="app/src/main/res/layout/component_game_label.xml" value="0.2224038386690444" />
         <entry key="app/src/main/res/layout/component_game_message.xml" value="0.19927536231884058" />
+        <entry key="app/src/main/res/layout/component_game_transfloat.xml" value="0.1721014492753623" />
+        <entry key="app/src/main/res/layout/component_game_transfloat_card_room.xml" value="0.1721014492753623" />
+        <entry key="app/src/main/res/layout/component_game_transfloat_message.xml" value="0.1721014492753623" />
         <entry key="app/src/main/res/layout/component_multi_guideline.xml" value="0.31953560158058447" />
+        <entry key="app/src/main/res/layout/component_transfloat.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/component_transfloat_message.xml" value="0.11990740740740741" />
+        <entry key="app/src/main/res/layout/component_transfloat_profile.xml" value="0.11990740740740741" />
+        <entry key="app/src/main/res/layout/component_transfloat_roomcard.xml" value="0.1721014492753623" />
+        <entry key="app/src/main/res/layout/component_transfloat_settings.xml" value="0.1925178810402199" />
         <entry key="app/src/main/res/layout/deleted_main.xml" value="0.24506405300564232" />
+        <entry key="app/src/main/res/layout/fragment_create_game.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_join_game.xml" value="0.12667660208643816" />
         <entry key="app/src/main/res/layout/game_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/game_content.xml" value="0.1" />
         <entry key="app/src/main/res/layout/game_loading_motion.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/game_overlay.xml" value="0.30264019616670357" />
+        <entry key="app/src/main/res/layout/game_overlay.xml" value="0.29096477794793263" />
+        <entry key="app/src/main/res/layout/item_asset.xml" value="1.3816549771073938" />
+        <entry key="app/src/main/res/layout/item_card.xml" value="0.11990740740740741" />
+        <entry key="app/src/main/res/layout/item_money.xml" value="0.11990740740740741" />
+        <entry key="app/src/main/res/layout/item_room.xml" value="0.2370848708487085" />
         <entry key="app/src/main/res/layout/left_city.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/main_properties.xml" value="0.3452088452088452" />
         <entry key="app/src/main/res/layout/message_normal.xml" value="0.2761550903320311" />
@@ -43,6 +62,8 @@
         <entry key="app/src/main/res/layout/properties1.xml" value="0.25745257452574527" />
         <entry key="app/src/main/res/layout/properties2.xml" value="0.21111945905334334" />
         <entry key="app/src/main/res/layout/properties3.xml" value="0.3083332417721989" />
+        <entry key="app/src/main/res/layout/properties_main.xml" value="0.266735324407827" />
+        <entry key="app/src/main/res/layout/properties_my_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/right_city.xml" value="0.1" />
         <entry key="app/src/main/res/layout/top_city.xml" value="0.5561546231493537" />
       </map>

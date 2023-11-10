@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="120dp"
-    android:layout_height="match_parent"
-    >
+    android:layout_width="0dp"
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_left_menu"
@@ -63,14 +61,15 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.683" />
 
-        <com.example.experiments2.component.GameNormalLabel
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_holder_name_bg"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:text="Pumi"
+            android:scaleType="fitXY"
+            android:src="@drawable/green_button_bg"
             app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_holder_name_bg"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end_iv_holder_name_bg"
-            app:layout_constraintStart_toStartOf="@id/guideline_start_iv_holder_name_bg"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end_iv_profile"
+            app:layout_constraintStart_toStartOf="@id/guideline_start_iv_profile"
             app:layout_constraintTop_toTopOf="@id/guideline_top_iv_holder_name_bg" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -86,20 +85,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.216" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_start_iv_holder_name_bg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.2" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_end_iv_holder_name_bg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.68" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_holder_info"
@@ -170,17 +155,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.518" />
+            app:layout_constraintGuide_percent="0.468" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_bottom_holder_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.799" />
+            app:layout_constraintGuide_percent="0.749" />
 
+        <TextView
+            android:id="@+id/tv_player_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pumi"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:fontFamily="@font/poppins_light"
+            app:layout_constraintBottom_toBottomOf="@id/iv_holder_name_bg"
+            app:layout_constraintEnd_toEndOf="@id/iv_holder_name_bg"
+            app:layout_constraintStart_toStartOf="@id/iv_holder_name_bg"
+            app:layout_constraintTop_toTopOf="@id/iv_holder_name_bg" />
 
-        <com.example.experiments2.component.GameNormalButton
+        <com.example.experiments2.component.button.GameNormalButton
             android:id="@+id/btn_game_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -188,6 +185,16 @@
             app:layout_constraintEnd_toEndOf="@id/guideline_end_game_skip"
             app:layout_constraintStart_toStartOf="@id/guideline_start_game_skip"
             app:text="Skip" />
+
+        <com.example.experiments2.component.button.GameNormalButton
+            android:id="@+id/game_btn_say_no"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:text="Say No"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_button_say_no"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end_game_skip"
+            app:layout_constraintStart_toStartOf="@id/guideline_start_game_skip"
+            />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start_game_skip"
@@ -201,14 +208,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.799" />
+            app:layout_constraintGuide_percent="0.759" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_bottom_button_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.93" />
+            app:layout_constraintGuide_percent="0.86" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_bottom_button_say_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

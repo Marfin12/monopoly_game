@@ -23,7 +23,7 @@ open class CardAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.card_item, parent, false)
+            .inflate(R.layout.item_card, parent, false)
 
         return CardViewHolder(adapterLayout)
     }
@@ -49,7 +49,7 @@ open class CardAdapter(
 
     inner class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val rootParent: ConstraintLayout = itemView.findViewById(R.id.root_parent_card)
-        val cardImage: ImageView = itemView.findViewById(R.id.iv_card)
+        val cardImage: ImageView = itemView.findViewById(R.id.iv_card_action)
         val rootAsset: ConstraintLayout = itemView.findViewById(R.id.root_asset_card)
         val rootMoney: ConstraintLayout = itemView.findViewById(R.id.root_money_card)
     }

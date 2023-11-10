@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.experiments2.R
 
+
 class GameNormalLabel @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 
@@ -16,7 +17,7 @@ class GameNormalLabel @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     private fun init(attrs: AttributeSet?) {
-        View.inflate(context, R.layout.component_game_label, this)
+        View.inflate(context, R.layout.component_label, this)
 
         val ta = context.obtainStyledAttributes(attrs, R.styleable.GameButton)
         try {

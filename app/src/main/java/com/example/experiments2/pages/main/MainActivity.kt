@@ -1,7 +1,9 @@
-package com.example.experiments2.main
+package com.example.experiments2.pages.main
 
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.hardware.display.DisplayManager
 import android.os.Bundle
 import android.view.Display
@@ -13,10 +15,18 @@ import com.example.experiments2.card.CardAdapter
 import com.example.experiments2.databinding.ActivityMainBinding
 import com.example.experiments2.money.MoneyAdapter
 import com.example.experiments2.money.MoneyData
+import com.example.experiments2.pages.menu.MenuActivity
 import com.example.experiments2.util.CardUtil
 
 
 class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
+
+    companion object {
+        fun launch(activity: Activity) {
+            val intent = Intent(activity, MainActivity::class.java)
+            activity.startActivity(intent)
+        }
+    }
 
     private lateinit var binding: ActivityMainBinding
 
@@ -67,10 +77,10 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
         val x = Math.pow(dm.widthPixels / density, 2.0)
         val y = Math.pow(dm.heightPixels / density, 2.0)
         val screenInches = Math.sqrt(x + y)
-        println("inches: {} $screenInches")
-
-        println(height)
-        println(width)
+//        println("inches: {} $screenInches")
+//
+//        println(height)
+//        println(width)
 
         initAnim()
         initComponent()
@@ -94,25 +104,25 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
 
     private fun initComponent() {
         with(binding.gameOverlay) {
-            mainProperties.ivHolderInfo.setOnClickListener {
+            propertiesMain.ivHolderInfo.setOnClickListener {
                 showProfileProperties()
             }
-            profileProperties.btnGameBack.setOnClickListener {
+            propertiesProfile.btnGameBack.setOnClickListener {
                 showMainProperties()
             }
-            profileProperties.ivHolderMoneyInfo.setOnClickListener {
+            propertiesProfile.ivHolderMoneyInfo.setOnClickListener {
                 showMoneyProperties()
             }
-            moneyProperties.btnGameBack.setOnClickListener {
+            propertiesMoney.btnGameBack.setOnClickListener {
                 showProfileProperties()
             }
-            mainProperties.ivHolderCard.setOnClickListener {
+            propertiesMain.ivHolderCard.setOnClickListener {
                 if (isShowRv) hidePlayerCard() else showPlayerCard()
             }
-            playerCardList.root.setOnClickListener {
+            propertiesMyCard.root.setOnClickListener {
                 hidePlayerCard()
             }
-            mainProperties.btnGameSkip.setOnClickListener {
+            propertiesMain.btnGameSkip.setOnClickListener {
                 if (playerLoadingTurn == 0) finishPlayerTurn(listImageView[playerLoadingTurn])
             }
             binding.gameContent.bottomCity.root.setOnClickListener {
@@ -122,13 +132,13 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
     }
 
     private fun initAdapterMoney() {
-        binding.gameOverlay.moneyProperties.rvMoneyList.adapter = moneyAdapter
-        binding.gameOverlay.moneyProperties.rvMoneyList.layoutManager = LinearLayoutManager(this)
+        binding.gameOverlay.propertiesMoney.rvMoneyList.adapter = moneyAdapter
+        binding.gameOverlay.propertiesMoney.rvMoneyList.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initAdapterCard() {
-        binding.gameOverlay.playerCardList.rvListCard.adapter = playerCardAdapter
-        binding.gameOverlay.playerCardList.rvListCard.layoutManager = LinearLayoutManager(
+        binding.gameOverlay.propertiesMyCard.rvListCard.adapter = playerCardAdapter
+        binding.gameOverlay.propertiesMyCard.rvListCard.layoutManager = LinearLayoutManager(
             this, LinearLayoutManager.HORIZONTAL, false
         )
         playerCardAdapter.onAssetItemClick = { cardData, itemAsset ->

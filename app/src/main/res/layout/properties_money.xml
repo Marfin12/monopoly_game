@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="120dp"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_left_menu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/left_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#fff" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_profile_new"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/profile"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_profile"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end_iv_profile"
+            app:layout_constraintStart_toStartOf="@id/guideline_start_iv_profile"
+            app:layout_constraintTop_toTopOf="@id/guideline_top_iv_profile" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_top_iv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.02" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_bottom_iv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.192" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start_iv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.200" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end_iv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.683" />
+
+        <com.example.experiments2.component.GameNormalLabel
+            android:id="@+id/iv_holder_name_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:text="Pumi"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_holder_name_bg"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end_iv_holder_name_bg"
+            app:layout_constraintStart_toStartOf="@id/guideline_start_iv_holder_name_bg"
+            app:layout_constraintTop_toTopOf="@id/guideline_top_iv_holder_name_bg" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_top_iv_holder_name_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_bottom_iv_holder_name_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.216" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start_iv_holder_name_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end_iv_holder_name_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.68" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_money_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@id/iv_holder_name_bg"
+            app:layout_constraintEnd_toEndOf="@id/iv_holder_name_bg"
+            app:layout_constraintTop_toBottomOf="@id/iv_holder_name_bg"
+            app:layout_constraintBottom_toTopOf="@id/btn_game_back"
+            tools:listitem="@layout/item_money"
+            tools:itemCount="3"
+            />
+
+        <com.example.experiments2.component.button.GameNormalButton
+            android:id="@+id/btn_game_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:text="Back"
+            app:symbol="↩"
+            app:layout_constraintStart_toStartOf="@id/guideline_start_btn_game_back"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end_btn_game_back"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_btn_game_back"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start_btn_game_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.046" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end_btn_game_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.799" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_bottom_btn_game_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.93" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

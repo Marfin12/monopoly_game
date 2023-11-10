@@ -23,7 +23,7 @@
 
     <include
         android:id="@+id/animated_card"
-        layout="@layout/card_item"
+        layout="@layout/item_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"

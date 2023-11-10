@@ -1,4 +1,4 @@
-package com.example.experiments2.main
+package com.example.experiments2.pages.main
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -105,7 +105,7 @@ interface MainScenario {
         isCardClicked = true
         scenarioBinding.gameContent.animatedCard.root.visibility = View.VISIBLE
         scenarioBinding.gameContent.animatedCard.rootAssetCard.ivBuildingCard.visibility = View.VISIBLE
-        scenarioBinding.gameOverlay.playerCardList.root.visibility = View.GONE
+        scenarioBinding.gameOverlay.propertiesMyCard.root.visibility = View.GONE
 
         playGif(context, R.raw.sparkle, scenarioBinding.gameContent.animatedCard.ivCardEffect, 1)
         MediaPlayer.create(context, R.raw.whoosh).start()
@@ -140,7 +140,7 @@ interface MainScenario {
         if (cardData.assetPriceList != null) {
             generateAssetCardType(
                 cardData,
-                scenarioBinding.gameContent.animatedCard.ivCard,
+                scenarioBinding.gameContent.animatedCard.ivCardAction,
                 scenarioBinding.gameContent.animatedCard.rootAssetCard.root,
                 scenarioBinding.gameContent.animatedCard.rootMoneyCard.root,
                 context
@@ -148,7 +148,7 @@ interface MainScenario {
         } else {
             generateNonAssetCardType(
                 cardData,
-                scenarioBinding.gameContent.animatedCard.ivCard,
+                scenarioBinding.gameContent.animatedCard.ivCardAction,
                 scenarioBinding.gameContent.animatedCard.rootAssetCard.root,
                 scenarioBinding.gameContent.animatedCard.rootMoneyCard.root
             )

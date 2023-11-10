@@ -3,7 +3,10 @@
     <declare-styleable name="GameButton">
         <attr name="text" format="string" />
         <attr name="textSize" format="dimension" />
-        <attr name="constraintLayoutId" format="reference" />
+        <attr name="button_textPaddingTop" format="dimension" />
+        <attr name="button_textPaddingBottom" format="dimension" />
+        <attr name="button_textPaddingRight" format="dimension" />
+        <attr name="button_textPaddingLeft" format="dimension" />
         <attr name="symbol" format="string" />
         <attr name="symbol_top" format="integer" />
         <attr name="symbol_start" format="integer" />

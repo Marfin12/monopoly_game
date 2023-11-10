@@ -2,16 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <View
-        android:id="@+id/view_bg_message"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black"
-        android:alpha="0.5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    android:layout_height="match_parent"
+    >
 
     <ImageView
         android:id="@+id/holder_bg_message"
@@ -27,9 +19,10 @@
 
     <View
         android:id="@+id/view_title"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="54dp"
         android:background="@drawable/navy_rounded_bg_32_rad"
+        android:layout_marginHorizontal="12dp"
         app:layout_constraintEnd_toEndOf="@id/holder_bg_message"
         app:layout_constraintStart_toStartOf="@id/holder_bg_message"
         app:layout_constraintTop_toTopOf="@id/holder_bg_message" />
@@ -71,14 +64,14 @@
         app:layout_constraintStart_toStartOf="@id/holder_bg_message"
         >
 
-        <com.example.experiments2.component.GameNormalButton
+        <com.example.experiments2.component.button.GameNormalButton
             android:id="@+id/positive_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:text="Yes, I do"
             />
 
-        <com.example.experiments2.component.GameGrayButton
+        <com.example.experiments2.component.button.GameGrayButton
             android:id="@+id/negative_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

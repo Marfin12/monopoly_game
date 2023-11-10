@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_card"
+            android:id="@+id/iv_card_action"
             android:layout_width="80dp"
             android:layout_height="140dp"
             android:src="@drawable/action_card_pass_go"
@@ -23,12 +23,12 @@
 
         <include
             android:id="@+id/root_asset_card"
-            layout="@layout/asset_card_item"
+            layout="@layout/item_asset"
             android:visibility="gone" />
 
         <include
             android:id="@+id/root_money_card"
-            layout="@layout/money_item"
+            layout="@layout/item_money"
             android:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
