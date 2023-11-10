@@ -18,6 +18,8 @@ import com.example.experiments2.util.Util.itemAdapterX
 class GameRoomCard @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     GameTransfloat(context, attrs, defStyleAttr) {
 
+    var onDismiss: (() -> Unit)? = null
+
     override fun init(attrs: AttributeSet?, layoutId: Int?) {
         super.init(attrs, R.layout.component_transfloat_roomcard)
 
@@ -34,11 +36,19 @@ class GameRoomCard @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     override fun onTransparentDismiss(isClickable: Boolean) {
         super.onTransparentDismiss(true)
+        this.onDismiss?.invoke()
     }
 
-    fun show(title: String) {
+    fun show(title: String, onDismiss: (() -> Unit)) {
         this.visibility = View.VISIBLE
         findViewById<TextView>(R.id.tv_room_title).text = title
+        this.onDismiss = onDismiss
+    }
+
+    fun onStartButtonClick(callback: (() -> Unit)) {
+        findViewById<GameNormalButton>(R.id.btn_game_start).setOnClickListener {
+            callback.invoke()
+        }
     }
 
     private fun generateRoom(title: String?) {

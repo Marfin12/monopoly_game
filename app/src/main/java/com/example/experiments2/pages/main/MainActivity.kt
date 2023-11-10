@@ -1,7 +1,9 @@
 package com.example.experiments2.pages.main
 
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.hardware.display.DisplayManager
 import android.os.Bundle
 import android.view.Display
@@ -13,10 +15,18 @@ import com.example.experiments2.card.CardAdapter
 import com.example.experiments2.databinding.ActivityMainBinding
 import com.example.experiments2.money.MoneyAdapter
 import com.example.experiments2.money.MoneyData
+import com.example.experiments2.pages.menu.MenuActivity
 import com.example.experiments2.util.CardUtil
 
 
 class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
+
+    companion object {
+        fun launch(activity: Activity) {
+            val intent = Intent(activity, MainActivity::class.java)
+            activity.startActivity(intent)
+        }
+    }
 
     private lateinit var binding: ActivityMainBinding
 

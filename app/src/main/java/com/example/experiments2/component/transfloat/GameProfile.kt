@@ -14,6 +14,7 @@ class GameProfile @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     var onPositiveButtonClick: (() -> Unit)? = null
     var onNegativeButtonClick: (() -> Unit)? = null
+    var onDismiss: (() -> Unit)? = null
 
     override fun init(attrs: AttributeSet?, layoutId: Int?) {
         super.init(attrs, R.layout.component_transfloat_profile)
@@ -30,10 +31,12 @@ class GameProfile @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     override fun onTransparentDismiss(isClickable: Boolean) {
         super.onTransparentDismiss(false)
+        this.onDismiss?.invoke()
     }
 
-    fun show() {
+    fun show(onDismiss: (() -> Unit)) {
         this.visibility = View.VISIBLE
+        this.onDismiss = onDismiss
     }
 
     private fun dismiss() {

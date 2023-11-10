@@ -14,6 +14,7 @@ class GameSettings @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     var onPositiveButtonClick: (() -> Unit)? = null
     var onNegativeButtonClick: (() -> Unit)? = null
+    var onDismiss: (() -> Unit)? = null
 
     override fun init(attrs: AttributeSet?, layoutId: Int?) {
         super.init(attrs, R.layout.component_transfloat_settings)
@@ -37,13 +38,19 @@ class GameSettings @JvmOverloads constructor(context: Context, attrs: AttributeS
         super.onTransparentDismiss(false)
     }
 
-    fun show(positiveButton: String? = null, negativeButton: String? = null) {
+    fun show(
+        positiveButton: String? = null,
+        negativeButton: String? = null,
+        onDismiss: (() -> Unit)
+    ) {
         this.visibility = View.VISIBLE
         generateMessage(positiveButton, negativeButton)
+        this.onDismiss = onDismiss
     }
 
     private fun dismiss() {
         this.visibility = View.GONE
+        this.onDismiss?.invoke()
     }
 
     private fun generateMessage(
