@@ -29,4 +29,14 @@
         app:layout_constraintStart_toStartOf="@id/iv_room"
         app:layout_constraintTop_toTopOf="@id/iv_room" />
 
+    <com.example.experiments2.component.button.GameNormalButton
+        android:id="@+id/btn_game_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_room"
+        app:layout_constraintEnd_toEndOf="@id/iv_room"
+        app:layout_constraintStart_toStartOf="@id/iv_room"
+        app:text="Start" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.experiments2.databinding.ActivityMenuBinding
+import com.example.experiments2.pages.main.MainActivity
 
 
 class MenuActivity : AppCompatActivity() {
@@ -50,6 +51,10 @@ class MenuActivity : AppCompatActivity() {
             binding.gameProfile.show(onDismiss = {
                 onDismissTransfloat()
             })
+        }
+
+        binding.gameRoomCard.onStartButtonClick {
+            MainActivity.launch(this@MenuActivity)
         }
     }
 
