@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.experiments2.databinding.ActivityMenuBinding
@@ -29,7 +30,17 @@ class MenuActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.tabLayout.setupWithViewPager(binding.viewPager)
-        binding.viewPager.adapter = PagerAdapter(supportFragmentManager)
+        binding.viewPager.adapter = PagerAdapter(supportFragmentManager) { title ->
+            binding.gameRoomCard.show(title)
+        }
+
+        binding.ivMore.setOnClickListener {
+            binding.gameSettings.show("ok", "reset")
+        }
+
+        binding.ivProfile.setOnClickListener {
+            binding.gameProfile.show()
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -45,6 +56,7 @@ class MenuActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        finish()
+        super.onBackPressed()
+        moveTaskToBack(true)
     }
 }

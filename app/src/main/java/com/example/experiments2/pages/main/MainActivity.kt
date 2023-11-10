@@ -67,10 +67,10 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
         val x = Math.pow(dm.widthPixels / density, 2.0)
         val y = Math.pow(dm.heightPixels / density, 2.0)
         val screenInches = Math.sqrt(x + y)
-        println("inches: {} $screenInches")
-
-        println(height)
-        println(width)
+//        println("inches: {} $screenInches")
+//
+//        println(height)
+//        println(width)
 
         initAnim()
         initComponent()

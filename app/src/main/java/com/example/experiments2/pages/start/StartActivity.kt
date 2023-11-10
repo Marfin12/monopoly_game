@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.experiments2.databinding.ActivityStartBinding
 import com.example.experiments2.pages.menu.MenuActivity
+import com.example.experiments2.pages.menu.room.RoomAdapter
+import com.example.experiments2.pages.menu.room.RoomData
 
 
 class StartActivity : AppCompatActivity() {

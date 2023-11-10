@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="@id/guideline_end_menu_properties"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.example.experiments2.component.GameNormalMessage
+    <com.example.experiments2.component.transfloat.GameMessage
         android:id="@+id/game_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

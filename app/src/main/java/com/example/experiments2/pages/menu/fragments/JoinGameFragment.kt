@@ -5,14 +5,48 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.experiments2.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.experiments2.databinding.FragmentJoinGameBinding
+import com.example.experiments2.pages.menu.room.RoomAdapter
+import com.example.experiments2.pages.menu.room.RoomData
 
 
 class JoinGameFragment : Fragment() {
+
+    private lateinit var binding: FragmentJoinGameBinding
+    private lateinit var joinRoomCard: ((String) -> Unit)
+    private val roomCardAdapter = RoomAdapter(
+        mutableListOf(
+            RoomData("Room 1"),
+            RoomData("Room 2"),
+            RoomData("Room 3"),
+            RoomData("Room 4")
+        )
+    )
+
+    fun setJoinRoomCard(joinRoomCard: ((String) -> Unit)) {
+        this.joinRoomCard = joinRoomCard
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_join_game, container, false)
+        binding = FragmentJoinGameBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        if (activity != null) {
+
+            binding.rvListCard.adapter = roomCardAdapter
+            binding.rvListCard.layoutManager = LinearLayoutManager(
+                context, LinearLayoutManager.HORIZONTAL, false
+            )
+            roomCardAdapter.onItemClick = {
+                this.joinRoomCard(it.title)
+            }
+            println(roomCardAdapter.itemCount)
+        }
     }
 }

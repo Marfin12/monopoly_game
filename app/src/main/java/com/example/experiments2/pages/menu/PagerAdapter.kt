@@ -7,15 +7,33 @@ import com.example.experiments2.pages.menu.fragments.CreateGameFragment
 import com.example.experiments2.pages.menu.fragments.JoinGameFragment
 
 
-class PagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class PagerAdapter(
+    fragmentManager: FragmentManager,
+    roomCard: ((String) -> Unit)
+) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
+    private var roomCard: ((String) -> Unit)
+
+    init {
+        this.roomCard = roomCard
+    }
+
     override fun getCount(): Int {
         return 2
     }
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> JoinGameFragment()
-            1 -> CreateGameFragment()
+            0 -> {
+                val fragment = JoinGameFragment()
+                fragment.setJoinRoomCard(this.roomCard)
+                return fragment
+            }
+            1 -> {
+                val fragment = CreateGameFragment()
+                fragment.setCreateRoomCard(this.roomCard)
+                return fragment
+            }
             else -> throw IllegalArgumentException("Invalid position")
         }
     }
