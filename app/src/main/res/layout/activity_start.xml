@@ -13,23 +13,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:text="Join As Guest"
         app:button_textPaddingTop="7dp"
         app:button_textPaddingBottom="7dp"
+        app:buttonColor="@color/gray_700"
+        app:textColor="@color/white"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list_card"
-        android:layout_width="match_parent"
+    <com.example.experiments2.component.button.GameNormalButton
+        android:id="@+id/btn_connect_google"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_gravity="center_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:text="Connect"
+        app:symbol_logo="@drawable/google_logo"
+        app:button_textPaddingLeft="28dp"
+        app:button_textPaddingTop="7dp"
+        app:button_textPaddingBottom="7dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
