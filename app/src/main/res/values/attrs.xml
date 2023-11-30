@@ -20,4 +20,12 @@
         <attr name="positive_button" format="string" />
         <attr name="negative_button" format="string"/>
     </declare-styleable>
+    <declare-styleable name="Arrow">
+        <attr name="arrowText" format="string" />
+        <attr name="arrowShape" format="enum">
+            <enum name="STRAIGHT" value="0"/>
+            <enum name="CURVE" value="1"/>
+            <enum name="CURVE_DOWN" value="2"/>
+        </attr>
+    </declare-styleable>
 </resources>

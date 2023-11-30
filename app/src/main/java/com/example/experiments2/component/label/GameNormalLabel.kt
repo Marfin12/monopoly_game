@@ -1,4 +1,4 @@
-package com.example.experiments2.component
+package com.example.experiments2.component.label
 
 import android.content.Context
 import android.util.AttributeSet

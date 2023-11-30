@@ -2,14 +2,14 @@ package com.example.experiments2.component.label
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.experiments2.R
 
 
-class GameNormalLabel @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class GameNumberRank @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 
     init {
@@ -17,17 +17,28 @@ class GameNormalLabel @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     private fun init(attrs: AttributeSet?) {
-        View.inflate(context, R.layout.component_label, this)
+        View.inflate(context, R.layout.component_label_rank, this)
 
-        val ta = context.obtainStyledAttributes(attrs, R.styleable.GameButton)
+        val ta = context.obtainStyledAttributes(attrs, R.styleable.Rank)
         try {
-            val text = ta.getString(R.styleable.GameButton_text)
-            val textSize = ta.getDimension(R.styleable.GameButton_textSize, -0.1F)
+            val playerRank = ta.getInt(R.styleable.Rank_playerNumber, 0)
 
-            val textview = findViewById<TextView>(R.id.tv_name)
+            findViewById<TextView>(R.id.tv_rank).text = playerRank.toString()
 
-            textview.text = text
-            if (textSize >= 0) textview.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+            when(playerRank) {
+                1 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
+                    resources.getColor(R.color.yellow_700, context.theme)
+                )
+                2 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
+                    resources.getColor(R.color.red_400, context.theme)
+                )
+                3 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
+                    resources.getColor(R.color.green_300, context.theme)
+                )
+                4 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
+                    resources.getColor(R.color.blue_900, context.theme)
+                )
+            }
         } finally {
             ta.recycle()
         }
