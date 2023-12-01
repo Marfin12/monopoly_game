@@ -24,6 +24,13 @@
         <attr name="negative_button" format="string"/>
     </declare-styleable>
 
+    <declare-styleable name="Tringular">
+        <attr name="bottomSide" format="boolean" />
+        <attr name="rightSide" format="boolean" />
+        <attr name="topSide" format="boolean" />
+        <attr name="leftSide" format="boolean" />
+    </declare-styleable>
+
     <declare-styleable name="Rank">
         <attr name="playerNumber" format="integer" />
     </declare-styleable>

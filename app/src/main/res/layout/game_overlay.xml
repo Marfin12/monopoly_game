@@ -85,14 +85,15 @@
         android:alpha="0.5"
         />
 
-    <com.example.experiments2.component.label.GameGuideArrow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        app:arrowText="This is test guide arrow wada"
-        app:arrowShape="CURVE_DOWN"
-        app:layout_constraintStart_toStartOf="@id/properties_main"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+    <!-- if the game is first time to ask guide -->
+<!--    <com.example.experiments2.component.label.GameGuideArrow-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="120dp"-->
+<!--        app:arrowText="This is test guide arrow wada"-->
+<!--        app:arrowShape="CURVE_DOWN"-->
+<!--        app:layout_constraintStart_toStartOf="@id/properties_main"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
