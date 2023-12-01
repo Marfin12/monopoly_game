@@ -1,31 +1,27 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/root_money"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_money"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
-<androidx.appcompat.widget.AppCompatImageView
-    android:id="@+id/iv_money_card"
-    android:layout_width="80dp"
-    android:layout_height="140dp"
-    android:paddingBottom="12dp"
-    android:src="@drawable/bg_money_card"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_money_card"
+        android:layout_width="80dp"
+        android:layout_height="140dp"
+        android:paddingBottom="12dp"
+        android:src="@drawable/bg_money_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_money_value"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:paddingBottom="12dp"
         android:layout_marginStart="-1dp"
         android:layout_marginTop="28dp"
+        android:paddingBottom="12dp"
         android:src="@drawable/money_5k"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
