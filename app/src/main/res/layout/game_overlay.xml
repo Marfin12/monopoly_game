@@ -4,6 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.example.experiments2.component.tringular.GameAbandon
+        android:id="@+id/tringular_test2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:leftSide="true"
+        />
+
     <include
         android:id="@+id/properties_my_card"
         layout="@layout/properties_my_card"
@@ -69,6 +76,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.196"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:alpha="0.5"
+        />
+
+    <com.example.experiments2.component.label.GameGuideArrow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        app:arrowText="This is test guide arrow wada"
+        app:arrowShape="CURVE_DOWN"
+        app:layout_constraintStart_toStartOf="@id/properties_main"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
