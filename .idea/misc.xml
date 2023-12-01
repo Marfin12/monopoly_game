@@ -12,12 +12,15 @@
         <entry key="app/src/main/res/drawable/ic_add_room.xml" value="0.111" />
         <entry key="app/src/main/res/drawable/ic_baseline_music_note_24.xml" value="0.1085" />
         <entry key="app/src/main/res/drawable/ic_baseline_texture_24.xml" value="0.1085" />
+        <entry key="app/src/main/res/drawable/ic_calendar.xml" value="0.1275" />
         <entry key="app/src/main/res/drawable/ic_cancel.xml" value="0.111" />
         <entry key="app/src/main/res/drawable/ic_circle.xml" value="0.1085" />
         <entry key="app/src/main/res/drawable/ic_circle_deleted.xml" value="0.111" />
         <entry key="app/src/main/res/drawable/ic_deleted.xml" value="0.1085" />
         <entry key="app/src/main/res/drawable/ic_deleted3.xml" value="0.1085" />
+        <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.1275" />
         <entry key="app/src/main/res/drawable/ic_more.xml" value="0.111" />
+        <entry key="app/src/main/res/drawable/ic_music.xml" value="0.1275" />
         <entry key="app/src/main/res/drawable/ic_outline_circle.xml" value="0.1085" />
         <entry key="app/src/main/res/drawable/ic_pattern_deleted.xml" value="0.111" />
         <entry key="app/src/main/res/drawable/ic_person.xml" value="0.111" />
