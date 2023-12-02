@@ -63,11 +63,11 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.683" />
 
-        <com.example.experiments2.component.GameNormalLabel
+        <com.example.experiments2.component.label.GameNormalLabel
             android:id="@+id/iv_holder_name_bg"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:text="Pumi"
+            app:text="Pumi Arunika"
             app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_holder_name_bg"
             app:layout_constraintEnd_toEndOf="@id/guideline_end_iv_holder_name_bg"
             app:layout_constraintStart_toStartOf="@id/guideline_start_iv_holder_name_bg"
@@ -188,6 +188,19 @@
             app:layout_constraintEnd_toEndOf="@id/guideline_end_game_skip"
             app:layout_constraintStart_toStartOf="@id/guideline_start_game_skip"
             app:text="Skip" />
+
+        <!-- if player idle, this button show instead of skip -->
+        <com.example.experiments2.component.button.GameNormalButton
+            android:id="@+id/btn_game_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_button_skip"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end_game_skip"
+            app:layout_constraintStart_toStartOf="@id/guideline_start_game_skip"
+            app:buttonColor="@color/brown_100"
+            app:textColor="@color/white"
+            app:text="Leave" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start_game_skip"

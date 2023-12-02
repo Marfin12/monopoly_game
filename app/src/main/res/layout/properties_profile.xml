@@ -63,7 +63,7 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.683" />
 
-        <com.example.experiments2.component.GameNormalLabel
+        <com.example.experiments2.component.label.GameNormalLabel
             android:id="@+id/iv_holder_name_bg"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -141,7 +141,7 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.444" />
 
-        <com.example.experiments2.component.GameNormalLabel
+        <com.example.experiments2.component.label.GameNormalLabel
             android:id="@+id/iv_holder_cash_bg"
             android:layout_width="0dp"
             android:layout_height="0dp"

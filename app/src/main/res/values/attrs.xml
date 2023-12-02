@@ -3,11 +3,14 @@
     <declare-styleable name="GameButton">
         <attr name="text" format="string" />
         <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="reference" />
+        <attr name="buttonColor" format="reference" />
         <attr name="button_textPaddingTop" format="dimension" />
         <attr name="button_textPaddingBottom" format="dimension" />
         <attr name="button_textPaddingRight" format="dimension" />
         <attr name="button_textPaddingLeft" format="dimension" />
         <attr name="symbol" format="string" />
+        <attr name="symbol_logo" format="reference" />
         <attr name="symbol_top" format="integer" />
         <attr name="symbol_start" format="integer" />
         <attr name="symbol_end" format="integer" />
@@ -19,5 +22,25 @@
         <attr name="message" format="string" />
         <attr name="positive_button" format="string" />
         <attr name="negative_button" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="Tringular">
+        <attr name="bottomSide" format="boolean" />
+        <attr name="rightSide" format="boolean" />
+        <attr name="topSide" format="boolean" />
+        <attr name="leftSide" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="Rank">
+        <attr name="playerNumber" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="Arrow">
+        <attr name="arrowText" format="string" />
+        <attr name="arrowShape" format="enum">
+            <enum name="STRAIGHT" value="0"/>
+            <enum name="CURVE" value="1"/>
+            <enum name="CURVE_DOWN" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>

@@ -19,52 +19,15 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_left_side"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:rotation="-180"
-        android:scaleType="fitXY"
-        android:src="@drawable/right_sector"
-        app:layout_constraintStart_toStartOf="@id/guideline_game_start"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_iv_left_side"
-        app:layout_constraintTop_toTopOf="@id/guideline_top_iv_left_side"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_left_side"
+    <com.example.experiments2.component.tringular.GameTringular
+        android:id="@+id/tringular_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:bottomSide="true"
+        app:rightSide="true"
+        app:topSide="true"
+        app:leftSide="true"
         />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top_iv_left_side"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.09" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_bottom_iv_left_side"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_end_iv_left_side"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="@id/guideline_game_start"
-        app:layout_constraintGuide_percent="0.54"
-        />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_bottom_side"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/bottom_sector"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_iv_bottom_side"
-        app:layout_constraintTop_toTopOf="@id/guideline_top_iv_bottom_side"
-        app:layout_constraintStart_toStartOf="@id/guideline_start_iv_bottom_side" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_top_iv_bottom_side"
@@ -87,17 +50,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="1.012" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_right_side"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/right_sector"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_right_side"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline_top_iv_right_side"
-        app:layout_constraintStart_toStartOf="@id/guideline_start_iv_right_side" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start_iv_right_side"
         android:layout_width="wrap_content"
@@ -118,18 +70,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.915" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_top_side"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:rotation="-180"
-        android:scaleType="fitXY"
-        android:src="@drawable/bottom_sector"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_iv_top_side"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_iv_top_side"
-        app:layout_constraintStart_toStartOf="@id/guideline_start_iv_top_side"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_bottom_iv_top_side"
