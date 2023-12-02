@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.experiments2.component.tringular.GameAbandon
-        android:id="@+id/tringular_test2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:leftSide="true"
-        />
+    <!-- if user abandon -->
+<!--    <com.example.experiments2.component.tringular.GameAbandon-->
+<!--        android:id="@+id/tringular_test2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:leftSide="true"-->
+<!--        />-->
 
     <include
         android:id="@+id/properties_my_card"
