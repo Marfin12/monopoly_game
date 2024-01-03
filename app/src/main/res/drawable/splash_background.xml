@@ -4,6 +4,6 @@
         android:drawable="@drawable/bg_radient"/>
     <item>
         <bitmap android:gravity="center"
-            android:src="@drawable/top_sector"/>
+            android:src="@drawable/splash_monopoly_deal"/>
     </item>
 </layer-list>

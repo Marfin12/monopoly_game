@@ -46,7 +46,7 @@ class JoinGameFragment : Fragment() {
             roomCardAdapter.onItemClick = {
                 this.joinRoomCard(it.title)
             }
-            println(roomCardAdapter.itemCount)
+//            println(roomCardAdapter.itemCount)
         }
     }
 }

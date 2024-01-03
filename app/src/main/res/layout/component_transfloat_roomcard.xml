@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="@id/iv_room" />
 
     <com.example.experiments2.component.button.GameNormalButton
-        android:id="@+id/btn_game_start"
+        android:id="@+id/btn_game_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"

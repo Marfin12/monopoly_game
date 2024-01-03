@@ -28,6 +28,7 @@
         android:paddingEnd="15dp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:gravity="center"
         android:visibility="visible"
         app:fontFamily="@font/libre_baskerville"
         app:layout_constraintStart_toStartOf="parent"

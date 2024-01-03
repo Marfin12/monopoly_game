@@ -19,7 +19,7 @@ import com.example.experiments2.pages.menu.MenuActivity
 import com.example.experiments2.util.CardUtil
 
 
-class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
+class MainActivity(override var context: Context) : AppCompatActivity(), MainVisibility, MainScenario {
 
     companion object {
         fun launch(activity: Activity) {
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
                 if (playerLoadingTurn == 0) finishPlayerTurn(listImageView[playerLoadingTurn])
             }
             binding.gameContent.bottomCity.root.setOnClickListener {
-                onEnemyChooseCard(CardUtil.getDummyPlayerCard(1)[0], this@MainActivity)
+                onEnemyChooseCard(CardUtil.getDummyPlayerCard(1)[0])
             }
         }
     }
@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity(), MainVisibility, MainScenario {
             this, LinearLayoutManager.HORIZONTAL, false
         )
         playerCardAdapter.onAssetItemClick = { cardData, itemAsset ->
-            onCardItemClick(cardData, itemAsset, this@MainActivity)
+            onCardItemClick(cardData, itemAsset)
         }
     }
 

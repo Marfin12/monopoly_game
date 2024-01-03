@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "341021206126",
+    "firebase_url": "https://experiment-monopoly-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "experiment-monopoly",
+    "storage_bucket": "experiment-monopoly.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341021206126:android:de5b580f2f62a04bd4a87f",
+        "android_client_info": {
+          "package_name": "com.example.experiments2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341021206126-q87crcjnk9s8i7a7s9p5q3vnlc5kmm6u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.experiments2",
+            "certificate_hash": "0fcda5dc0e8136f94defed257ea76985d5d867a4"
+          }
+        },
+        {
+          "client_id": "341021206126-c6103973kbojsj455rub9uplb07ah8jv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy3lNRfgQ6UaghRPqGNF3MpEvVcXOWiWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341021206126-c6103973kbojsj455rub9uplb07ah8jv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

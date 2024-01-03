@@ -10,6 +10,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.animation.doOnEnd
 import com.example.experiments2.R
 import com.example.experiments2.card.CardData
+import com.example.experiments2.component.dialog.GameMessage
 import com.example.experiments2.databinding.ActivityMainBinding
 import com.example.experiments2.util.CardUtil.generateAssetCardType
 import com.example.experiments2.util.CardUtil.generateNonAssetCardType
@@ -19,6 +20,8 @@ import com.example.experiments2.util.Util.playGif
 
 
 interface MainScenario {
+    var context: Context
+
     var scenarioBinding: ActivityMainBinding
     val listImageView: MutableList<ImageView>
 
@@ -94,14 +97,14 @@ interface MainScenario {
         setTrianglePlayerExpiry()
 
         if (ivLoading == scenarioBinding.gameBackground.ivLoadingBottomSide)
-            scenarioBinding.gameOverlay.gameMessage.show(
+            GameMessage.newInstance(context).show(
                 "Expiry Message",
                 "Expired!!",
                 "Ok, I understand"
             )
     }
 
-    fun onCardItemClick(cardData: CardData, itemAsset: ImageView, context: Context) {
+    fun onCardItemClick(cardData: CardData, itemAsset: ImageView) {
         isCardClicked = true
         scenarioBinding.gameContent.animatedCard.root.visibility = View.VISIBLE
         scenarioBinding.gameContent.animatedCard.rootAssetCard.ivBuildingCard.visibility = View.VISIBLE
@@ -117,7 +120,7 @@ interface MainScenario {
         animAssetCardDropped(context, scenarioBinding.gameContent.rightCity.buildingRightD)
     }
 
-    fun onEnemyChooseCard(cardData: CardData, context: Context) {
+    fun onEnemyChooseCard(cardData: CardData) {
         val testLocation = scenarioBinding.gameContent.rightCity.buildingRightE
 
         testLocation.post {

@@ -16,62 +16,66 @@ open class GameNormalButton @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) :
     ConstraintLayout(context, attrs, defStyleAttr) {
-
     init {
         init(attrs)
     }
+
+    private var txtButton : TextView? = null
+    private var txtSymbol : TextView? = null
+    private var txtWithSymbol : TextView? = null
+    private var ivSymbol : ImageView? = null
+    private var ivBackground : ImageView? = null
+
+    var text: String = ""
+        set(value) {
+            field = value
+            txtButton?.text = value
+        }
 
     private fun init(attrs: AttributeSet?) {
         View.inflate(context, R.layout.component_button, this)
 
         val ta = context.obtainStyledAttributes(attrs, R.styleable.GameButton)
         try {
-            val txtButton = findViewById<TextView>(R.id.tv_normal_text)
-            val txtSymbol = findViewById<TextView>(R.id.tv_symbol)
-            val txtWithSymbol = findViewById<TextView>(R.id.tv_with_symbol)
-            val ivSymbol = findViewById<ImageView>(R.id.iv_symbol)
-            val ivBackground = findViewById<ImageView>(R.id.holder_bg_button)
+            txtButton = findViewById(R.id.tv_normal_text)
+            txtSymbol = findViewById(R.id.tv_symbol)
+            txtWithSymbol = findViewById(R.id.tv_with_symbol)
+            ivSymbol = findViewById(R.id.iv_symbol)
+            ivBackground = findViewById(R.id.holder_bg_button)
 
-            generateSymbol(ta, txtButton, txtSymbol, txtWithSymbol, ivSymbol)
+            generateSymbol(ta)
             generateButton(ta, txtButton)
             generateButton(ta, txtWithSymbol)
-            generateColor(ta, txtButton, txtSymbol, ivBackground)
+            generateColor(ta)
         } finally {
             ta.recycle()
         }
     }
 
     private fun generateColor(
-        ta: TypedArray,
-        txtButton: TextView,
-        txtWithSymbol: TextView,
-        ivBackground: ImageView
+        ta: TypedArray
     ) {
-        txtButton.setTextColor(
+        txtButton?.setTextColor(
             resources.getColor(
                 ta.getResourceId(R.styleable.GameButton_textColor, R.color.black),
                 context.theme
             )
         )
-        txtWithSymbol.setTextColor(
+        txtWithSymbol?.setTextColor(
             resources.getColor(
                 ta.getResourceId(R.styleable.GameButton_textColor, R.color.black),
                 context.theme
             )
         )
-        ivBackground.setImageResource(ta.getResourceId(
-            R.styleable.GameButton_buttonColor,
-            R.drawable.white_rounded_bg_8_rad
-        ))
+        ivBackground?.setImageResource(
+            ta.getResourceId(
+                R.styleable.GameButton_buttonColor,
+                R.drawable.white_rounded_bg_8_rad
+            )
+        )
     }
 
-    private fun generateSymbol(
-        ta: TypedArray,
-        txtButton: TextView,
-        txtSymbol: TextView,
-        txtWithSymbol: TextView,
-        ivSymbol: ImageView
-    ) {
+    private fun generateSymbol(ta: TypedArray) {
         val symbol = ta.getString(R.styleable.GameButton_symbol)
         val symbolLogo = ta.getResourceId(
             R.styleable.GameButton_symbol_logo,
@@ -85,37 +89,37 @@ open class GameNormalButton @JvmOverloads constructor(
         val text = ta.getString(R.styleable.GameButton_text)
 
         if (symbol.isNullOrBlank() && symbolLogo == 0) {
-            txtButton.text = text
-            txtButton.visibility = View.VISIBLE
-            txtSymbol.visibility = View.GONE
-            txtWithSymbol.visibility = View.GONE
-        }
-        else if(!symbol.isNullOrBlank()) {
-            txtButton.visibility = View.INVISIBLE
-            txtWithSymbol.visibility = View.VISIBLE
-            txtSymbol.visibility = View.VISIBLE
+            txtButton?.text = text
+            txtButton?.visibility = View.VISIBLE
+            txtSymbol?.visibility = View.GONE
+            txtWithSymbol?.visibility = View.GONE
+        } else if (!symbol.isNullOrBlank()) {
+            txtButton?.visibility = View.INVISIBLE
+            txtWithSymbol?.visibility = View.VISIBLE
+            txtSymbol?.visibility = View.VISIBLE
 
-            txtSymbol.text = symbol
+            txtSymbol?.text = symbol
 
-            txtWithSymbol.text = text
-            txtButton.text = text
-            txtSymbol.y += (symbolTop - symbolBottom)
-            txtSymbol.x += (symbolStart - symbolEnd)
-        }
-        else if(symbolLogo != 0) {
-            txtButton.visibility = View.INVISIBLE
-            txtWithSymbol.visibility = View.VISIBLE
-            ivSymbol.visibility = View.VISIBLE
+            txtWithSymbol?.text = text
+            txtButton?.text = text
+            if (txtSymbol != null) {
+                txtSymbol!!.y += (symbolTop - symbolBottom)
+                txtSymbol!!.x += (symbolStart - symbolEnd)
+            }
+        } else if (symbolLogo != 0) {
+            txtButton?.visibility = View.INVISIBLE
+            txtWithSymbol?.visibility = View.VISIBLE
+            ivSymbol?.visibility = View.VISIBLE
 
-            txtWithSymbol.text = text
-            txtButton.text = text
+            txtWithSymbol?.text = text
+            txtButton?.text = text
 
-            ivSymbol.setImageResource(symbolLogo)
+            ivSymbol?.setImageResource(symbolLogo)
         }
     }
 
-    private fun generateButton(ta: TypedArray, tvButton: TextView) {
-        tvButton.setPadding(
+    private fun generateButton(ta: TypedArray, tvButton: TextView?) {
+        tvButton?.setPadding(
             ta.getDimensionPixelSize(
                 R.styleable.GameButton_button_textPaddingLeft,
                 tvButton.paddingLeft

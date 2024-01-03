@@ -2,8 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/transparent">
 
     <ImageView
         android:id="@+id/holder_bg_message"
@@ -27,18 +28,40 @@
         app:layout_constraintStart_toStartOf="@id/holder_bg_message"
         app:layout_constraintTop_toTopOf="@id/holder_bg_message" />
 
-    <TextView
-        android:id="@+id/tv_message_title"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Message Title"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:fontFamily="@font/poppins_light"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@id/view_title"
         app:layout_constraintEnd_toEndOf="@id/view_title"
         app:layout_constraintStart_toStartOf="@id/view_title"
-        app:layout_constraintTop_toTopOf="@id/view_title" />
+        app:layout_constraintTop_toTopOf="@id/view_title"
+        >
+
+        <TextView
+            android:id="@+id/tv_message_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Message Title"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:fontFamily="@font/poppins_light" />
+
+        <ImageView
+            android:id="@+id/iv_message_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_network_error"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
         android:id="@+id/tv_message_content"
@@ -54,6 +77,21 @@
         app:layout_constraintStart_toStartOf="@id/holder_bg_message"
         app:layout_constraintTop_toTopOf="@id/holder_bg_message" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/additional_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="@id/holder_bg_message"
+        app:layout_constraintStart_toStartOf="@id/holder_bg_message"
+        app:layout_constraintTop_toBottomOf="@id/tv_message_content"
+        >
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +106,7 @@
             android:id="@+id/positive_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:text="Yes, I do"
+            tools:text="Yes, I do"
             />
 
         <com.example.experiments2.component.button.GameGrayButton
@@ -76,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            app:text="No, I don't"
+            tools:text="No, I don't"
             />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

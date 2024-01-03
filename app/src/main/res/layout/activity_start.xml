@@ -6,17 +6,121 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_radient"
-    tools:context=".pages.start.StartActivity">
+    tools:context=".pages.start.StartActivity"
+    >
 
-    <com.example.experiments2.component.button.GameNormalButton
-        android:id="@+id/btn_start"
+    <ImageView
+        android:id="@+id/iv_cloud"
+        android:layout_width="180dp"
+        android:layout_height="88dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/cloud_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_city"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/cities_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_monopoly_icon"
+        />
+
+    <ImageView
+        android:id="@+id/iv_monopoly_icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/splash_monopoly_deal"
+        app:layout_constraintStart_toStartOf="@id/guideline_monopoly_word_start"
+        app:layout_constraintEnd_toEndOf="@id/guideline_monopoly_word_end"
+        app:layout_constraintTop_toTopOf="@id/guideline_monopoly_word_top"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_monopoly_word_bottom"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_monopoly_word_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.295"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_monopoly_word_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.73"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_monopoly_word_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.41"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_monopoly_word_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.595"
+        />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/iv_monopoly_icon"
+        app:layout_constraintTop_toTopOf="@id/iv_monopoly_icon"
+        app:layout_constraintBottom_toBottomOf="@id/iv_monopoly_icon"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/iv_button_bg"
+        android:layout_width="400dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/menu_bg"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_button_bg_bottom"
+        app:layout_constraintTop_toTopOf="@id/guideline_button_bg_top"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_button_bg_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1.25"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_button_bg_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"
+        />
+
+    <com.example.experiments2.component.button.GameNormalButton
+        android:id="@+id/btn_join_guest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="@id/guideline_button_guest_top"
+        app:layout_constraintStart_toStartOf="@id/guideline_button_guest_start"
         app:text="Join As Guest"
         app:button_textPaddingTop="7dp"
         app:button_textPaddingBottom="7dp"
@@ -24,14 +128,30 @@
         app:textColor="@color/white"
         />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_button_guest_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.67"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_button_guest_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4"
+        />
+
     <com.example.experiments2.component.button.GameNormalButton
         android:id="@+id/btn_connect_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_start"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_join_guest"
+        app:layout_constraintStart_toStartOf="@id/btn_join_guest"
         app:text="Connect"
         app:symbol_logo="@drawable/google_logo"
         app:button_textPaddingLeft="28dp"

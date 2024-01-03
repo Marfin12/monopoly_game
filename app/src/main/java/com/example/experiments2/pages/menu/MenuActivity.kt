@@ -6,7 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.experiments2.component.dialog.GameProfile
+import com.example.experiments2.component.dialog.GameRoomCard
+import com.example.experiments2.component.dialog.GameSettings
 import com.example.experiments2.databinding.ActivityMenuBinding
 import com.example.experiments2.pages.main.MainActivity
 
@@ -24,7 +26,6 @@ class MenuActivity : AppCompatActivity() {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
         super.onCreate(savedInstanceState)
 
         supportActionBar?.hide()
@@ -34,27 +35,28 @@ class MenuActivity : AppCompatActivity() {
         binding.tabLayout.setupWithViewPager(binding.viewPager)
         binding.viewPager.adapter = PagerAdapter(supportFragmentManager) { title ->
             onShowTransfloat()
-            binding.gameRoomCard.show(title, onDismiss = {
-                onDismissTransfloat()
-            })
+            GameRoomCard.newInstance(this).apply {
+                onDismissListener = { onDismissTransfloat() }
+                show(title, onPositiveButtonClick = {
+                    MainActivity.launch(this@MenuActivity)
+                })
+            }
         }
 
         binding.ivMore.setOnClickListener {
             onShowTransfloat()
-            binding.gameSettings.show("ok", "reset", onDismiss = {
-                onDismissTransfloat()
-            })
+            GameSettings.newInstance(this).apply {
+                onDismissListener = { onDismissTransfloat() }
+                show("ok", "reset")
+            }
         }
 
         binding.ivProfile.setOnClickListener {
             onShowTransfloat()
-            binding.gameProfile.show(onDismiss = {
-                onDismissTransfloat()
-            })
-        }
-
-        binding.gameRoomCard.onStartButtonClick {
-            MainActivity.launch(this@MenuActivity)
+            GameProfile.newInstance(this).apply {
+                onDismissListener = { onDismissTransfloat() }
+                show()
+            }
         }
     }
 

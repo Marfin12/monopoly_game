@@ -20,15 +20,20 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.experiments2.MyApplication.Companion.appResources
+import android.os.Build.MODEL
+import android.os.Parcelable
+import com.example.experiments2.R
+import com.example.experiments2.component.dialog.GameMessage
+import com.example.experiments2.constant.Constant
+import com.example.experiments2.pages.start.StartData
+import com.example.experiments2.util.Util.shuffle
+import com.example.experiments2.viewmodel.ViewModelEnum
+import com.google.gson.Gson
+
 
 
 @Keep
 object Util {
-    @SuppressLint("HardwareIds")
-    fun getAndroidId(context: Context): String {
-        return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-    }
-
     fun playGif(
         context: Context,
         gifResource: Int,
@@ -72,6 +77,25 @@ object Util {
             .into(targetView)
     }
 
+    fun handleErrorMessage(
+        context: Context,
+        vmEnum: ViewModelEnum,
+        error: String?,
+        positiveButtonClick: (() -> Unit)? = null
+    ) {
+        val errorMessage = GameMessage.newInstance(context)
+
+        errorMessage.handleErrorMessage(vmEnum, error, positiveButtonClick)
+    }
+
+    fun showErrorMessage(context: Context, errMsg: String) {
+        GameMessage.newInstance(context).showError(
+            appResources.getString(R.string.error_title),
+            errMsg,
+            appResources.getString(R.string.str_ok)
+        )
+    }
+
     fun View.itemAdapterX(): Float = arrayLocationObj(this)[0].toFloat()
     fun View.itemAdapterY(): Float = arrayLocationObj(this)[1].toFloat()
     fun ConstraintLayout.addViewByLayoutId(layoutId: Int, centerTo: View? = null) {
@@ -103,6 +127,13 @@ object Util {
             this.toFloat(),
             appResources.displayMetrics
         ).toInt()
+    }
+
+    fun String.shuffle() : String {
+        val shuffledText = this.toCharArray().toMutableList()
+        shuffledText.shuffle()
+
+        return String(shuffledText.toCharArray())
     }
 
     private fun arrayLocationObj(obj: View): IntArray {
