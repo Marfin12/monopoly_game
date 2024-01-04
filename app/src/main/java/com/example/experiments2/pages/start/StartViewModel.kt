@@ -2,14 +2,14 @@ package com.example.experiments2.pages.start
 
 import android.app.Activity
 import android.content.Context
-import com.example.experiments2.network.FirebaseRepository
+import com.example.experiments2.network.repository.StartRepository
 import com.example.experiments2.network.FirebaseUtil.firebaseObserver
 import com.example.experiments2.viewmodel.ViewModelBase
 import com.example.experiments2.viewmodel.ViewModelData
 import com.example.experiments2.viewmodel.ViewModelEnum
 
 
-class StartViewModel : ViewModelBase<StartData, FirebaseRepository>(FirebaseRepository.getInstance()) {
+class StartViewModel : ViewModelBase<StartData, StartRepository>(StartRepository.getInstance()) {
     fun loginWithGoogle(activity: Activity, idToken: String) {
         repository.loginWithGoogle(activity, idToken, firebaseObserver(
             onDataRetrieved = { error -> onLoginSuccess(error) },

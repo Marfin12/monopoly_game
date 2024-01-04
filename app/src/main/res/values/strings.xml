@@ -13,7 +13,9 @@
     <!-- multiple google account device dialog -->
     <string name="start_message_google_multiple_device_title">Multiple Device</string>
     <string name="start_message_google_multiple_device_content">You cannot login the same account on\nmultiple device. Please logout the account on\nold device</string>
-    <string name="start_message_google_multiple_device_positive">OK</string>
+
+    <!-- setting dialog -->
+    <string name="menu_setting_reset">Reset</string>
 
     <!-- error -->
     <!-- error google -->

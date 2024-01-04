@@ -25,6 +25,7 @@ class GameProfile(context: Context) : GameDialog(context) {
         view.findViewById<ImageView>(R.id.iv_cancel).setOnClickListener {
             dialog.dismiss()
         }
+
         dialog.show()
     }
 }

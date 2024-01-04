@@ -27,6 +27,11 @@ open class GameDialog(private val context: Context) {
     init {
         initDialog(null)
     }
+
+    open fun dismiss() {
+        dialog.dismiss()
+    }
+
     open fun initDialog(layoutId: Int? = null) {
         if (layoutId != null) {
             val inflater = LayoutInflater.from(context)

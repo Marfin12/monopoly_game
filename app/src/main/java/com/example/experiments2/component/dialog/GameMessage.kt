@@ -64,10 +64,6 @@ class GameMessage(private val context: Context) : GameDialog(context) {
         }
     }
 
-    fun dismiss() {
-        dialog.dismiss()
-    }
-
     fun show(
         title: String,
         message: String,

@@ -1,4 +1,4 @@
-package com.example.experiments2.network
+package com.example.experiments2.network.repository
 
 import android.app.Activity
 import android.content.Context
@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class FirebaseRepository {
+class StartRepository {
     fun loadUserData(context: Context, fetchRemote: FetchRemote) {
         val user = gamePreference.loadPreference<ProfileData?>(
             context, GameApi.UserProfile.Field.USER_NAME
@@ -207,10 +207,10 @@ class FirebaseRepository {
 
     companion object {
         @Volatile
-        private var instance: FirebaseRepository? = null
-        fun getInstance(): FirebaseRepository =
+        private var instance: StartRepository? = null
+        fun getInstance(): StartRepository =
             instance ?: synchronized(this) {
-                instance ?: FirebaseRepository()
+                instance ?: StartRepository()
             }.also { instance = it }
     }
 }

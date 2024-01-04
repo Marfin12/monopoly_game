@@ -1,13 +1,11 @@
-package com.example.experiments2.pages.menu
+package com.example.experiments2.pages.menu.fragments
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.experiments2.pages.menu.fragments.CreateGameFragment
-import com.example.experiments2.pages.menu.fragments.JoinGameFragment
 
 
-class PagerAdapter(
+class TabAdapter(
     fragmentManager: FragmentManager,
     roomCard: ((String) -> Unit)
 ) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

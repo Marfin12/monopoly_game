@@ -19,4 +19,6 @@ object GameApi {
             if (field == null) mutableListOf(USER_PROFILE, username)
             else mutableListOf(USER_PROFILE, username, field)
     }
+
+    const val SETTINGS = "settings"
 }
