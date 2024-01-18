@@ -7,6 +7,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import com.example.experiments2.R
 import com.example.experiments2.component.button.GameGrayButton
 import com.example.experiments2.component.button.GameNormalButton
@@ -15,7 +16,9 @@ import com.example.experiments2.constant.Constant
 import com.example.experiments2.viewmodel.ViewModelEnum
 
 
-class GameMessage(private val context: Context) : GameDialog(context) {
+class GameMessage(context: Context) : GameDialog(context) {
+
+    private var isRTO = false
 
     companion object {
         fun newInstance(context: Context): GameMessage {
@@ -23,26 +26,29 @@ class GameMessage(private val context: Context) : GameDialog(context) {
         }
     }
 
-    override fun initDialog(layoutId: Int?) {
-        super.initDialog(R.layout.component_transfloat_message)
+    override fun initDialog(layoutId: Int?, styleId: Int?) {
+        super.initDialog(R.layout.component_transfloat_message, null)
     }
 
     fun handleErrorMessage(
         vmEnum: ViewModelEnum,
-        error: String?,
+        errorContent: String? = null,
+        errorTitle: String? = null,
         positiveButtonClick: (() -> Unit)? = null
     ) {
         if (vmEnum == ViewModelEnum.ERROR) {
             val resources = context.resources
 
-            when (error) {
+            when (errorContent) {
                 Constant.ErrorType.REQUEST_TIME_OUT -> {
+                    isRTO = true
                     showLoadingError(
                         resources.getString(R.string.error_network_connection_title),
                         resources.getString(R.string.error_network_connection_content)
                     )
                 }
                 Constant.ErrorType.OPERATION_LOCAL_FAILED -> {
+                    isRTO = false
                     showError(
                         resources.getString(R.string.error_operation_local_failed_title),
                         resources.getString(R.string.error_operation_local_failed_content),
@@ -50,9 +56,10 @@ class GameMessage(private val context: Context) : GameDialog(context) {
                     )
                 }
                 else -> {
+                    isRTO = false
                     showError(
-                        resources.getString(R.string.error_title),
-                        error ?: resources.getString(R.string.error_content),
+                        errorTitle ?: resources.getString(R.string.error_title),
+                        errorContent ?: resources.getString(R.string.error_content),
                         resources.getString(R.string.str_ok),
                         onPositiveButtonClick = positiveButtonClick
                     )
@@ -60,7 +67,7 @@ class GameMessage(private val context: Context) : GameDialog(context) {
             }
         }
         else if (vmEnum == ViewModelEnum.COMPLETE) {
-            dialog.dismiss()
+            if (isRTO) dialog.dismiss()
         }
     }
 
@@ -156,20 +163,28 @@ class GameMessage(private val context: Context) : GameDialog(context) {
                 )
             }
             MessageStyle.LOADING -> {
-                view.findViewById<ConstraintLayout>(R.id.additional_view).addView(
-                    ProgressBar(context)
-                )
+                addProgressBar()
             }
             MessageStyle.LOADING_ERROR -> {
                 view.findViewById<ImageView>(R.id.iv_message_icon).visibility = View.VISIBLE
                 view.findViewById<View>(R.id.view_title).background = ResourcesCompat.getDrawable(
                     context.resources, R.drawable.red_rounded_bg_32_rad, context.theme
                 )
-                view.findViewById<ConstraintLayout>(R.id.additional_view).addView(
-                    ProgressBar(context)
-                )
+
+                addProgressBar()
             }
             else -> {}
+        }
+    }
+
+    private fun addProgressBar() {
+        val progressBar = ProgressBar(context)
+
+        view.findViewById<ConstraintLayout>(R.id.additional_view).addView(progressBar)
+        dialog.setOnDismissListener {
+            view.findViewById<ConstraintLayout>(R.id.additional_view).removeView(
+                progressBar
+            )
         }
     }
 }

@@ -15,6 +15,8 @@ object Constant {
         const val REQUEST_TIME_OUT = "requestTimeOut"
         const val OPERATION_LOCAL_FAILED = "operationLocalFailed"
         const val CANCELLED_USER_ERROR_CODE = "12501:"
+        const val INPUT_SYMBOL_INVALID = "Cannot input symbol (e.g ,('><!#$%&|][{}))"
+        const val DUPLICATE_USER_ERROR = "Username already exist"
     }
 
     const val ROOMS = "rooms"

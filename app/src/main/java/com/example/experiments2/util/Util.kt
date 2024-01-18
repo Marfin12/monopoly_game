@@ -22,6 +22,7 @@ import com.bumptech.glide.request.target.Target
 import com.example.experiments2.MyApplication.Companion.appResources
 import android.os.Build.MODEL
 import android.os.Parcelable
+import androidx.core.content.ContextCompat
 import com.example.experiments2.R
 import com.example.experiments2.component.dialog.GameMessage
 import com.example.experiments2.constant.Constant
@@ -77,15 +78,20 @@ object Util {
             .into(targetView)
     }
 
+    fun getString(context: Context, str: Int, formatArgs: Any? = null): String {
+        return if (formatArgs == null) {
+            context.getString(str)
+        } else context.getString(str, formatArgs)
+    }
+
     fun handleErrorMessage(
-        context: Context,
+        errorMessage: GameMessage,
         vmEnum: ViewModelEnum,
-        error: String?,
+        errorContent: String? = null,
+        errorTitle: String? = null,
         positiveButtonClick: (() -> Unit)? = null
     ) {
-        val errorMessage = GameMessage.newInstance(context)
-
-        errorMessage.handleErrorMessage(vmEnum, error, positiveButtonClick)
+        errorMessage.handleErrorMessage(vmEnum, errorContent, errorTitle, positiveButtonClick)
     }
 
     fun showErrorMessage(context: Context, errMsg: String) {
@@ -127,6 +133,16 @@ object Util {
             this.toFloat(),
             appResources.displayMetrics
         ).toInt()
+    }
+
+    fun ImageView.toDisable() {
+        this.imageTintList = ContextCompat.getColorStateList(context, R.color.gray_900)
+        this.isEnabled = false
+    }
+
+    fun ImageView.toEnable() {
+        this.imageTintList = null
+        this.isEnabled = true
     }
 
     fun String.shuffle() : String {

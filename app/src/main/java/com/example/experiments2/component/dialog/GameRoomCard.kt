@@ -23,8 +23,8 @@ class GameRoomCard(context: Context) : GameDialog(context) {
         }
     }
 
-    override fun initDialog(layoutId: Int?) {
-        super.initDialog(R.layout.component_transfloat_roomcard)
+    override fun initDialog(layoutId: Int?, styleId: Int?) {
+        super.initDialog(R.layout.component_transfloat_roomcard, null)
     }
 
     fun show(

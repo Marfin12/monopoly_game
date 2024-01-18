@@ -32,4 +32,14 @@
         <item name="colorAccent">@color/blue_900</item>
         <item name="android:statusBarColor">@color/blue_400</item>
     </style>
+
+    <style name="ProfileDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowMinWidthMajor">70%</item>
+        <item name="android:windowMinWidthMinor">70%</item>
+        <!-- Add other style attributes as needed -->
+    </style>
 </resources>

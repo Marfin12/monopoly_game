@@ -23,24 +23,28 @@ class GameNumberRank @JvmOverloads constructor(context: Context, attrs: Attribut
         try {
             val playerRank = ta.getInt(R.styleable.Rank_playerNumber, 0)
 
-            findViewById<TextView>(R.id.tv_rank).text = playerRank.toString()
-
-            when(playerRank) {
-                1 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
-                    resources.getColor(R.color.yellow_700, context.theme)
-                )
-                2 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
-                    resources.getColor(R.color.red_400, context.theme)
-                )
-                3 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
-                    resources.getColor(R.color.green_300, context.theme)
-                )
-                4 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
-                    resources.getColor(R.color.blue_900, context.theme)
-                )
-            }
+            setNumberRank(playerRank)
         } finally {
             ta.recycle()
+        }
+    }
+
+    fun setNumberRank(playerRank: Int) {
+        findViewById<TextView>(R.id.tv_rank).text = playerRank.toString()
+
+        when(playerRank) {
+            1 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
+                resources.getColor(R.color.yellow_700, context.theme)
+            )
+            2 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
+                resources.getColor(R.color.red_400, context.theme)
+            )
+            3 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
+                resources.getColor(R.color.green_300, context.theme)
+            )
+            4 -> findViewById<ImageView>(R.id.holder_bg_button).setBackgroundColor(
+                resources.getColor(R.color.blue_900, context.theme)
+            )
         }
     }
 }

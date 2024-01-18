@@ -17,11 +17,13 @@ import com.example.experiments2.viewmodel.ViewModelEnum
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var splashViewModel: SplashViewModel
+    private lateinit var errorMessage: GameMessage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         runSplashScreen()
+        errorMessage = GameMessage.newInstance(this)
     }
 
     private fun runSplashScreen() {
@@ -42,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
                     else -> {}
                 }
 
-                handleErrorMessage(this, vmData.status, vmData.errorMessage) {
+                handleErrorMessage(errorMessage, vmData.status, vmData.errorMessage) {
                     this.finish()
                 }
             }

@@ -3,28 +3,41 @@ package com.example.experiments2.pages.menu
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.example.experiments2.R
-import com.example.experiments2.component.dialog.GameProfile
+import com.example.experiments2.component.dialog.GameMessage
+import com.example.experiments2.component.dialog.profile.GameProfile
 import com.example.experiments2.component.dialog.GameRoomCard
 import com.example.experiments2.component.dialog.GameSettings
 import com.example.experiments2.databinding.ActivityMenuBinding
+import com.example.experiments2.network.remote.fetch.GameApi
+import com.example.experiments2.network.remote.response.settings.SettingData
+import com.example.experiments2.network.remote.response.user.UserData
 import com.example.experiments2.pages.ActivityBase
 import com.example.experiments2.pages.main.MainActivity
 import com.example.experiments2.pages.menu.fragments.TabAdapter
 import com.example.experiments2.pages.start.StartActivity
-import com.example.experiments2.pages.start.splash.SplashViewModel
-import com.example.experiments2.util.Util
+import com.example.experiments2.util.Util.handleErrorMessage
+import com.example.experiments2.util.Util.toDisable
+import com.example.experiments2.util.Util.toEnable
 import com.example.experiments2.viewmodel.ViewModelEnum
 
 
 class MenuActivity : ActivityBase<ActivityMenuBinding>() {
 
     private lateinit var menuViewModel: MenuViewModel
+
     private lateinit var gameSettings: GameSettings
+    private lateinit var gameProfile: GameProfile
+
+    private lateinit var errorMessage: GameMessage
+
+    private var userData: UserData? = null
 
     companion object {
         fun launch(activity: Activity) {
@@ -52,6 +65,8 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
 
     private fun initComponent() {
         gameSettings = GameSettings.newInstance(this)
+        gameProfile = GameProfile.newInstance(this)
+        errorMessage = GameMessage.newInstance(this)
 
         binding.tabLayout.setupWithViewPager(binding.viewPager)
         binding.viewPager.adapter = TabAdapter(supportFragmentManager) { title ->
@@ -69,10 +84,10 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
         }
 
         binding.ivProfile.setOnClickListener {
-            onShowDialog()
-            GameProfile.newInstance(this).apply {
-                onDismissListener = { onDismissDialog() }
-                show()
+            if (userData != null) {
+                showProfileDialog()
+            } else {
+                menuViewModel.loadProfile(this, false)
             }
         }
     }
@@ -80,54 +95,126 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
     private fun initViewModel() {
         menuViewModel = ViewModelProvider(this)[MenuViewModel::class.java]
 
+        initObserve()
+        menuViewModel.loadProfile(this, true)
+    }
+
+    private fun initObserve() {
         menuViewModel.vmData.observe(this) { vmData ->
             if (vmData != null) {
-                when (vmData.status) {
-                    ViewModelEnum.LOADING -> onShowLoading()
-                    ViewModelEnum.SUCCESS -> {
-                        val menuData = vmData.data
-                        if (menuData?.state == MenuEnum.OPEN_SETTING) {
-                            onShowDialog()
+                val menuData = vmData.data
 
-                            gameSettings.apply {
-                                onDismissListener = { onDismissDialog() }
-                                show(
-                                    menuData.sound,
-                                    menuData.music,
-                                    getString(R.string.str_ok),
-                                    getString(R.string.menu_setting_reset),
-                                    onPositiveButtonClick = { sound, music ->
-                                        menuViewModel.saveSetting(
-                                            this@MenuActivity,
-                                            MenuData(sound, music)
+                when (vmData.status) {
+                    ViewModelEnum.LOADING -> {
+                        if (menuData?.state == MenuEnum.UPDATE_PROFILE)
+                            gameProfile.showLoading()
+                        else onShowLoading()
+                    }
+
+                    ViewModelEnum.SUCCESS -> {
+                        if (menuData != null) {
+                            when (menuData.state) {
+                                MenuEnum.OPEN_SETTING -> {
+                                    onShowDialog()
+
+                                    gameSettings.apply {
+                                        onDismissListener = { onDismissDialog() }
+                                        show(
+                                            menuData.settingData.sound,
+                                            menuData.settingData.music,
+                                            getString(R.string.str_ok),
+                                            getString(R.string.menu_setting_reset),
+                                            onPositiveButtonClick = { sound, music ->
+                                                menuViewModel.saveSetting(
+                                                    this@MenuActivity,
+                                                    MenuData(
+                                                        settingData = SettingData(
+                                                            sound,
+                                                            music
+                                                        )
+                                                    )
+                                                )
+                                            }
                                         )
                                     }
-                                )
+                                }
+                                MenuEnum.CLOSE_SETTING -> {
+                                    gameSettings.dismiss()
+                                }
+                                MenuEnum.OPEN_PROFILE -> {
+                                    userData = vmData.data.userData
+                                    showProfileDialog()
+                                }
+                                MenuEnum.ONBOARDING -> {
+                                    userData = vmData.data.userData
+                                }
+                                MenuEnum.UPDATE_PROFILE -> {
+                                    val uploadedUri = menuData.uri
+
+                                    if (uploadedUri != null) {
+                                        gameProfile.previewImage(uploadedUri)
+                                    } else {
+                                        gameProfile.onUpdateUsernameSuccess()
+                                    }
+                                }
+
+                                else -> {}
                             }
-                        } else if (menuData?.state == MenuEnum.CLOSE_SETTING) {
-                            gameSettings.dismiss()
+                        } else {
+                            handleErrorMessage(
+                                errorMessage,
+                                ViewModelEnum.ERROR,
+                                getString(R.string.error_force_logout_content),
+                                getString(R.string.error_force_logout_title)
+                            ) {
+                                StartActivity.launch(this@MenuActivity)
+                                finish()
+                            }
                         }
                     }
-                    ViewModelEnum.ERROR -> {
-                        showToastShort(getString(R.string.error_title))
+
+                    ViewModelEnum.COMPLETE -> {
+                        onHideLoading()
                     }
-                    ViewModelEnum.COMPLETE -> onHideLoading()
+                    else -> {}
                 }
 
-                Util.handleErrorMessage(this, vmData.status, vmData.errorMessage) {
-                    this.finish()
+                handleErrorMessage(errorMessage, vmData.status, vmData.errorMessage) {
+                    gameProfile.hideLoading()
+                    onHideLoading()
                 }
             }
         }
     }
 
+    private fun showProfileDialog() {
+        onShowDialog()
+
+        gameProfile.apply {
+            onDismissListener = { onDismissDialog() }
+            onChangePhoto = { startGallery() }
+            onDoneEditUsername = { username ->
+                menuViewModel.updateProfileField(
+                    this@MenuActivity,
+                    GameApi.UserProfile.Field.USER_NAME,
+                    username
+                )
+            }
+
+            show(userData)
+        }
+    }
 
     private fun onShowLoading() {
         binding.progressBar.visibility = View.VISIBLE
+        binding.ivProfile.toDisable()
+        binding.ivMore.toDisable()
     }
 
     private fun onHideLoading() {
         binding.progressBar.visibility = View.GONE
+        binding.ivProfile.toEnable()
+        binding.ivMore.toEnable()
     }
 
     private fun onShowDialog() {
@@ -136,5 +223,24 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
 
     private fun onDismissDialog() {
         binding.tabLayout.isEnabled = true
+    }
+
+    private fun startGallery() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_GET_CONTENT
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        launcherIntentGallery.launch(chooser)
+    }
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val selectedImg = result.data?.data as Uri
+            selectedImg.let { uri ->
+                menuViewModel.updatePhotoProfile(this@MenuActivity, uri)
+            }
+        }
     }
 }

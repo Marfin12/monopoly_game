@@ -17,6 +17,13 @@
     <!-- setting dialog -->
     <string name="menu_setting_reset">Reset</string>
 
+    <!-- profile dialog -->
+    <string name="menu_profile_title">Profile</string>
+    <string name="menu_profile_total_games">%d games</string>
+    <string name="menu_profile_total_rating">%d rating</string>
+    <string name="menu_profile_total_match_point_plus">+ %d</string>
+    <string name="menu_profile_total_match_point_minus">- %d</string>
+
     <!-- error -->
     <!-- error google -->
     <string name="error_google_authentication_failed">Authentication failed maybe password error</string>
@@ -31,4 +38,7 @@
     <!-- error logout -->
     <string name="error_operation_local_failed_title">Error 401</string>
     <string name="error_operation_local_failed_content">The operation failure error 401</string>
+    <!-- error force logout -->
+    <string name="error_force_logout_title">Force Logout</string>
+    <string name="error_force_logout_content">Something unexpected force you to logout\n maybe it your friend enter your account</string>
 </resources>

@@ -25,9 +25,8 @@ import com.google.android.gms.common.api.ApiException
 class StartActivity : ActivityBase<ActivityStartBinding>() {
 
     private lateinit var startViewModel: StartViewModel
-
+    private lateinit var errorMessage: GameMessage
     private lateinit var mGoogleSignInClient: GoogleSignInClient
-
 
     companion object {
         fun launch(activity: Activity) {
@@ -38,6 +37,7 @@ class StartActivity : ActivityBase<ActivityStartBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        errorMessage = GameMessage.newInstance(this)
 
         playGif(this@StartActivity, R.drawable.splash_monopoly_deal, binding.ivMonopolyIcon)
 
@@ -124,7 +124,7 @@ class StartActivity : ActivityBase<ActivityStartBinding>() {
                     else -> {}
                 }
 
-                handleErrorMessage(this, vmData.status, vmData.errorMessage)
+                handleErrorMessage(errorMessage, vmData.status, vmData.errorMessage)
             }
         }
     }

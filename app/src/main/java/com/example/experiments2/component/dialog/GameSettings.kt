@@ -1,7 +1,6 @@
 package com.example.experiments2.component.dialog
 
 import android.content.Context
-import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.SeekBar
@@ -24,8 +23,8 @@ class GameSettings(context: Context) : GameDialog(context) {
         }
     }
 
-    override fun initDialog(layoutId: Int?) {
-        super.initDialog(R.layout.component_transfloat_settings)
+    override fun initDialog(layoutId: Int?, styleId: Int?) {
+        super.initDialog(R.layout.component_transfloat_settings, null)
 
         seekBarSound = view.findViewById(R.id.sb_sound)
         seekBarMusic = view.findViewById(R.id.sb_music)
@@ -79,7 +78,7 @@ class GameSettings(context: Context) : GameDialog(context) {
     private fun reset() {
         val defaultSetting = MenuData()
 
-        seekBarSound.progress = defaultSetting.sound
-        seekBarMusic.progress = defaultSetting.music
+        seekBarSound.progress = defaultSetting.settingData.sound
+        seekBarMusic.progress = defaultSetting.settingData.music
     }
 }

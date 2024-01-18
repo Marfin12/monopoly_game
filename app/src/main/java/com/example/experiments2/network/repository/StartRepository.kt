@@ -5,6 +5,7 @@ import android.content.Context
 import com.example.experiments2.MyApplication.Companion.firebaseRemote
 import com.example.experiments2.MyApplication.Companion.gamePreference
 import com.example.experiments2.constant.Constant.ErrorType.OPERATION_LOCAL_FAILED
+import com.example.experiments2.network.FirebaseUtil.checkToken
 import com.example.experiments2.network.FirebaseUtil.firebaseObserver
 import com.example.experiments2.network.remote.fetch.FetchRemote
 import com.example.experiments2.network.remote.fetch.FirebaseRemote
@@ -12,8 +13,8 @@ import com.example.experiments2.network.remote.fetch.GameApi
 import com.example.experiments2.network.remote.fetch.GameApi.UserProfile.Field.USER_STATE
 import com.example.experiments2.network.remote.fetch.GameApi.UserProfile.Field.USER_TOKEN
 import com.example.experiments2.network.remote.fetch.GameApi.UserProfile.accessProfileApi
-import com.example.experiments2.network.remote.response.user.ProfileData
-import com.example.experiments2.network.remote.response.user.ProfileEnum
+import com.example.experiments2.network.remote.response.user.profile.ProfileData
+import com.example.experiments2.network.remote.response.user.profile.ProfileEnum
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DataSnapshot
@@ -23,35 +24,19 @@ import java.util.Locale
 
 class StartRepository {
     fun loadUserData(context: Context, fetchRemote: FetchRemote) {
-        val user = gamePreference.loadPreference<ProfileData?>(
-            context, GameApi.UserProfile.Field.USER_NAME
-        )
+        fetchRemote.onLoading?.invoke()
 
-        if (user != null) {
-            FirebaseRemote.getInstance().getFirebaseData(
-                accessProfileApi(user.username, USER_TOKEN),
-                firebaseObserver(
-                    onDataRetrieved = { dataSnapshot ->
-                        val snapshot = dataSnapshot as DataSnapshot?
-                        if (snapshot != null) {
-                            val token = snapshot.value as String?
-
-                            if (token == user.token)
-                                fetchRemote.onDataRetrieved?.invoke(true)
-                            else {
-                                firebaseRemote.logoutGoogle(fetchRemote)
-                            }
-                        } else {
-                            fetchRemote.onDataRetrieved?.invoke(false)
-                        }
-                    },
-                    onCancelled = { error -> fetchRemote.onCancelled?.invoke(error) },
-                    onComplete = { fetchRemote.onComplete?.invoke() }
-                )
-            )
-        } else {
-            fetchRemote.onDataRetrieved?.invoke(false)
-        }
+        checkToken(context, firebaseObserver(
+            onDataRetrieved = { isValidToken ->
+                if (isValidToken == true)
+                    fetchRemote.onDataRetrieved?.invoke(true)
+                else {
+                    firebaseRemote.logoutGoogle(fetchRemote)
+                }
+            },
+            onCancelled = { error -> fetchRemote.onCancelled?.invoke(error) },
+            onComplete = { fetchRemote.onComplete?.invoke() }
+        ))
     }
 
     fun loginWithGuest(context: Context, fetchRemote: FetchRemote) {
@@ -60,11 +45,11 @@ class StartRepository {
         val guestData = firebaseRemote.guestData(context)
 
         checkUserInDatabase(
-            guestData.username,
+            guestData.useremail,
             firebaseObserver(
                 onDataRetrieved = { _ -> // ignore non existed data, just replace it for guest mode
                     registerNewUser(
-                        context, guestData.username, guestData.token, fetchRemote
+                        context, guestData.useremail, guestData.usertoken, fetchRemote
                     )
                 },
                 onCancelled = { error -> fetchRemote.onCancelled?.invoke(error) },
@@ -122,11 +107,11 @@ class StartRepository {
         }
     }
 
-    private fun checkUserInDatabase(username: String, fetchRemote: FetchRemote) {
+    private fun checkUserInDatabase(userEmail: String, fetchRemote: FetchRemote) {
         fetchRemote.onLoading?.invoke()
 
         FirebaseRemote.getInstance().getFirebaseData(
-            accessProfileApi(username),
+            accessProfileApi(userEmail),
             firebaseObserver(
                 onDataRetrieved = { snapshot ->
                     fetchRemote.onDataRetrieved?.invoke(snapshot)
@@ -139,37 +124,57 @@ class StartRepository {
 
     private fun registerNewUser(
         context: Context,
-        username: String,
+        userEmail: String,
         userToken: String,
         fetchRemote: FetchRemote
     ) {
-        val playerFields = HashMap<String, Any>()
+        val profileData = ProfileData(
+            userEmail, userEmail,
+            SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date()),
+            0, "", 0, "",
+            ProfileEnum.SEARCHING_ROOM,
+            userToken
+        )
 
-        playerFields[GameApi.UserProfile.Field.USER_NAME] = username
-        playerFields[GameApi.UserProfile.Field.USER_EMAIL] = username
-        playerFields[GameApi.UserProfile.Field.USER_IMAGE] = ""
-        playerFields[GameApi.UserProfile.Field.USER_DATE] =
-            SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date())
-        playerFields[GameApi.UserProfile.Field.USER_GAMES] = 0
-        playerFields[GameApi.UserProfile.Field.USER_RATING] = 0
-        playerFields[USER_STATE] = ProfileEnum.SEARCHING_ROOM
-        playerFields[USER_TOKEN] = userToken
-
-        firebaseRemote.insertFirebaseData(
-            playerFields,
-            accessProfileApi(username),
+        insertToUserList(getNewUser(profileData), userEmail,
             firebaseObserver(
                 onDataRetrieved = { error ->
-                    try {
-                        gamePreference.savePreference(
-                            context,
-                            GameApi.UserProfile.Field.USER_NAME,
-                            ProfileData(username, userToken)
-                        )
+                    if (error == null) {
+                        try {
+                            gamePreference.savePreference(
+                                context,
+                                GameApi.UserProfile.Field.USER_EMAIL,
+                                profileData
+                            )
 
-                        fetchRemote.onDataRetrieved?.invoke(error)
-                    } catch (ex: Exception) {
-                        fetchRemote.onCancelled?.invoke(ex.message)
+                            fetchRemote.onDataRetrieved?.invoke(null)
+                        } catch (ex: Exception) {
+                            fetchRemote.onCancelled?.invoke(ex.message)
+                        }
+                    } else {
+                        fetchRemote.onCancelled?.invoke(error as String?)
+                    }
+                },
+                onCancelled = { error -> fetchRemote.onCancelled?.invoke(error) },
+                onComplete = { fetchRemote.onComplete?.invoke() }
+            )
+        )
+    }
+
+    private fun insertToUserList(
+        profile: HashMap<String, Any>,
+        userEmail: String,
+        fetchRemote: FetchRemote
+    ) {
+        firebaseRemote.insertFirebaseData(
+            profile,
+            accessProfileApi(userEmail),
+            firebaseObserver(
+                onDataRetrieved = { error ->
+                    if (error == null) {
+                        fetchRemote.onDataRetrieved?.invoke(null)
+                    } else {
+                        fetchRemote.onCancelled?.invoke(error as String?)
                     }
                 },
                 onCancelled = { error -> fetchRemote.onCancelled?.invoke(error) },
@@ -180,7 +185,7 @@ class StartRepository {
 
     private fun updateToken(
         context: Context,
-        username: String,
+        userEmail: String,
         userToken: String,
         fetchRemote: FetchRemote
     ) {
@@ -190,19 +195,34 @@ class StartRepository {
 
         gamePreference.savePreference(
             context,
-            GameApi.UserProfile.Field.USER_NAME,
-            ProfileData(username, userToken)
+            GameApi.UserProfile.Field.USER_EMAIL,
+            ProfileData(useremail = userEmail, usertoken = userToken)
         )
 
         firebaseRemote.insertFirebaseData(
             playerFields,
-            accessProfileApi(username),
+            accessProfileApi(userEmail),
             firebaseObserver(
                 onDataRetrieved = { error -> fetchRemote.onDataRetrieved?.invoke(error) },
                 onCancelled = { error -> fetchRemote.onCancelled?.invoke(error) },
                 onComplete = { fetchRemote.onComplete?.invoke() }
             )
         )
+    }
+
+    private fun getNewUser(profileData: ProfileData): HashMap<String, Any> {
+        val playerFields = HashMap<String, Any>()
+
+        playerFields[GameApi.UserProfile.Field.USER_NAME] = profileData.username
+        playerFields[GameApi.UserProfile.Field.USER_EMAIL] = profileData.useremail
+        playerFields[GameApi.UserProfile.Field.USER_IMAGE] = profileData.userimage
+        playerFields[GameApi.UserProfile.Field.USER_DATE] = profileData.userdate
+        playerFields[GameApi.UserProfile.Field.USER_GAMES] = profileData.usergames
+        playerFields[GameApi.UserProfile.Field.USER_RATING] = profileData.userrating
+        playerFields[USER_STATE] = profileData.userstate
+        playerFields[USER_TOKEN] = profileData.usertoken
+
+        return playerFields
     }
 
     companion object {
