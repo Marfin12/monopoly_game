@@ -1,8 +1,11 @@
 package com.example.experiments2.pages.start.splash
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import com.example.experiments2.R
 import com.example.experiments2.component.dialog.GameMessage
@@ -20,6 +23,11 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var errorMessage: GameMessage
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+            installSplashScreen().setKeepOnScreenCondition {
+                true
+            }
+        }
         super.onCreate(savedInstanceState)
 
         runSplashScreen()
