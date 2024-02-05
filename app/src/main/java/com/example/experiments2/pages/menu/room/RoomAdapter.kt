@@ -15,10 +15,10 @@ import org.w3c.dom.Text
 
 @SuppressLint("NotifyDataSetChanged")
 open class RoomAdapter(
-    private var dataset: MutableList<RoomData>,
+    private var dataset: MutableList<RoomData2>,
 ): RecyclerView.Adapter<RoomAdapter.RoomViewHolder>() {
 
-    var onItemClick: ((RoomData) -> Unit)? = null
+    var onItemClick: ((RoomData2) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)

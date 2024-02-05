@@ -95,7 +95,7 @@ class GameProfile(context: Context) : GameDialog(context) {
 
     fun show(userData: UserData?) {
         dialog.setOnDismissListener {
-            disableChecklist()
+            loseFocus()
         }
         dialog.show()
 
@@ -180,7 +180,7 @@ class GameProfile(context: Context) : GameDialog(context) {
             rvMatch.layoutManager = LinearLayoutManager(context)
         }
 
-
+        initComponent()
         disableChecklist()
     }
 
@@ -225,7 +225,7 @@ class GameProfile(context: Context) : GameDialog(context) {
 
                 handler.postDelayed({
                     scrollView.scrollTo(0, 0)
-                }, 399L)
+                }, 410L)
                 false
             } else {
                 false
@@ -235,13 +235,11 @@ class GameProfile(context: Context) : GameDialog(context) {
 
     private fun setFocus() {
         etUsername.doBeforeTextChanged { text, _, _, _ ->
-            if ((text.toString()) != theField) enableChecklist()
-            else disableChecklist()
+            validateUsername(text.toString())
         }
 
         etUsername.doOnTextChanged { text, _, _, _ ->
-            if ((text.toString()) != theField) enableChecklist()
-            else disableChecklist()
+            validateUsername(text.toString())
         }
 
         etUsername.isEnabled = true
@@ -265,5 +263,10 @@ class GameProfile(context: Context) : GameDialog(context) {
     private fun disableChecklist() {
         ivEditUsername.visibility = View.VISIBLE
         ivDoneUsername.visibility = View.GONE
+    }
+
+    private fun validateUsername(text: String) {
+        if ((text) != theField && text.isNotEmpty()) enableChecklist()
+        else disableChecklist()
     }
 }

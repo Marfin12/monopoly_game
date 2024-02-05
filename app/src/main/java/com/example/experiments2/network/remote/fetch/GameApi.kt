@@ -1,10 +1,6 @@
 package com.example.experiments2.network.remote.fetch
 
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
+import com.example.experiments2.network.FirebaseUtil.getUniqueKey
 
 
 object GameApi {
@@ -30,6 +26,33 @@ object GameApi {
                 else mutableListOf(USER_PROFILE, userEmail, field)
             else mutableListOf(USER_PROFILE)
         fun accessMatchApi() = mutableListOf(USER_MATCH)
+    }
+
+    object UserRoom {
+        const val USER_ROOM = "user_room"
+        const val ROOM_PLAYERS = "roomPlayers"
+
+        object Field {
+            const val ROOM_ID = "roomId"
+            const val ROOM_NAME = "roomName"
+            const val ROOM_PLAYERS = "roomPlayers"
+            const val ROOM_MODE = "roomMode"
+            const val ROOM_MAX_PLAYER = "roomMaxPlayers"
+        }
+
+        object Player {
+            object Field {
+                const val IS_HOST = "isHost"
+                const val PLAYER_IMAGE = "playerImage"
+            }
+        }
+
+        fun accessRoomApi(uniqueKey: String) : MutableList<String> =
+            mutableListOf(USER_ROOM, uniqueKey)
+
+        fun accessRoomPlayerApi(roomId: String, username: String): MutableList<String> =
+            mutableListOf(USER_ROOM, roomId, ROOM_PLAYERS, username)
+
     }
 
     const val SETTINGS = "settings"

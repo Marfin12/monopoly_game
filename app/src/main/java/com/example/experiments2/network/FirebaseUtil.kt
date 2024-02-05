@@ -12,10 +12,19 @@ import com.example.experiments2.network.remote.fetch.GameApi
 import com.example.experiments2.network.remote.response.user.match.MatchData
 import com.example.experiments2.network.remote.response.user.profile.ProfileData
 import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.FirebaseDatabase
+import java.util.UUID
 
 
 @Keep
 object FirebaseUtil {
+
+    fun forceLogout(fetchRemote: FetchRemote) {
+        fetchRemote.onDataRetrieved?.invoke(null)
+        fetchRemote.onComplete?.invoke()
+
+        firebaseRemote.logoutGoogle(fetchRemote)
+    }
 
     fun checkToken(context: Context, fetchRemote: FetchRemote) {
         fetchRemote.onLoading?.invoke()
@@ -74,6 +83,9 @@ object FirebaseUtil {
         apiPath.map { path ->
             path.replace(Regex("[^A-Za-z0-9_]"), "")
         }.toMutableList()
+
+    fun getUniqueKey(node: String): String =
+        FirebaseDatabase.getInstance().getReference(node).push().key ?: UUID.randomUUID().toString()
 
     inline fun <reified T> getDataFromAnyList(anyVar: MutableList<*>): MutableList<T> {
         val matchData = mutableListOf<T>()

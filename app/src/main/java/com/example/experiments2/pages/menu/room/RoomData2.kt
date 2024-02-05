@@ -6,6 +6,6 @@ import kotlinx.parcelize.Parcelize
 
 @Keep
 @Parcelize
-data class RoomData(
+data class RoomData2(
     val title: String = ""
 ) : Parcelable

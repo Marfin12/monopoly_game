@@ -1,0 +1,54 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Shadow -->
+    <item android:top="4dp" android:height="32dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#80CDCDCD" />
+            <corners
+                android:bottomRightRadius="10dp"
+                android:bottomLeftRadius="10dp"
+                android:topRightRadius="10dp"
+                android:topLeftRadius="10dp" />
+        </shape>
+    </item>
+    <item android:bottom="4dp" android:height="32dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#80CDCDCD" />
+            <corners
+                android:bottomRightRadius="10dp"
+                android:bottomLeftRadius="10dp"
+                android:topRightRadius="10dp"
+                android:topLeftRadius="10dp" />
+        </shape>
+    </item>
+    <item android:left="1dp" android:right="1dp" android:top="2dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/yellow_700" />
+            <gradient
+                android:startColor="#FFD700"
+                android:centerColor="#EDE59A"
+                android:endColor="#FFD700"
+                android:type="linear"
+                android:angle="135"
+                />
+            <corners
+                android:bottomRightRadius="10dp"
+                android:bottomLeftRadius="10dp"
+                android:topRightRadius="10dp"
+                android:topLeftRadius="10dp" />
+        </shape>
+    </item>
+    <!-- Border -->
+    <item android:top="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners
+                android:bottomRightRadius="10dp"
+                android:bottomLeftRadius="10dp"
+                android:topRightRadius="10dp"
+                android:topLeftRadius="10dp" />
+            <stroke
+                android:width="3dp"
+                android:color="@color/white" />
+        </shape>
+    </item>
+</layer-list>

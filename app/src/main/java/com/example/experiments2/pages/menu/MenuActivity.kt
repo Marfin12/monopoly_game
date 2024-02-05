@@ -2,17 +2,21 @@ package com.example.experiments2.pages.menu
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AppOpsManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
+import com.example.experiments2.MyApplication
 import com.example.experiments2.R
 import com.example.experiments2.component.dialog.GameMessage
 import com.example.experiments2.component.dialog.profile.GameProfile
-import com.example.experiments2.component.dialog.GameRoomCard
+import com.example.experiments2.component.dialog.room.GameRoomCard
 import com.example.experiments2.component.dialog.GameSettings
 import com.example.experiments2.databinding.ActivityMenuBinding
 import com.example.experiments2.network.remote.fetch.GameApi
@@ -20,6 +24,7 @@ import com.example.experiments2.network.remote.response.settings.SettingData
 import com.example.experiments2.network.remote.response.user.UserData
 import com.example.experiments2.pages.ActivityBase
 import com.example.experiments2.pages.main.MainActivity
+import com.example.experiments2.pages.menu.fragments.CreateJoinService
 import com.example.experiments2.pages.menu.fragments.TabAdapter
 import com.example.experiments2.pages.start.StartActivity
 import com.example.experiments2.util.Util.handleErrorMessage
@@ -33,11 +38,14 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
     private lateinit var menuViewModel: MenuViewModel
 
     private lateinit var gameSettings: GameSettings
-    private lateinit var gameProfile: GameProfile
+
+    private var gameRoomCard: GameRoomCard? = null
+    private var gameProfile: GameProfile? = null
 
     private lateinit var errorMessage: GameMessage
 
     private var userData: UserData? = null
+
 
     companion object {
         fun launch(activity: Activity) {
@@ -56,8 +64,10 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
 
         initViewModel()
         initComponent()
+        checkUsageStatsPermission()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         moveTaskToBack(true)
@@ -69,15 +79,31 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
         errorMessage = GameMessage.newInstance(this)
 
         binding.tabLayout.setupWithViewPager(binding.viewPager)
-        binding.viewPager.adapter = TabAdapter(supportFragmentManager) { title ->
-            onShowDialog()
-            GameRoomCard.newInstance(this).apply {
-                onDismissListener = { onDismissDialog() }
-                show(title, onPositiveButtonClick = {
-                    MainActivity.launch(this@MenuActivity)
-                })
+        binding.viewPager.adapter = TabAdapter(
+            supportFragmentManager,
+            roomCard = { roomData, leaveTheRoom ->
+                gameRoomCard = GameRoomCard.newInstance(this)
+
+                gameRoomCard?.onDismissListener = {
+                    onDismissDialog()
+                    leaveTheRoom.invoke()
+                }
+
+                gameRoomCard?.show(roomData)
+            },
+            onShowLoading = {
+                onShowLoading()
+            },
+            onHideLoading = {
+                onHideLoading()
+            },
+            onForceLogout = {
+                forceLogout()
+            },
+            updateRoomCard = { roomData ->
+                gameRoomCard?.generateMessage(roomData)
             }
-        }
+        )
 
         binding.ivMore.setOnClickListener {
             menuViewModel.loadSetting(this)
@@ -107,7 +133,7 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
                 when (vmData.status) {
                     ViewModelEnum.LOADING -> {
                         if (menuData?.state == MenuEnum.UPDATE_PROFILE)
-                            gameProfile.showLoading()
+                            gameProfile?.showLoading()
                         else onShowLoading()
                     }
 
@@ -138,59 +164,69 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
                                         )
                                     }
                                 }
+
                                 MenuEnum.CLOSE_SETTING -> {
                                     gameSettings.dismiss()
                                 }
+
                                 MenuEnum.OPEN_PROFILE -> {
                                     userData = vmData.data.userData
                                     showProfileDialog()
                                 }
+
                                 MenuEnum.ONBOARDING -> {
                                     userData = vmData.data.userData
                                 }
+
                                 MenuEnum.UPDATE_PROFILE -> {
                                     val uploadedUri = menuData.uri
 
                                     if (uploadedUri != null) {
-                                        gameProfile.previewImage(uploadedUri)
+                                        userData?.profileData?.userimage = uploadedUri.toString()
+                                        gameProfile?.previewImage(uploadedUri)
                                     } else {
-                                        gameProfile.onUpdateUsernameSuccess()
+                                        userData?.profileData?.username = menuData.updatedUserName
+                                        gameProfile?.onUpdateUsernameSuccess()
                                     }
                                 }
 
                                 else -> {}
                             }
                         } else {
-                            handleErrorMessage(
-                                errorMessage,
-                                ViewModelEnum.ERROR,
-                                getString(R.string.error_force_logout_content),
-                                getString(R.string.error_force_logout_title)
-                            ) {
-                                StartActivity.launch(this@MenuActivity)
-                                finish()
-                            }
+                            forceLogout()
                         }
                     }
 
                     ViewModelEnum.COMPLETE -> {
                         onHideLoading()
                     }
+
                     else -> {}
                 }
 
                 handleErrorMessage(errorMessage, vmData.status, vmData.errorMessage) {
-                    gameProfile.hideLoading()
+                    gameProfile?.hideLoading()
                     onHideLoading()
                 }
             }
         }
     }
 
+    private fun checkUsageStatsPermission() {
+        val appOps = getSystemService(APP_OPS_SERVICE) as AppOpsManager
+        val mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, android.os.Process.myUid(), packageName)
+
+        if (mode != AppOpsManager.MODE_ALLOWED) {
+            val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+            startActivity(intent)
+        }
+    }
+
     private fun showProfileDialog() {
         onShowDialog()
 
-        gameProfile.apply {
+        gameProfile = GameProfile.newInstance(this)
+        gameProfile?.apply {
             onDismissListener = { onDismissDialog() }
             onChangePhoto = { startGallery() }
             onDoneEditUsername = { username ->
@@ -211,6 +247,7 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
         binding.ivMore.toDisable()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun onHideLoading() {
         binding.progressBar.visibility = View.GONE
         binding.ivProfile.toEnable()
@@ -233,6 +270,18 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
         launcherIntentGallery.launch(chooser)
     }
 
+    private fun forceLogout() {
+        handleErrorMessage(
+            errorMessage,
+            ViewModelEnum.ERROR,
+            getString(R.string.error_force_logout_content),
+            getString(R.string.error_force_logout_title)
+        ) {
+            StartActivity.launch(this@MenuActivity)
+            finish()
+        }
+    }
+
     private val launcherIntentGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -243,4 +292,5 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
             }
         }
     }
+
 }

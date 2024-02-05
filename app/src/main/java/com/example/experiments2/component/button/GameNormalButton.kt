@@ -7,7 +7,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.example.experiments2.R
+import com.example.experiments2.util.Util.toDisable
 
 
 open class GameNormalButton @JvmOverloads constructor(
@@ -31,6 +33,16 @@ open class GameNormalButton @JvmOverloads constructor(
             field = value
             txtButton?.text = value
         }
+
+    fun toDisable() {
+        ivBackground?.imageTintList = ContextCompat.getColorStateList(context, R.color.gray_900)
+        this.isEnabled = false
+    }
+
+    fun toEnable() {
+        ivBackground?.imageTintList = null
+        this.isEnabled = true
+    }
 
     private fun init(attrs: AttributeSet?) {
         View.inflate(context, R.layout.component_button, this)

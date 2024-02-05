@@ -5,7 +5,123 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pages.menu.fragments.CreateGameFragment">
+    tools:context=".pages.menu.fragments.CreateRoomFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_create_game_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/menu_create_game_title"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:elevation="80dp"
+        app:fontFamily="@font/poppins_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_create_game_title"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:maxLength="32"
+        android:background="@drawable/gray_bottom_border"
+        android:hint="@string/menu_create_game_room_hint"
+        app:fontFamily="@font/poppins_extralight"
+        app:layout_constraintStart_toStartOf="@id/tv_create_game_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_create_game_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_create_game_setup_total_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/menu_create_game_setup_total_player"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:fontFamily="@font/poppins_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_create_game_title" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_create_game_setup_total_player"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:enabled="false"
+        android:textAlignment="center"
+        android:background="@drawable/gray_bottom_border"
+        android:text="4"
+        app:fontFamily="@font/poppins_extralight"
+        app:layout_constraintStart_toStartOf="@id/tv_create_game_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_create_game_setup_total_player" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_create_game_plus_player"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="24dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_add"
+        app:layout_constraintStart_toEndOf="@id/et_create_game_setup_total_player"
+        app:layout_constraintTop_toTopOf="@id/et_create_game_setup_total_player" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_create_game_minus_player"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="12dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_remove"
+        app:layout_constraintStart_toEndOf="@id/iv_create_game_plus_player"
+        app:layout_constraintTop_toTopOf="@id/et_create_game_setup_total_player"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_create_game_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/menu_create_game_mode"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:fontFamily="@font/poppins_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_create_game_setup_total_player" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tv_create_game_mode"
+        app:layout_constraintStart_toStartOf="@id/iv_create_game_plus_player">
+
+        <RadioButton
+            android:id="@+id/radioButtonOnline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_create_game_mode_online"
+            android:textColor="@color/white"
+            android:checked="true"
+        />
+
+        <RadioButton
+            android:id="@+id/radioButtonAIBots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-4dp"
+            android:textColor="@color/white"
+            android:text="@string/menu_create_game_mode_bots"
+            />
+    </RadioGroup>
 
     <com.example.experiments2.component.button.GameNormalButton
         android:id="@+id/btn_start"
@@ -15,7 +131,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:text="Create Room"
+        app:buttonColor="@drawable/yellow_rounded_bg_24_rad"
+        app:text="@string/menu_create_game_button"
+        app:textColor="@color/white"
         app:button_textPaddingTop="7dp"
         app:button_textPaddingBottom="7dp"
         />

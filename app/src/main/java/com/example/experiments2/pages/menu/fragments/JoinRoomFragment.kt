@@ -7,24 +7,26 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.experiments2.databinding.FragmentJoinGameBinding
+import com.example.experiments2.network.remote.response.game.player.PlayerData
+import com.example.experiments2.network.remote.response.game.room.RoomData
 import com.example.experiments2.pages.menu.room.RoomAdapter
-import com.example.experiments2.pages.menu.room.RoomData
+import com.example.experiments2.pages.menu.room.RoomData2
 
 
-class JoinGameFragment : Fragment() {
+class JoinRoomFragment : Fragment() {
 
     private lateinit var binding: FragmentJoinGameBinding
-    private lateinit var joinRoomCard: ((String) -> Unit)
+    private lateinit var joinRoomCard: ((RoomData, () -> Unit) -> Unit)
     private val roomCardAdapter = RoomAdapter(
         mutableListOf(
-            RoomData("Room 1"),
-            RoomData("Room 2"),
-            RoomData("Room 3"),
-            RoomData("Room 4")
+            RoomData2("Room 1"),
+            RoomData2("Room 2"),
+            RoomData2("Room 3"),
+            RoomData2("Room 4")
         )
     )
 
-    fun setJoinRoomCard(joinRoomCard: ((String) -> Unit)) {
+    fun setJoinRoomCard(joinRoomCard: ((RoomData, () -> Unit) -> Unit)) {
         this.joinRoomCard = joinRoomCard
     }
 
@@ -44,7 +46,7 @@ class JoinGameFragment : Fragment() {
                 context, LinearLayoutManager.HORIZONTAL, false
             )
             roomCardAdapter.onItemClick = {
-                this.joinRoomCard(it.title)
+                this.joinRoomCard(RoomData()) {}
             }
 //            println(roomCardAdapter.itemCount)
         }

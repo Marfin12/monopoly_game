@@ -8,8 +8,16 @@ import java.util.*
 @Keep
 object Constant {
 
+    const val PACKAGE_NAME = "com.example.experiments2"
     const val LOCAL_STORAGE_NAME = "monopolyBuildStorage"
     const val RC_SIGN_IN = 20
+    const val MIN_PLAYER = 2
+    const val MAX_PLAYER = 4
+
+    val AI_BOTS = mutableListOf(
+        "AI Tobi", "AI Rodriguez", "AI Deni", "AI Pacific", "AI Tony",
+        "AI Larry", "AI John Doe", "AI Martin", "AI Ronny", "AI Hasim"
+    )
 
     object ErrorType {
         const val REQUEST_TIME_OUT = "requestTimeOut"

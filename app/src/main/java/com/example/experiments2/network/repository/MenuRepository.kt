@@ -9,6 +9,7 @@ import com.example.experiments2.constant.Constant.ErrorType.INPUT_SYMBOL_INVALID
 import com.example.experiments2.constant.Constant.ErrorType.OPERATION_LOCAL_FAILED
 import com.example.experiments2.network.FirebaseUtil.checkToken
 import com.example.experiments2.network.FirebaseUtil.firebaseObserver
+import com.example.experiments2.network.FirebaseUtil.forceLogout
 import com.example.experiments2.network.FirebaseUtil.getDataFromAnyList
 import com.example.experiments2.network.remote.fetch.FetchRemote
 import com.example.experiments2.network.remote.fetch.FirebaseRemote
@@ -22,7 +23,6 @@ import com.example.experiments2.pages.menu.MenuData
 import com.google.firebase.database.DataSnapshot
 
 class MenuRepository {
-
     fun saveSetting(context: Context, menuData: MenuData, fetchRemote: FetchRemote) {
         fetchRemote.onLoading?.invoke()
 
@@ -102,10 +102,11 @@ class MenuRepository {
                         }
                     },
                     onCancelled = { error -> fetchRemote.onCancelled?.invoke(error) },
-                    onComplete = { fetchRemote.onComplete?.invoke() }
+                    onComplete = { fetchRemote.onComplete?.invoke() },
+                    onLoading = { fetchRemote.onLoading?.invoke() }
                 ))
         } else {
-            fetchRemote.onDataRetrieved?.invoke(null)
+            forceLogout(fetchRemote)
         }
     }
 
@@ -137,6 +138,14 @@ class MenuRepository {
                                             accessProfileApi(user.useremail),
                                             firebaseObserver(
                                                 onDataRetrieved = { errorInsert ->
+                                                    if (errorInsert != null) {
+                                                        user.username = value
+                                                        gamePreference.savePreference(
+                                                            context,
+                                                            GameApi.UserProfile.Field.USER_EMAIL,
+                                                            user
+                                                        )
+                                                    }
                                                     fetchRemote.onDataRetrieved?.invoke(errorInsert)
                                                 },
                                                 onCancelled = { errorInsert ->
@@ -251,7 +260,18 @@ class MenuRepository {
 
                     if (user != null) {
                         firebaseRemote.uploadPhoto(uri, user.useremail, firebaseObserver(
-                            onDataRetrieved = { uri ->
+                            onDataRetrieved = { updatedUri ->
+                                val uriData = updatedUri as Uri?
+
+                                if (uriData != null) {
+                                    user.userimage = uriData.toString()
+
+                                    gamePreference.savePreference(
+                                        context,
+                                        GameApi.UserProfile.Field.USER_EMAIL,
+                                        user
+                                    )
+                                }
                                 fetchRemote.onDataRetrieved?.invoke(uri)
                             },
                             onCancelled = { error ->
@@ -273,13 +293,6 @@ class MenuRepository {
             onComplete = { fetchRemote.onComplete?.invoke() },
             onLoading = { fetchRemote.onLoading?.invoke() }
         ))
-    }
-
-    private fun forceLogout(fetchRemote: FetchRemote) {
-        fetchRemote.onDataRetrieved?.invoke(null)
-        fetchRemote.onComplete?.invoke()
-
-        firebaseRemote.logoutGoogle(fetchRemote)
     }
 
     companion object {

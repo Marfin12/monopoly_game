@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
 
     <application
         android:name=".MyApplication"
@@ -47,6 +51,12 @@
             android:screenOrientation="landscape"
             >
         </activity>
+        <service
+            android:name=".pages.menu.fragments.CreateJoinService"
+            android:exported="false"
+            android:enabled="true"
+            android:process=":CreateJoin"
+            />
 
         <meta-data
             android:name="preloaded_fonts"

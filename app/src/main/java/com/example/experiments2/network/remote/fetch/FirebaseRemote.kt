@@ -2,6 +2,7 @@ package com.example.experiments2.network.remote.fetch
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.media.MediaPlayer.OnCompletionListener
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
@@ -35,7 +36,9 @@ class FirebaseRemote {
 
     private lateinit var timeoutRunnable: Runnable
 
-    fun guestData(context: Context) : ProfileData = ProfileData(
+    private var isListening: Boolean = false
+
+    fun guestData(context: Context): ProfileData = ProfileData(
         useremail = getGuestUniqueName(context),
         usertoken = getTokenFromGuest(getGuestUniqueName(context))
     )
@@ -137,6 +140,39 @@ class FirebaseRemote {
         })
     }
 
+    fun listenFirebaseData(fieldName: MutableList<String>, fetchRemote: FetchRemote) {
+        isListening = true
+
+        fetchRemote.onLoading?.invoke()
+        handleRTO(fetchRemote)
+
+        var reference = FirebaseDatabase.getInstance().reference
+
+        validatePath(fieldName).forEach { path -> reference = reference.child(path) }
+
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (isListening) {
+                    fetchRemote.onDataRetrieved?.invoke(snapshot)
+                    fetchRemote.onComplete?.invoke()
+                    handler.removeCallbacksAndMessages(null)
+                }
+                else {
+                    reference.removeEventListener(this)
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                fetchRemote.onCancelled?.invoke(p0.message)
+                fetchRemote.onComplete?.invoke()
+
+                handler.removeCallbacksAndMessages(null)
+                reference.removeEventListener(this)
+            }
+        })
+    }
+
+
     fun insertFirebaseData(
         data: HashMap<String, Any>,
         fieldName: MutableList<String>,
@@ -161,36 +197,42 @@ class FirebaseRemote {
         reference.updateChildren(data, completionListener)
     }
 
-    fun insertFirebaseData(
-        data: String,
-        fieldName: MutableList<String>,
-        fetchRemote: FetchRemote
-    ) {
+    fun removeFirebaseData(fieldName: MutableList<String>, fetchRemote: FetchRemote) {
+        isListening = false
         fetchRemote.onLoading?.invoke()
         handleRTO(fetchRemote)
 
-        val completionListener = DatabaseReference.CompletionListener { error, _ ->
-            handler.removeCallbacksAndMessages(null)
-            handler.removeCallbacks(timeoutRunnable)
+        var reference = FirebaseDatabase.getInstance().reference
 
-            if (error == null) fetchRemote.onDataRetrieved?.invoke(null)
-            else fetchRemote.onCancelled?.invoke(error.message)
+        validatePath(fieldName).forEach { field ->
+            reference = reference.child(field)
+        }
+
+        reference.removeValue().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                fetchRemote.onDataRetrieved?.invoke(null)
+            } else {
+                val exception = task.exception
+
+                if (exception != null) {
+                    fetchRemote.onCancelled?.invoke(exception.message)
+                }
+            }
+
+            handler.removeCallbacksAndMessages(null)
 
             fetchRemote.onComplete?.invoke()
         }
-
-        var reference = FirebaseDatabase.getInstance().reference
-
-        validatePath(fieldName).forEach { field -> reference = reference.child(field) }
-        reference.setValue(data, completionListener)
     }
 
     @SuppressLint("HardwareIds")
     private fun getGuestUniqueName(context: Context): String =
-        "guest${Build.MODEL}${Settings.Secure.getString(
-            context.contentResolver,
-            Settings.Secure.ANDROID_ID
-        )}"
+        "guest${Build.MODEL}${
+            Settings.Secure.getString(
+                context.contentResolver,
+                Settings.Secure.ANDROID_ID
+            )
+        }"
 
     private fun getTokenFromGuest(input: String): String {
         val md = MessageDigest.getInstance("MD5")

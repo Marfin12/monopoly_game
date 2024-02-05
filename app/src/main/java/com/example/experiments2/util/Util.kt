@@ -1,15 +1,14 @@
 package com.example.experiments2.util
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.provider.Settings
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.Keep
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import com.bumptech.glide.Glide
@@ -20,17 +19,9 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.experiments2.MyApplication.Companion.appResources
-import android.os.Build.MODEL
-import android.os.Parcelable
-import androidx.core.content.ContextCompat
 import com.example.experiments2.R
 import com.example.experiments2.component.dialog.GameMessage
-import com.example.experiments2.constant.Constant
-import com.example.experiments2.pages.start.StartData
-import com.example.experiments2.util.Util.shuffle
 import com.example.experiments2.viewmodel.ViewModelEnum
-import com.google.gson.Gson
-
 
 
 @Keep
@@ -92,14 +83,6 @@ object Util {
         positiveButtonClick: (() -> Unit)? = null
     ) {
         errorMessage.handleErrorMessage(vmEnum, errorContent, errorTitle, positiveButtonClick)
-    }
-
-    fun showErrorMessage(context: Context, errMsg: String) {
-        GameMessage.newInstance(context).showError(
-            appResources.getString(R.string.error_title),
-            errMsg,
-            appResources.getString(R.string.str_ok)
-        )
     }
 
     fun View.itemAdapterX(): Float = arrayLocationObj(this)[0].toFloat()

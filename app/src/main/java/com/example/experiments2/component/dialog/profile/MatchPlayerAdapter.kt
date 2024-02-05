@@ -8,6 +8,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.experiments2.R
 import com.example.experiments2.component.label.GameNumberRank
+import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * Adapter for the task list. Has a reference to the [TodoListModel] to send actions back to it.
@@ -15,6 +16,7 @@ import com.example.experiments2.component.label.GameNumberRank
 @SuppressLint("NotifyDataSetChanged")
 class MatchPlayerAdapter(
     private var dataset: List<String>,
+    private var isProfilePicture: Boolean = false
 ): RecyclerView.Adapter<MatchPlayerAdapter.PlayerViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
@@ -32,7 +34,7 @@ class MatchPlayerAdapter(
 
     inner class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val playerNumber: GameNumberRank = itemView.findViewById(R.id.nr_match_player)
-        var tvName: AppCompatTextView = itemView.findViewById(R.id.tv_match_Player)
+        val tvName: AppCompatTextView = itemView.findViewById(R.id.tv_match_Player)
     }
 
     override fun getItemCount() = dataset.size

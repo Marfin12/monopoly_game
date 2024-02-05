@@ -61,7 +61,7 @@ class MenuViewModel : ViewModelBase<MenuData, MenuRepository>(MenuRepository.get
             onDataRetrieved = { _ ->
                 _vmData.value = ViewModelData(
                     ViewModelEnum.SUCCESS,
-                    MenuData(state = MenuEnum.UPDATE_PROFILE)
+                    MenuData(state = MenuEnum.UPDATE_PROFILE, updatedUserName = value)
                 )
             },
             onCancelled = { error -> this.onError(error) },

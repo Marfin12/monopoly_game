@@ -23,6 +23,19 @@
     <string name="menu_profile_total_rating">%d rating</string>
     <string name="menu_profile_total_match_point_plus">+ %d</string>
     <string name="menu_profile_total_match_point_minus">- %d</string>
+    <string name="menu_profile_total_match_completed_games">Completed Games</string>
+
+    <!-- create game -->
+    <string name="menu_create_game_title">Room Name</string>
+    <string name="menu_create_game_room_hint">Let`s play monopoly!</string>
+    <string name="menu_create_game_setup_total_player">Setup Total Player</string>
+    <string name="menu_create_game_mode">Game Modes</string>
+    <string name="menu_create_game_mode_online">Online</string>
+    <string name="menu_create_game_mode_bots">A.I Bots</string>
+    <string name="menu_create_game_button">Create Room</string>
+    <!-- create game room -->
+    <string name="menu_create_game_room_start">Start</string>
+    <string name="menu_create_game_room_max_player">Max player: <b>%d</b></string>
 
     <!-- error -->
     <!-- error google -->
