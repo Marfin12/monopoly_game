@@ -13,3 +13,11 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Exclude debug APK
+app/debug/app-debug.apk
+new_keystore.jks
+app/google-services.json
+app/debug/output-metadata.json
+app/release/app-release.apk
+app/release/output-metadata.json
