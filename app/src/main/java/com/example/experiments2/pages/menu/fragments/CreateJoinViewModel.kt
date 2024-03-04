@@ -63,4 +63,23 @@ class CreateJoinViewModel :
             onComplete = { this.onComplete(null) }
         ))
     }
+
+    fun refreshTheRoom(context: Context, roomId: String) {
+        repository.joinGameRoom(context, roomId, FirebaseUtil.firebaseObserver(
+            onDataRetrieved = { data ->
+                if (data is CreateJoinData) {
+                    data.state = CreateJoinEnum.LISTEN
+
+                    _vmData.value = ViewModelData(ViewModelEnum.SUCCESS, data)
+                } else {
+                    _vmData.value = ViewModelData(ViewModelEnum.SUCCESS, CreateJoinData(
+                        state = CreateJoinEnum.FORCE_LOGOUT
+                    ))
+                }
+            },
+            onCancelled = { error -> this.onError(error) },
+            onLoading = { this.onLoading() },
+            onComplete = { this.onComplete(null) }
+        ), false)
+    }
 }

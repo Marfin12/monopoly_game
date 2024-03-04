@@ -130,7 +130,12 @@ class RoomRepository {
         }
     }
 
-    fun joinGameRoom(context: Context, roomId: String, fetchRemote: FetchRemote) {
+    fun joinGameRoom(
+        context: Context,
+        roomId: String,
+        fetchRemote: FetchRemote,
+        isListening: Boolean = true
+    ) {
         fetchRemote.onLoading?.invoke()
 
         val user = gamePreference.loadPreference<ProfileData?>(
@@ -138,48 +143,69 @@ class RoomRepository {
         )
 
         if (user != null) {
-            firebaseRemote.listenFirebaseData(
-                accessRoomApi(roomId),
-                firebaseObserver(
-                    onDataRetrieved = { snapshot ->
-                        checkToken(
-                            context, firebaseObserver(
-                                onDataRetrieved = { isValidToken ->
-                                    if (isValidToken == true) {
-                                        if (snapshot != null) {
-                                            val dataSnapshot = snapshot as DataSnapshot
-                                            val roomData =
-                                                dataSnapshot.getValue(RoomData::class.java)
-
-                                            if (roomData != null) {
-                                                fetchRemote.onDataRetrieved?.invoke(
-                                                    CreateJoinData(roomData)
-                                                )
-
-                                                this.roomPlayers = roomData.roomPlayers
-                                            } else {
-                                                fetchRemote.onCancelled?.invoke(
-                                                    OPERATION_LOCAL_FAILED
-                                                )
-                                            }
-                                        }
-                                    } else {
-                                        leaveRoom(context, roomId, firebaseObserver()) {
-                                            forceLogout(fetchRemote)
-                                        }
-                                    }
-                                },
-                                onCancelled = { error -> fetchRemote.onCancelled?.invoke(error) },
-                                onComplete = { fetchRemote.onComplete?.invoke() },
-                            )
-                        )
-                    },
-                    onCancelled = { errorInsert ->
-                        fetchRemote.onCancelled?.invoke(errorInsert)
-                    }
-                ),
-            )
+            if (isListening) {
+                firebaseRemote.listenFirebaseData(
+                    accessRoomApi(roomId),
+                    firebaseObserver(
+                        onDataRetrieved = { snapshot ->
+                            val dataSnapshot = snapshot as DataSnapshot
+                            fetchRoomData(context, dataSnapshot, roomId, fetchRemote)
+                        },
+                        onCancelled = { errorInsert ->
+                            fetchRemote.onCancelled?.invoke(errorInsert)
+                        }
+                    ),
+                )
+            } else {
+                firebaseRemote.getFirebaseData(
+                    accessRoomApi(roomId),
+                    firebaseObserver(
+                        onDataRetrieved = { snapshot ->
+                            val dataSnapshot = snapshot as DataSnapshot
+                            fetchRoomData(context, dataSnapshot, roomId, fetchRemote)
+                        },
+                        onCancelled = { errorInsert ->
+                            fetchRemote.onCancelled?.invoke(errorInsert)
+                        }
+                    ),
+                )
+            }
         }
+    }
+
+    private fun fetchRoomData(
+        context: Context,
+        snapshot: DataSnapshot?,
+        roomId: String,
+        fetchRemote: FetchRemote
+    ) {
+        checkToken(
+            context, firebaseObserver(
+                onDataRetrieved = { isValidToken ->
+                    if (isValidToken == true) {
+                        if (snapshot != null) {
+                            val roomData = snapshot.getValue(RoomData::class.java)
+
+                            if (roomData != null) {
+                                fetchRemote.onDataRetrieved?.invoke(CreateJoinData(roomData))
+
+                                this.roomPlayers = roomData.roomPlayers
+                            } else {
+                                fetchRemote.onCancelled?.invoke(
+                                    OPERATION_LOCAL_FAILED
+                                )
+                            }
+                        }
+                    } else {
+                        leaveRoom(context, roomId, firebaseObserver()) {
+                            forceLogout(fetchRemote)
+                        }
+                    }
+                },
+                onCancelled = { error -> fetchRemote.onCancelled?.invoke(error) },
+                onComplete = { fetchRemote.onComplete?.invoke() },
+            )
+        )
     }
 
     private fun getRoomFieldOnline(

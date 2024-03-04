@@ -200,6 +200,10 @@ class CreateRoomFragment : Fragment() {
 
     override fun onResume() {
         CreateJoinService.stopService(requireContext())
+        if (roomId != null) {
+            createJoinViewModel.refreshTheRoom(requireContext(), roomId!!)
+        }
+
         super.onResume()
     }
 }
