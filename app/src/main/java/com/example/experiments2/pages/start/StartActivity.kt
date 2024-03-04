@@ -65,12 +65,13 @@ class StartActivity : ActivityBase<ActivityStartBinding>() {
                 showToastShort(resources.getString(R.string.error_network_connection_title))
             }
         } catch(ex: Exception) {
-            val errMessage = ex.message?.replace(" ", "")
+            val errMessage = ex.message
+            val codeMessage = errMessage?.replace(" ", "")
 
-            if (errMessage == CANCELLED_USER_ERROR_CODE) {
+            if (codeMessage == CANCELLED_USER_ERROR_CODE) {
                 showToastLong(resources.getString(R.string.error_google_cancelled))
             } else {
-                showToastShort(resources.getString(R.string.error_network_connection_title))
+                showToastShort(errMessage.toString())
             }
         }
     }

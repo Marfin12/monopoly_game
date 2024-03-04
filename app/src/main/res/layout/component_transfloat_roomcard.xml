@@ -16,6 +16,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/card_logo"
+        android:alpha="0.5"
+        android:layout_marginHorizontal="48dp"
+        app:layout_constraintStart_toStartOf="@id/iv_room"
+        app:layout_constraintEnd_toEndOf="@id/iv_room"
+        app:layout_constraintBottom_toTopOf="@id/btn_game_ok" />
+
     <TextView
         android:id="@+id/tv_room_title"
         android:layout_width="wrap_content"

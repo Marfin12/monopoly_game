@@ -33,7 +33,7 @@ class RoomRepository {
         fetchRemote.onLoading?.invoke()
 
         val user = gamePreference.loadPreference<ProfileData?>(
-            context, GameApi.UserProfile.Field.USER_EMAIL
+            context, GameApi.UserProfile.USER_STORAGE
         )
 
         if (user != null) {
@@ -67,7 +67,7 @@ class RoomRepository {
         fetchRemote.onLoading?.invoke()
 
         val user = gamePreference.loadPreference<ProfileData?>(
-            context, GameApi.UserProfile.Field.USER_EMAIL
+            context, GameApi.UserProfile.USER_STORAGE
         )
 
         if (user != null) {
@@ -134,7 +134,7 @@ class RoomRepository {
         fetchRemote.onLoading?.invoke()
 
         val user = gamePreference.loadPreference<ProfileData?>(
-            context, GameApi.UserProfile.Field.USER_EMAIL
+            context, GameApi.UserProfile.USER_STORAGE
         )
 
         if (user != null) {

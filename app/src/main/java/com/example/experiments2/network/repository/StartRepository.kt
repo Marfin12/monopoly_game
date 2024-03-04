@@ -5,6 +5,7 @@ import android.content.Context
 import com.example.experiments2.MyApplication.Companion.firebaseRemote
 import com.example.experiments2.MyApplication.Companion.gamePreference
 import com.example.experiments2.constant.Constant.ErrorType.OPERATION_LOCAL_FAILED
+import com.example.experiments2.network.FirebaseUtil.allowedFirebaseString
 import com.example.experiments2.network.FirebaseUtil.checkToken
 import com.example.experiments2.network.FirebaseUtil.firebaseObserver
 import com.example.experiments2.network.remote.fetch.FetchRemote
@@ -48,9 +49,16 @@ class StartRepository {
             guestData.useremail,
             firebaseObserver(
                 onDataRetrieved = { _ -> // ignore non existed data, just replace it for guest mode
-                    registerNewUser(
-                        context, guestData.useremail, guestData.usertoken, fetchRemote
+                    val email = guestData.useremail
+                    val profileData = ProfileData(
+                        allowedFirebaseString(email), email,
+                        SimpleDateFormat(" dd MMM yyyy", Locale.getDefault()).format(Date()),
+                        0, "", 0, "",
+                        ProfileEnum.SEARCHING_ROOM,
+                        guestData.usertoken
                     )
+
+                    registerNewUser(context, profileData, fetchRemote)
                 },
                 onCancelled = { error -> fetchRemote.onCancelled?.invoke(error) },
                 onComplete = { fetchRemote.onComplete?.invoke() }
@@ -78,13 +86,18 @@ class StartRepository {
                                     user,
                                     onSuccessful = { token ->
                                         val snapshot = dataSnapshot as DataSnapshot
+                                        val profileData = ProfileData(
+                                            allowedFirebaseString(email), email,
+                                            SimpleDateFormat(" dd MMM yyyy", Locale.getDefault()).format(Date()),
+                                            0, "", 0, "",
+                                            ProfileEnum.SEARCHING_ROOM,
+                                            token
+                                        )
 
                                         if (snapshot.exists()) {
-                                            updateToken(activity, email, token, fetchRemote)
+                                            updateToken(activity, profileData, fetchRemote)
                                         } else {
-                                            registerNewUser(
-                                                activity, email, token, fetchRemote
-                                            )
+                                            registerNewUser(activity, profileData, fetchRemote)
                                         }
                                     },
                                     onFailure = { error ->
@@ -124,26 +137,17 @@ class StartRepository {
 
     private fun registerNewUser(
         context: Context,
-        userEmail: String,
-        userToken: String,
+        profileData: ProfileData,
         fetchRemote: FetchRemote
     ) {
-        val profileData = ProfileData(
-            userEmail, userEmail,
-            SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date()),
-            0, "", 0, "",
-            ProfileEnum.SEARCHING_ROOM,
-            userToken
-        )
-
-        insertToUserList(getNewUser(profileData), userEmail,
+        insertToUserList(getNewUser(profileData), profileData.useremail,
             firebaseObserver(
                 onDataRetrieved = { error ->
                     if (error == null) {
                         try {
                             gamePreference.savePreference(
                                 context,
-                                GameApi.UserProfile.Field.USER_EMAIL,
+                                GameApi.UserProfile.USER_STORAGE,
                                 profileData
                             )
 
@@ -185,23 +189,22 @@ class StartRepository {
 
     private fun updateToken(
         context: Context,
-        userEmail: String,
-        userToken: String,
+        user: ProfileData,
         fetchRemote: FetchRemote
     ) {
         val playerFields = HashMap<String, Any>()
 
-        playerFields[USER_TOKEN] = userToken
+        playerFields[USER_TOKEN] = user.usertoken
 
         gamePreference.savePreference(
             context,
-            GameApi.UserProfile.Field.USER_EMAIL,
-            ProfileData(useremail = userEmail, usertoken = userToken)
+            GameApi.UserProfile.USER_STORAGE,
+            user
         )
 
         firebaseRemote.insertFirebaseData(
             playerFields,
-            accessProfileApi(userEmail),
+            accessProfileApi(user.useremail),
             firebaseObserver(
                 onDataRetrieved = { error -> fetchRemote.onDataRetrieved?.invoke(error) },
                 onCancelled = { error -> fetchRemote.onCancelled?.invoke(error) },

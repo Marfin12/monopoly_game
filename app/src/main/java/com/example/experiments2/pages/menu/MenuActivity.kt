@@ -64,7 +64,7 @@ class MenuActivity : ActivityBase<ActivityMenuBinding>() {
 
         initViewModel()
         initComponent()
-        checkUsageStatsPermission()
+//        checkUsageStatsPermission()
     }
 
     @Deprecated("Deprecated in Java")

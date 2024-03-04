@@ -56,7 +56,7 @@ class MenuRepository {
         fetchRemote.onLoading?.invoke()
 
         val user = gamePreference.loadPreference<ProfileData?>(
-            context, GameApi.UserProfile.Field.USER_EMAIL
+            context, GameApi.UserProfile.USER_STORAGE
         )
 
         if (user != null) {
@@ -120,7 +120,7 @@ class MenuRepository {
             onDataRetrieved = { isValidToken ->
                 if (isValidToken == true) {
                     val user = gamePreference.loadPreference<ProfileData?>(
-                        context, GameApi.UserProfile.Field.USER_EMAIL
+                        context, GameApi.UserProfile.USER_STORAGE
                     )
 
                     if (user != null) {
@@ -142,7 +142,7 @@ class MenuRepository {
                                                         user.username = value
                                                         gamePreference.savePreference(
                                                             context,
-                                                            GameApi.UserProfile.Field.USER_EMAIL,
+                                                            GameApi.UserProfile.USER_STORAGE,
                                                             user
                                                         )
                                                     }
@@ -255,7 +255,7 @@ class MenuRepository {
             onDataRetrieved = { isValidToken ->
                 if (isValidToken == true) {
                     val user = gamePreference.loadPreference<ProfileData?>(
-                        context, GameApi.UserProfile.Field.USER_EMAIL
+                        context, GameApi.UserProfile.USER_STORAGE
                     )
 
                     if (user != null) {
@@ -268,7 +268,7 @@ class MenuRepository {
 
                                     gamePreference.savePreference(
                                         context,
-                                        GameApi.UserProfile.Field.USER_EMAIL,
+                                        GameApi.UserProfile.USER_STORAGE,
                                         user
                                     )
                                 }

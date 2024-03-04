@@ -30,7 +30,7 @@ object FirebaseUtil {
         fetchRemote.onLoading?.invoke()
 
         val user = MyApplication.gamePreference.loadPreference<ProfileData?>(
-            context, GameApi.UserProfile.Field.USER_EMAIL
+            context, GameApi.UserProfile.USER_STORAGE
         )
 
         if (user != null) {
@@ -80,12 +80,13 @@ object FirebaseUtil {
     }
 
     fun validatePath(apiPath: MutableList<String>): MutableList<String> =
-        apiPath.map { path ->
-            path.replace(Regex("[^A-Za-z0-9_]"), "")
-        }.toMutableList()
+        apiPath.map { path -> allowedFirebaseString(path) }.toMutableList()
 
     fun getUniqueKey(node: String): String =
         FirebaseDatabase.getInstance().getReference(node).push().key ?: UUID.randomUUID().toString()
+
+    fun allowedFirebaseString(str: String) : String =
+        str.replace(Regex("[^A-Za-z0-9_]"), "")
 
     inline fun <reified T> getDataFromAnyList(anyVar: MutableList<*>): MutableList<T> {
         val matchData = mutableListOf<T>()

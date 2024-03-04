@@ -7,6 +7,7 @@ object GameApi {
     object UserProfile {
         private const val USER_PROFILE = "user_profile"
         private const val USER_MATCH = "user_match"
+        val USER_STORAGE = "user_storage"
 
         object Field {
             const val USER_NAME = "username"
